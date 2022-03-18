@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -44,10 +44,18 @@ const styles = StyleSheet.create({
   },
   detaisMoviesTitle: {
     marginLeft: 10,
-    width: 260,
-    height: 120,
+    width: 220,
+    height: 100,
     alignItems: 'flex-start',
   },
+  detaisMin: {
+    position: 'absolute',
+    width: 30,
+    height: 20,
+    marginLeft: 365,
+    marginTop: 10,
+  },
+
   capaMovie: {
     position: 'relative',
     top: -35,
@@ -88,11 +96,12 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   datailRatedLiked: {
-    marginTop: -90,
-    marginLeft: 145,
+    position: 'absolute',
     width: 260,
     height: 40,
     flexDirection: 'row',
+    marginTop: 105,
+    marginLeft: 145,
   },
   ratedMovie: {
     marginLeft: 10,
@@ -120,7 +129,7 @@ const styles = StyleSheet.create({
   },
   detailsDescription: {
     width: '100%',
-    marginTop: 25,
+    marginTop: -10,
     alignItems: 'center',
   },
   descriptionMovie: {
@@ -149,6 +158,7 @@ const styles = StyleSheet.create({
   },
   line: {
     marginTop: 5,
+    marginBottom: 5,
     height: 1,
     width: 23,
     backgroundColor: '#9C4A8B',
