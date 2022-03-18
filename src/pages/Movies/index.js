@@ -112,7 +112,6 @@ export default function Movies({ route, navigation }) {
             <View style={styles.detailsRated}>
               <Text style={styles.ratedMovie}>{details.vote_average}/10</Text>
             </View>
-
             <View style={styles.datailsLiked}>
               <View>
                 <AntDesign name="heart" size={20} style={styles.heartIcon} />
