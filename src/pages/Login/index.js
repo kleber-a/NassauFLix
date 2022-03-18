@@ -107,7 +107,6 @@ export default function Login({navigation}) {
           />
           <TextInput
             keyboardType={'email-address'}
-            autoComplete={'email'}
             style={styles.input}
             placeholder="e-mail"
             onChangeText={usernameInput => {
@@ -125,7 +124,6 @@ export default function Login({navigation}) {
             onChangeText={passwordInput => {
               setPassword(passwordInput);
             }}
-            autoComplete={'password'}
             style={styles.input}
             placeholder="senha"
             placeholderTextColor="rgba(255, 255, 255, 0.5)"
