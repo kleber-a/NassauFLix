@@ -1,9 +1,9 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import StackDefault from './StackDefault.routes';
-import ButtonHome from '../components/ButtonHome';
-import ButtonPlay from '../components/ButtonPlay';
-import ButtonUser from '../components/ButtonUser';
+import ButtonHome from '../components/Buttons/ButtonHome';
+import ButtonPlay from '../components//Buttons/ButtonPlay';
+import ButtonUser from '../components/Buttons/ButtonUser';
 
 const Tab = createBottomTabNavigator();
 

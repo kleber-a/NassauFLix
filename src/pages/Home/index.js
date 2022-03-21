@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image, FlatList, TouchableOpacity} from 'react-native';
+import {View, FlatList, TouchableOpacity} from 'react-native';
 import {getMovie, getAccountDetails, getChangeMovies} from '../../service/api';
-import Icon from 'react-native-vector-icons/FontAwesome';
+
 import styles from './style';
 import AsyncStorage from '@react-native-community/async-storage';
 import Loading from '../../components/Loading';
-import style from './style';
+import UserImage from '../../components/User/UserImage';
+import PopularDescription from '../../components/Buttons/PopularDescription';
+import MovieImage from '../../components/Movie/MovieImage';
+import MovieEvaluation from '../../components/Movie/MovieEvaluation';
 
 export default function Home({navigation}) {
   const [name, setName] = useState(false);
@@ -69,31 +72,8 @@ export default function Home({navigation}) {
   const renderHeader = () => {
     return (
       <View style={styles.boxHeader}>
-        <Text style={styles.greetingText}>
-          Olá, <Text style={styles.greetingText__username}>{name && name}</Text>
-        </Text>
-        <Text style={styles.textDescription}>
-          Reveja ou acompanhe os filmes que você assistiu...
-        </Text>
-        <Text style={styles.textPopularMovies}>Filmes populares este mês</Text>
-
-        <View style={style.containerNotify}>
-          {notify && notify.length > 0 ? (
-            <View style={style.notifyActive}></View>
-          ) : (
-            <View></View>
-          )}
-          {icon && icon.length === 1 ? (
-            <Text style={style.userText}>{icon}</Text>
-          ) : (
-            <Image
-              style={style.userImage}
-              source={{
-                uri: `http://image.tmdb.org/t/p/w45/${icon}`,
-              }}
-            />
-          )}
-        </View>
+        <PopularDescription name={name} type={'Filmes'} />
+        <UserImage icon={icon} notify={notify} />
       </View>
     );
   };
@@ -113,16 +93,8 @@ export default function Home({navigation}) {
           navigation.navigate('Movies', item.id);
         }}>
         <View style={styles.styleApiMovie}>
-          <Image
-            style={styles.imgstyle}
-            source={{
-              uri: `http://image.tmdb.org/t/p/w92/${item.poster_path}`,
-            }}
-          />
-          <View style={styles.containerAvaluation}>
-            <Icon style={styles.icon} name="star" />
-            <Text style={styles.avaluationstyle}>{item.vote_average}/10</Text>
-          </View>
+          <MovieImage pathImage={item.poster_path} />
+          <MovieEvaluation votes={item.vote_average} />
         </View>
       </TouchableOpacity>
     );
@@ -133,7 +105,6 @@ export default function Home({navigation}) {
       {name ? (
         <FlatList
           data={movie}
-          contentContainerStyle={styles.containerFlatList}
           keyExtractor={(item, index) => index}
           ListHeaderComponent={renderHeader}
           ListFooterComponent={renderFooter}
