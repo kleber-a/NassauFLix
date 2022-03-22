@@ -6,7 +6,7 @@ import styles from './style';
 import AsyncStorage from '@react-native-community/async-storage';
 import Loading from '../../components/Loading';
 import UserImage from '../../components/User/UserImage';
-import PopularDescription from '../../components/Buttons/PopularDescription';
+import PopularDescription from '../../components/PopularDescription';
 import MovieImage from '../../components/Movie/MovieImage';
 import MovieEvaluation from '../../components/Movie/MovieEvaluation';
 
