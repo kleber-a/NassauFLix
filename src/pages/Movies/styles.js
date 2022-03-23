@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,6 +24,20 @@ const styles = StyleSheet.create({
   },
   buttonBack: {
     color: 'black',
+  },
+
+  containerButtonStarOn: {
+
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: 19,
+    right: 20,
+    backgroundColor: 'green',
+    borderRadius: 40,
+    width: 30,
+    height: 30,
+
   },
   containerButtonStar: {
     position: 'absolute',

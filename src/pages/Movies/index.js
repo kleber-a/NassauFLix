@@ -1,16 +1,42 @@
-import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
+import React, { useState, useEffect } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
-import {getCredits, getDetails} from '../../service/api';
+import { getCredits, getDetails, postFavoriteMovie } from '../../service/api';
 import styles from './styles';
 import Loading from '../../components/Loading';
+import { CurrentRenderContext } from '@react-navigation/native';
 
-export default function Movies({route, navigation}) {
+export default function Movies({ route, navigation }) {
   const id = route.params;
   const [details, setDetails] = useState([]);
   const [cast, setCast] = useState(null);
   const [crew, setCrew] = useState(null);
+  const [clickOn, setClickOn] = useState()
+
+
+
+  // const sessionId = await AsyncStorage.getItem('@CodeApi:session');
+  // const favoriteMovies = {
+  //   media_type: "movie",
+  //   media_id: id,
+  //   favorite: "true"
+  // }
+
+
+  // async function awaitFavoriteMovies() {
+  //   try {
+    
+  //     postFavoriteMovie(favoriteMovies);
+  //     setClickOn(!clickOn)
+  //     alert('Esse Filme Foi adicionado aos favoritos!')
+  //   } catch (error) {
+  //     console.warn(error);
+  //   }
+  // }
+
+
+
 
   useEffect(() => {
     async function awaitGetDetails() {
@@ -37,7 +63,7 @@ export default function Movies({route, navigation}) {
     awaitGetCredits();
   }, [id]);
 
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
     return (
       <View style={styles.containerCast}>
         <View style={styles.containerProfileImg}>
@@ -74,7 +100,11 @@ export default function Movies({route, navigation}) {
           onPress={() => navigation.goBack()}>
           <AntDesign style={styles.buttonBack} name="arrowleft" size={25} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.containerButtonStar}>
+
+
+        <TouchableOpacity style={clickOn ? styles.containerButtonStarOn : styles.containerButtonStar}
+          onPress={() => setClickOn(!clickOn)}>
+
           <Feather name="star" size={25} style={styles.buttonStar} />
         </TouchableOpacity>
 
