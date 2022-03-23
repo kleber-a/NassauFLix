@@ -7,25 +7,28 @@ import Movies from './pages/Movies';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {LogBox} from 'react-native';
-// LogBox.ignoreLogs([
-//   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
-// ]);
-LogBox.ignoreAllLogs();
+import Auth from './contexts/auth';
+LogBox.ignoreLogs([
+  "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
+]);
+// LogBox.ignoreAllLogs();
 
 const Stack = createStackNavigator();
 
 function App() {
   return (
     <NavigationContainer>
-      <StatusBar backgroundColor={'#fff'} barStyle="dark-content" />
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="HomeTabScreen" component={HomeTabScreen} />
-        <Stack.Screen name="Movies" component={Movies} />
-      </Stack.Navigator>
+      <Auth>
+        <StatusBar backgroundColor={'#fff'} barStyle="dark-content" />
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="HomeTabScreen" component={HomeTabScreen} />
+          <Stack.Screen name="Movies" component={Movies} />
+        </Stack.Navigator>
+      </Auth>
     </NavigationContainer>
   );
 }
