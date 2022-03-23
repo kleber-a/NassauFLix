@@ -79,7 +79,7 @@ export default function Home({navigate, type}) {
           navigate.navigate(type, item.id);
         }}>
         <View style={styles.styleApiMovie}>
-          <MovieImage pathImage={item.poster_path} />
+          <MovieImage pathImage={item.poster_path} posterSize={'w92'} />
           <MovieEvaluation votes={item.vote_average} />
         </View>
       </TouchableOpacity>
