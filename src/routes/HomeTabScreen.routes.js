@@ -1,15 +1,18 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import StackDefault from './StackDefault.routes';
+import StackDefault from './StackTvShos.routes';
 import ButtonHome from '../components/TabButtons/ButtonHome';
 import ButtonPlay from '../components/TabButtons/ButtonPlay';
 import ButtonUser from '../components/TabButtons/ButtonUser';
+import StackMovies from './StackMovies.routes';
+import StackTvShows from './StackTvShos.routes';
 
 const Tab = createBottomTabNavigator();
 
 function HomeTabScreen() {
   return (
     <Tab.Navigator
+      initialRouteName="StackMovies"
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: '#000',
@@ -22,17 +25,17 @@ function HomeTabScreen() {
         },
       }}>
       <Tab.Screen
-        name="Play"
-        component={StackDefault}
+        name="StackTvShows"
+        component={StackTvShows}
         options={{
-          tabBarIcon: () => <ButtonPlay name="Play" />,
+          tabBarIcon: () => <ButtonPlay name="StackTvShows" />,
         }}
       />
       <Tab.Screen
-        name="Home"
-        component={StackDefault}
+        name="StackMovies"
+        component={StackMovies}
         options={{
-          tabBarIcon: () => <ButtonHome name="StackDefault" />,
+          tabBarIcon: () => <ButtonHome name="StackMovies" />,
         }}
       />
       <Tab.Screen

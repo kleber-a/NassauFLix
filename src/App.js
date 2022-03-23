@@ -7,7 +7,7 @@ import Movies from './pages/Movies';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {LogBox} from 'react-native';
-import Auth from './contexts/auth';
+import Auth from './context/auth';
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
 ]);
@@ -26,7 +26,6 @@ function App() {
           }}>
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="HomeTabScreen" component={HomeTabScreen} />
-          <Stack.Screen name="Movies" component={Movies} />
         </Stack.Navigator>
       </Auth>
     </NavigationContainer>

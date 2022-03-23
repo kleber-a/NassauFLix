@@ -8,17 +8,17 @@ import {
   KeyboardAvoidingView,
   Animated,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import styles from './styles';
-import {AuthContext} from '../../contexts/auth';
+import {AuthContext} from '../../context/auth';
 
 export default function Login({navigation}) {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
 
-  const {userLogin} = React.useContext(AuthContext);
+  const {userLogin} = useContext(AuthContext);
 
   async function handleSubmit() {
     const isSucess = await userLogin(username, password);
