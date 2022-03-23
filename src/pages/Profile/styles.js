@@ -16,16 +16,23 @@ const styles = StyleSheet.create({
   },
 
   //Box Exit-------------
-  boxExitBoxPerfil: {
-    width: '100%',
-    alignItems: 'flex-end',
-    paddingRight: 30,
-  },
   buttonBoxExit: {
-    backgroundColor: 'yellow',
+    width: 50,
+    height:14,
+    backgroundColor: '#E9A6A6',
+    alignSelf:'flex-end',
     top: 20,
     borderRadius: 20,
+    marginRight:20,
+    flexDirection:'row',
+    justifyContent:'space-around'
+    
   },
+  TextBoxExit:{
+    fontSize:10,
+    fontWeight:'600'
+  },
+
 
   //End Box Exit-------
 
@@ -128,8 +135,18 @@ const styles = StyleSheet.create({
 
   listBoxList: {
     flexDirection: 'row',
-    paddingVertical: 30,
+    paddingVertical: 20,
+    alignSelf:'center',
     flexWrap: 'wrap',
+    
+  },
+
+  buttonListBoxList:{
+    width: 62,
+    height: 93,
+    backgroundColor: 'white',
+    marginHorizontal: 10,
+    borderRadius: 10,
   },
 
   evaluationListBoxList: {
