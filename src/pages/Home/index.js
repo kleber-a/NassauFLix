@@ -21,7 +21,7 @@ export default function Home({navigation}) {
     }
     setLoading(true);
     try {
-      const results = await getMovie(page);
+      const results = await getMovie(page);    
       setMovie([...movie, ...results]);
       setPage(page + 1);
       setLoading(false);
@@ -104,7 +104,7 @@ export default function Home({navigation}) {
     }
     return <Loading />;
   };
-
+  
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
