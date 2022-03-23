@@ -1,9 +1,8 @@
 import React from 'react';
-import Home from '../pages/Home';
 import Movies from '../pages/Movies';
+import HomeTvShows from '../pages/HomeTvShows';
 
 import {createStackNavigator} from '@react-navigation/stack';
-import HomeTvShows from '../pages/HomeTvShows';
 
 const Stack = createStackNavigator();
 

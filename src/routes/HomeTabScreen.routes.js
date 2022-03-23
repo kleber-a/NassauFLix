@@ -1,6 +1,5 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import StackDefault from './StackTvShos.routes';
 import ButtonHome from '../components/TabButtons/ButtonHome';
 import ButtonPlay from '../components/TabButtons/ButtonPlay';
 import ButtonUser from '../components/TabButtons/ButtonUser';
@@ -40,7 +39,7 @@ function HomeTabScreen() {
       />
       <Tab.Screen
         name="User"
-        component={StackDefault}
+        component={StackMovies}
         options={{
           tabBarIcon: () => <ButtonUser name="User" />,
         }}

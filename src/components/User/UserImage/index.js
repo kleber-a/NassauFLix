@@ -7,7 +7,7 @@ import styles from './styles';
 export default function UserImage({size}) {
   const [notify, setNotify] = useState(null);
   const [icon, setIcon] = useState(null);
-  const {account} = useContext(AuthContext);
+  const {account, setAccount} = useContext(AuthContext);
 
   useEffect(() => {
     if (account.name) {
@@ -23,7 +23,12 @@ export default function UserImage({size}) {
           : account.avatar.tmdb.avatar_path,
       );
     }
-  }, [account]);
+    async function awaitChange() {
+      const newMovies = await getChangeMovies(new Date());
+      setNotify(newMovies.results);
+    }
+    awaitChange();
+  }, []);
 
   const isNotifyActive = () => {
     if (notify && notify.length > 0) {
@@ -46,14 +51,15 @@ export default function UserImage({size}) {
     }
   };
 
-  async function awaitChange() {
-    const newMovies = await getChangeMovies(new Date());
-    setNotify(newMovies.results);
-  }
-  awaitChange();
-
   return (
-    <View style={styles.containerNotify}>
+    <View
+      style={[
+        styles.containerNotify,
+        {
+          width: size,
+          height: size,
+        },
+      ]}>
       {isNotifyActive()}
       {isImage()}
     </View>

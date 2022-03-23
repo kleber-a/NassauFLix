@@ -28,7 +28,7 @@ export default function Auth({children}) {
         password: password,
         request_token: token,
       });
-      AsyncStorage.setItem(['@CodeApi:token', JSON.stringify(token)]);
+      AsyncStorage.setItem('@CodeApi:token', JSON.stringify(token));
       await getUser(token);
       return isSucess;
     } catch (error) {
@@ -37,7 +37,7 @@ export default function Auth({children}) {
   }
 
   return (
-    <AuthContext.Provider value={{userLogin, account, sessionId}}>
+    <AuthContext.Provider value={{userLogin, account, setAccount, sessionId}}>
       {children}
     </AuthContext.Provider>
   );

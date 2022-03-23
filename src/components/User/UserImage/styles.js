@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     backgroundColor: 'lightslategrey',
-    borderRadius: 25,
+    borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -28,9 +28,9 @@ const styles = StyleSheet.create({
     color: '#ddd',
   },
   userImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: '100%',
+    height: '100%',
+    borderRadius: 50,
   },
 });
 export default styles;

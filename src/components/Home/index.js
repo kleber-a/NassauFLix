@@ -56,7 +56,7 @@ export default function Home({navigate, type}) {
     return (
       <View style={styles.boxHeader}>
         <PopularDescription type={type === 'Movies' ? 'Filmes' : 'Séries'} />
-        <UserImage />
+        <UserImage size={50} />
       </View>
     );
   };
