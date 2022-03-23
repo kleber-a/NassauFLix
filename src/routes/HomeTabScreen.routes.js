@@ -4,6 +4,8 @@ import StackDefault from './StackDefault.routes';
 import ButtonHome from '../components/ButtonHome';
 import ButtonPlay from '../components/ButtonPlay';
 import ButtonUser from '../components/ButtonUser';
+import Profile from '../pages/Profile'
+
 
 const Tab = createBottomTabNavigator();
 
@@ -37,7 +39,7 @@ function HomeTabScreen() {
       />
       <Tab.Screen
         name="User"
-        component={StackDefault}
+        component={Profile}
         options={{
           tabBarIcon: () => <ButtonUser name="User" />,
         }}

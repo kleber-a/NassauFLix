@@ -23,7 +23,7 @@ function App() {
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="Login" component={Profile} />
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="HomeTabScreen" component={HomeTabScreen} />
         <Stack.Screen name="Movies" component={Movies} />
       </Stack.Navigator>

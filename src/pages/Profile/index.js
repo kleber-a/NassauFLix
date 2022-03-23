@@ -4,7 +4,7 @@ import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function Profile() {
-  const lista = [1, 2, 3, 4, 5];
+  const lista = [1, 2, 3, 4];
   return (
     <View style={styles.fullscreen}>
       <View style={styles.boxPerfil}>
@@ -33,24 +33,41 @@ export default function Profile() {
       <View style={styles.boxList}>
         <View style={styles.favoritesListBoxList}>
           <View style={styles.boxFavoritesList}>
-            <Text style={{color: 'white'}}>Filmes favoritos de John</Text>
-            <TouchableOpacity>
-              <Text style={{color: 'white'}}>Ver tudo</Text>
+            <Text style={styles.textBoxFavoritesList}>Filmes favoritos de John</Text>
+            <TouchableOpacity style={styles.buttonBoxFavoritesList}>
+              <Text style={styles.textButtonBoxFavoritesList}>Ver tudo</Text>
             </TouchableOpacity>
           </View>
-          <View style={{flexDirection: 'row',paddingVertical:30}}>
-            {lista.map(lista => (
-              <View style={{width: 47, height: 47, backgroundColor: 'white',marginLeft:20}} />
-            ))}
+          <View
+            style={styles.listBoxList}>
+            {lista &&
+              lista.map(lista => (
+                <TouchableOpacity
+                  style={{width: 62,height: 93,backgroundColor: 'white',marginLeft: 20,}}
+                />
+              ))}
           </View>
         </View>
 
         <View style={styles.evaluationListBoxList}>
           <View style={styles.boxFavoritesList}>
-            <Text style={{color: 'white'}}>Filmes favoritos de John</Text>
-            <TouchableOpacity>
-              <Text style={{color: 'white'}}>Ver tudo</Text>
+            <Text style={styles.textBoxFavoritesList}>Filmes favoritos de John</Text>
+            <TouchableOpacity style={styles.buttonBoxFavoritesList}>
+              <Text style={styles.textButtonBoxFavoritesList}>Ver tudo</Text>
             </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              paddingVertical: 30,
+              flexWrap: 'wrap',
+            }}>
+            {lista &&
+              lista.map(lista => (
+                <TouchableOpacity
+                  style={{width: 62,height: 93,backgroundColor: 'white',marginLeft: 20,}}
+                />
+              ))}
           </View>
         </View>
       </View>

@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   //Box Perfil
   boxPerfil: {
     width: '100%',
-    height: '40%',
+    height: '36%',
     alignItems: 'center',
   },
 
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   //Box Button
   boxButton: {
     width: '100%',
-    height: '12%',
+    height: '10%',
     backgroundColor: 'black',
     flexDirection: 'row',
   },
@@ -94,30 +94,49 @@ const styles = StyleSheet.create({
 
   //Box List
   boxList: {
-    height: '48%',
+    height: '54%',
     width: '100%',
   },
 
   favoritesListBoxList: {
     width: '100%',
     height: '50%',
-    backgroundColor: 'blue',
-
-  },    
-  boxFavoritesList:{
-    width:'100%',
-    height:'20%',
-    backgroundColor:'black',
-    flexDirection:'row',
-    justifyContent:'space-around',
-    paddingTop:5
+  },
+  boxFavoritesList: {
+    width: '100%',
+    height: '14%',
+    backgroundColor: 'black',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingTop: 10,
+  },
+  textBoxFavoritesList: {
+    fontSize: 10,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    paddingEnd: 100,
+  },
+  buttonBoxFavoritesList: {
+    height: 15,
   },
 
+  textButtonBoxFavoritesList: {
+    color: '#E9A6A6',
+    fontSize: 9,
+    fontWeight: '600',
+  },
+
+  listBoxList: {
+    flexDirection: 'row',
+    paddingVertical: 30,
+    flexWrap: 'wrap',
+  },
 
   evaluationListBoxList: {
     width: '100%',
     height: '50%',
-    backgroundColor: 'pink',
+    borderTopWidth: 1,
+    borderTopColor: '#FFFFFF30',
   },
 
   //End Box List
