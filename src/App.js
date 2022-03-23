@@ -3,6 +3,7 @@ import {StatusBar} from 'react-native';
 import Login from './pages/Login';
 import HomeTabScreen from './routes/HomeTabScreen.routes';
 import Movies from './pages/Movies';
+import TvShow from './pages/TvShow'
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -22,7 +23,7 @@ function App() {
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="TvShow" component={TvShow} />
         <Stack.Screen name="HomeTabScreen" component={HomeTabScreen} />
         <Stack.Screen name="Movies" component={Movies} />
       </Stack.Navigator>
