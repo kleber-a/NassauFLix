@@ -7,7 +7,7 @@ import styles from './styles';
 export default function UserImage({size}) {
   const [notify, setNotify] = useState(null);
   const [icon, setIcon] = useState(null);
-  const {account, setAccount} = useContext(AuthContext);
+  const {account} = useContext(AuthContext);
 
   useEffect(() => {
     if (account.name) {
