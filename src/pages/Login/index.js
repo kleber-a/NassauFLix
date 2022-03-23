@@ -8,67 +8,34 @@ import {
   KeyboardAvoidingView,
   Animated,
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {
-  getIdAccessToken,
-  getRequestToken,
-  validateToken,
-} from '../../service/api';
 import styles from './styles';
+import {AuthContext} from '../../context/auth';
 
 export default function Login({navigation}) {
-  const [token, setToken] = useState();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  const [isSuccess, setIsSuccess] = useState(null);
 
-  const user = {
-    username: username,
-    password: password,
-    request_token: token,
-  };
+  const {userLogin} = useContext(AuthContext);
 
-  useEffect(() => {
-    async function awaitGetToken() {
-      try {
-        const requestTolken = await getRequestToken();
-        setToken(requestTolken);
-      } catch (error) {
-        console.log(error);
-        throw error;
-      }
-    }
-    awaitGetToken();
-  }, []);
-
-  async function isSucess(userFull) {
-    try {
-      const isSuccessRequest = await validateToken(userFull);
-      const sessionId = await getIdAccessToken({request_token: token});
-      setIsSuccess(isSuccessRequest);
-      AsyncStorage.multiSet([
-        ['@CodeApi:username', username],
-        ['@CodeApi:token', token],
-        ['@CodeApi:session', sessionId],
-      ]);
-      if (isSuccessRequest) {
-        return navigation.reset({
-          index: 0,
-          routes: [{name: 'HomeTabScreen'}],
-        });
-      }
-    } catch (error) {
-      console.log(error);
-      throw error;
+  async function handleSubmit() {
+    const isSucess = await userLogin(username, password);
+    if (isSucess) {
+      return navigation.reset({
+        index: 0,
+        routes: [{name: 'HomeTabScreen'}],
+      });
     }
   }
-  const [bottom, setBottom] = useState(new Animated.Value(800));
-  Animated.timing(bottom, {
+
+  const [pixels, setPixels] = useState(new Animated.Value(-800));
+
+  Animated.timing(pixels, {
     toValue: 0,
     duration: 1000,
+    useNativeDriver: true,
   }).start();
   return (
     <KeyboardAvoidingView behavior="position" style={styles.container}>
@@ -79,7 +46,8 @@ export default function Login({navigation}) {
         />
         <Animated.Image
           style={{
-            bottom: bottom,
+            translateX: pixels,
+            bottom: 0,
             height: 130,
             resizeMode: 'cover',
             alignSelf: 'center',
@@ -90,7 +58,7 @@ export default function Login({navigation}) {
       </View>
       <Animated.View
         style={{
-          top: bottom,
+          translateX: pixels,
         }}>
         <View style={styles.textEntry}>
           <Text style={styles.textEntry.login}>Login</Text>
@@ -134,7 +102,7 @@ export default function Login({navigation}) {
           <TouchableOpacity
             onPress={() => {
               Keyboard.dismiss();
-              isSucess(user);
+              handleSubmit();
             }}>
             <Text style={styles.btnSubmit.text}>Entrar</Text>
           </TouchableOpacity>
