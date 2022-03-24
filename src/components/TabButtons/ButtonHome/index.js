@@ -5,9 +5,7 @@ import styles from './styles';
 export default function ButtonHome() {
   return (
     <View style={styles.container}>
-      <Image
-       source={require('../../assets/popcorn.png')}
-       />
+      <Image source={require('../../../assets/popcorn.png')} />
     </View>
   );
 }

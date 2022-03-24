@@ -117,7 +117,11 @@ export default function Movies({route, navigation}) {
             <View>
               <AntDesign name="heart" size={20} style={styles.heartIcon} />
             </View>
-            <Text style={styles.liked}>{Math.floor(details.popularity)}K</Text>
+            <Text style={styles.liked}>
+              {Math.floor(details.popularity).toString().length > 3
+                ? Math.floor(details.popularity) + 'M'
+                : Math.floor(details.popularity) + 'K'}
+            </Text>
           </View>
         </View>
 
@@ -126,7 +130,7 @@ export default function Movies({route, navigation}) {
         </View>
         <View style={styles.boxCast}>
           <Text style={styles.cast}>Elenco</Text>
-          <View style={styles.line}></View>
+          <View style={styles.line} />
         </View>
       </View>
     );
