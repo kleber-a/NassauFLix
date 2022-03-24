@@ -1,6 +1,7 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import StackDefault from './StackDefault.routes';
+import FavoriteMovies from '../pages/FavoriteMovies';
 import ButtonHome from '../components/ButtonHome';
 import ButtonPlay from '../components/ButtonPlay';
 import ButtonUser from '../components/ButtonUser';
@@ -23,7 +24,7 @@ function HomeTabScreen() {
       }}>
       <Tab.Screen
         name="Play"
-        component={StackDefault}
+        component={FavoriteMovies}
         options={{
           tabBarIcon: () => <ButtonPlay name="Play" />,
         }}
