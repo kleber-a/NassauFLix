@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { Alert } from 'react-native';
 
+const apiKey = 'c3dc5cb91b1c309207a60a76c5742842';
+
 const api = axios.create({
   baseURL: 'https://api.themoviedb.org/3/',
 });
@@ -8,7 +10,7 @@ const api = axios.create({
 export async function postFavoriteMovie(accountId, sessionId, body) {
   try {
     const { data } = await api.post(
-      `account/${accountId}/favorite?api_key=c3dc5cb91b1c309207a60a76c5742842&session_id=${sessionId}`, body,
+      `account/${accountId}/favorite?api_${apiKey}&session_id=${sessionId}`, body,
     );
     return data
   } catch (error) {
@@ -18,7 +20,7 @@ export async function postFavoriteMovie(accountId, sessionId, body) {
 export async function getFavoriteMovie(accountId, sessionId) {
   try {
     const { data } = await api.get(
-      `account/${accountId}/favorite/movies?api_key=c3dc5cb91b1c309207a60a76c5742842&session_id=${sessionId}`,
+      `account/${accountId}/favorite/movies?api_key=${apiKey}=${sessionId}`,
     );
     return data.results;
   } catch (error) {
@@ -28,8 +30,8 @@ export async function getFavoriteMovie(accountId, sessionId) {
 
 export async function getMovie(page) {
   try {
-    const { data } = await api.get(
-      `movie/popular?api_key=c3dc5cb91b1c309207a60a76c5742842&language=pt-BR&page=${page}`,
+    const {data} = await api.get(
+      `movie/popular?api_key=${apiKey}&language=pt-BR&page=${page}`,
     );
     return data.results;
   } catch (error) {
@@ -39,8 +41,8 @@ export async function getMovie(page) {
 
 export async function getDetails(id) {
   try {
-    const { data } = await api.get(
-      `movie/${id}?api_key=c3dc5cb91b1c309207a60a76c5742842&language=pt-BR`,
+    const {data} = await api.get(
+      `movie/${id}?api_key=${apiKey}&language=pt-BR`,
     );
     return data;
   } catch (error) {
@@ -50,8 +52,8 @@ export async function getDetails(id) {
 
 export async function getCredits(id) {
   try {
-    const { data } = await api.get(
-      `movie/${id}/credits?api_key=c3dc5cb91b1c309207a60a76c5742842&language=pt-BR`,
+    const {data} = await api.get(
+      `movie/${id}/credits?api_key=${apiKey}&language=pt-BR`,
     );
     return data;
   } catch (error) {
@@ -61,9 +63,7 @@ export async function getCredits(id) {
 
 export async function getRequestToken() {
   try {
-    const { data } = await api.get(
-      'authentication/token/new?api_key=c3dc5cb91b1c309207a60a76c5742842',
-    );
+    const {data} = await api.get(`authentication/token/new?api_key=${apiKey}`);
     return data.request_token;
   } catch (error) {
     console.log('getRequestToken');
@@ -83,8 +83,8 @@ export async function approveRequestToken(tolken) {
 
 export async function validateToken(body) {
   try {
-    const { data } = await api.post(
-      'authentication/token/validate_with_login?api_key=c3dc5cb91b1c309207a60a76c5742842',
+    const {data} = await api.post(
+      `authentication/token/validate_with_login?api_key=${apiKey}`,
       body,
       {
         headers: {
@@ -106,8 +106,8 @@ export async function validateToken(body) {
 
 export async function getIdAccessToken(token) {
   try {
-    const { data } = await api.post(
-      'authentication/session/new?api_key=c3dc5cb91b1c309207a60a76c5742842',
+    const {data} = await api.post(
+      `authentication/session/new?api_key=${apiKey}`,
       token,
       {
         headers: {
@@ -123,8 +123,8 @@ export async function getIdAccessToken(token) {
 
 export async function getAccountDetails(sessionId) {
   try {
-    const { data } = await api.get(
-      `account?api_key=c3dc5cb91b1c309207a60a76c5742842&session_id=${sessionId}`,
+    const {data} = await api.get(
+      `account?api_key=${apiKey}&session_id=${seesionId}`,
     );
     return data;
   } catch (error) {
@@ -134,8 +134,8 @@ export async function getAccountDetails(sessionId) {
 
 export async function getChangeMovies(dateStart) {
   try {
-    const { data } = await api.get(
-      `movie/changes?api_key=c3dc5cb91b1c309207a60a76c5742842&start_date=${dateStart}&page=1`,
+    const {data} = await api.get(
+      `movie/changes?api_key=${apiKey}&start_date=${dateStart}&page=1`,
     );
     return data;
   } catch (error) {
@@ -143,6 +143,14 @@ export async function getChangeMovies(dateStart) {
   }
 }
 
-
-
+export async function getTvShows(page) {
+  try {
+    const {data} = await api.get(
+      `tv/popular?api_key=c3dc5cb91b1c309207a60a76c5742842&language=pt-BR&page=${page}`,
+    );
+    return data.results;
+  } catch (error) {
+    console.log(error);
+  }
+}
 export default api;
