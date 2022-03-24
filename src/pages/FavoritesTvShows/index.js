@@ -2,25 +2,24 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
 import styles from './styles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import style from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-export default function TvShow({navigation}) {
+export default function FavoritesTvShows({navigation}) {
     const lista = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
  return (
      <>
-    <View style={style.container}>
+    <View style={styles.container}>
         <TouchableOpacity
-          style={style.return}
+          style={styles.return}
           onPress={() => navigation.goBack()}>
-          <AntDesign style={style.button} name="arrowleft" size={25} />
+          <AntDesign style={styles.button} name="arrowleft" size={25} />
         </TouchableOpacity>
-        <View style={style.boxHeader}>
-        <Text style={style.textFavoritesTvShow}>Filmes favoritos do <Text style={{color:"pink"}}>John!</Text></Text>
+        <View style={styles.boxHeader}>
+        <Text style={styles.textFavoritesTvShow}>Séries favoritas do <Text style={{color:"pink"}}>John!</Text></Text>
         </View>
     
-    <View style={style.boxFlatList}>
+    <View style={styles.boxFlatList}>
     <FlatList
         
         data={lista}
@@ -29,10 +28,10 @@ export default function TvShow({navigation}) {
 
         renderItem={item => 
              <View>
-                <Image style={style.Image} source={require("./aranha.png")}/>
-                <View style={style.containerAvaluation}>
-                <Icon style={style.icon} name="star" />
-                <Text style={style.avaluationstyle}>8/10</Text>
+                <Image style={styles.Image} source={require("./aranha.png")}/>
+                <View style={styles.containerAvaluation}>
+                <Icon style={styles.icon} name="star" />
+                <Text style={styles.avaluationstyle}>8/10</Text>
           </View>
              </View>
 
