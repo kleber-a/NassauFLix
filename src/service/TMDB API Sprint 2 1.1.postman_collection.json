@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "11cc2dfe-78e4-462f-a492-4009b7f7ac08",
-		"name": "TMDB API Sprint 2",
+		"_postman_id": "c47eb007-49c2-419e-a6c6-254f2e67238c",
+		"name": "TMDB API Sprint 2 1.1",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -173,14 +173,74 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}/account/ACCOUNT_ID/rated/movies?api_key={{api_key}}&session_id=SESSION_ID",
+							"raw": "{{API_URL}}/account/ACCOUNT_ID/favorite/movies?api_key={{api_key}}&session_id=SESSION_ID",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
 								"account",
 								"ACCOUNT_ID",
-								"rated",
+								"favorite",
+								"movies"
+							],
+							"query": [
+								{
+									"key": "api_key",
+									"value": "{{api_key}}"
+								},
+								{
+									"key": "session_id",
+									"value": "SESSION_ID"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Favorite TV Shows",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/account/ACCOUNT_ID/favorite/tv?api_key={{api_key}}&session_id=SESSION_ID",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"account",
+								"ACCOUNT_ID",
+								"favorite",
+								"tv"
+							],
+							"query": [
+								{
+									"key": "api_key",
+									"value": "{{api_key}}"
+								},
+								{
+									"key": "session_id",
+									"value": "SESSION_ID"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Favorite Movies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/account/ACCOUNT_ID/favorite/movies?api_key={{api_key}}&session_id=SESSION_ID",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"account",
+								"ACCOUNT_ID",
+								"favorite",
 								"movies"
 							],
 							"query": [
@@ -241,7 +301,45 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"media_type\": \"movie\",\r\n    \"media_id\": \"MOVIE_ID\",\r\n    \"favorite\": \"true\"\r\n}",
+							"raw": "{\r\n    \"media_type\": \"movie\",\r\n    \"media_id\": \"MOVIE_ID\",\r\n    \"favorite\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/account/ACCOUNT_ID/favorite?api_key={{api_key}}&session_id=SESSION_ID",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"account",
+								"ACCOUNT_ID",
+								"favorite"
+							],
+							"query": [
+								{
+									"key": "api_key",
+									"value": "{{api_key}}"
+								},
+								{
+									"key": "session_id",
+									"value": "SESSION_ID"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unmark Movie as favorite",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"media_type\": \"movie\",\r\n    \"media_id\": \"MOVIE_ID\",\r\n    \"favorite\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -411,7 +509,45 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"media_type\": \"tv\",\r\n    \"media_id\": \"TV_SHOW_ID\",\r\n    \"favorite\": \"true\"\r\n}",
+							"raw": "{\r\n    \"media_type\": \"tv\",\r\n    \"media_id\": \"TV_SHOW_ID\",\r\n    \"favorite\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/account/ACCOUNT_ID/favorite?api_key={{api_key}}&session_id=SESSION_ID",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"account",
+								"ACCOUNT_ID",
+								"favorite"
+							],
+							"query": [
+								{
+									"key": "api_key",
+									"value": "{{api_key}}"
+								},
+								{
+									"key": "session_id",
+									"value": "SESSION_ID"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unmark TV Show as favorite",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"media_type\": \"tv\",\r\n    \"media_id\": \"TV_SHOW_ID\",\r\n    \"favorite\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
