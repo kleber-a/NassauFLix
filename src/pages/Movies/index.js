@@ -1,16 +1,25 @@
-import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
+import {
+  View,
+  Modal,
+  Text,
+  TouchableOpacity,
+  Image,
+  FlatList,
+} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import {getCredits, getDetails} from '../../service/api';
 import styles from './styles';
 import Loading from '../../components/Loading';
+import ModalAvaluate from '../../components/ModalAvaluate';
 
 export default function Movies({route, navigation}) {
   const id = route.params;
   const [details, setDetails] = useState([]);
   const [cast, setCast] = useState(null);
   const [crew, setCrew] = useState(null);
+  const [isVisible, setisVisible] = useState(false);
 
   useEffect(() => {
     async function awaitGetDetails() {
@@ -63,6 +72,7 @@ export default function Movies({route, navigation}) {
   const renderHeader = () => {
     return (
       <View>
+        <ModalAvaluate />
         <Image
           style={styles.backGroundMovie}
           source={{
@@ -79,13 +89,16 @@ export default function Movies({route, navigation}) {
         </TouchableOpacity>
 
         <View style={styles.detailsMovies}>
-          <View>
+          <View style={styles.containerMovieImg}>
             <Image
-              style={styles.capaMovie}
+              style={styles.movieImg}
               source={{
                 uri: `http://image.tmdb.org/t/p/w780/${details.poster_path}`,
               }}
             />
+            <TouchableOpacity style={styles.evaluate} onPress={() => {}}>
+              <Text style={styles.evaluate.text}>Avalie agora</Text>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.detaisMoviesTitle}>

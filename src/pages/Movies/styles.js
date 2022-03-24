@@ -48,13 +48,32 @@ const styles = StyleSheet.create({
     height: 120,
     alignItems: 'flex-start',
   },
-  capaMovie: {
+  containerMovieImg: {
     position: 'relative',
-    top: -35,
+    top: -60,
     marginLeft: 20,
+  },
+  movieImg: {
     width: 116,
-    height: 182,
-    borderRadius: 8,
+    height: 166,
+    borderTopRightRadius: 7,
+    borderTopLeftRadius: 7,
+  },
+  evaluate: {
+    backgroundColor: '#E9A6A6',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 116,
+    height: 22,
+    borderBottomRightRadius: 7,
+    borderBottomLeftRadius: 7,
+    text: {
+      fontSize: 10,
+      lineHeight: 14,
+      fontWeight: '700',
+      color: '#000',
+      textTransform: 'uppercase',
+    },
   },
   titleMovie: {
     color: '#FFFFFF',
