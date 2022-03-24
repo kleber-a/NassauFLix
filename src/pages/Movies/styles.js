@@ -7,6 +7,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'black',
   },
+  containerHeader: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   backGroundMovie: {
     width: '100%',
     height: 170,

@@ -1,13 +1,16 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
+  // containerTeste: {
+  //   flex: 1,
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  // },
   container: {
-    position: 'absolute',
-    zIndex: 1000,
+    top: 220,
+    alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    top: 200,
-    left: 50,
     width: 327,
     height: 166,
     borderRadius: 25,
@@ -60,7 +63,7 @@ const styles = StyleSheet.create({
   },
   buttonCancel: {
     height: 20,
-    paddingHorizontal: 17.5,
+    paddingHorizontal: 17,
     paddingVertical: 2.5,
     borderColor: '#000',
     borderWidth: 1,
@@ -76,14 +79,14 @@ const styles = StyleSheet.create({
   },
   buttonOk: {
     height: 20,
-    backgroundColor: '#C4C4C4',
+    backgroundColor: '#000',
     paddingHorizontal: 35,
     paddingVertical: 2.5,
     borderRadius: 5,
     justifyContent: 'center',
     text: {
       fontSize: 10,
-      color: '#8E8E8E',
+      color: '#FFF',
       fontFamily: 'Source Sans Pro',
       textTransform: 'uppercase',
       fontWeight: '700',

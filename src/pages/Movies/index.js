@@ -19,7 +19,7 @@ export default function Movies({route, navigation}) {
   const [details, setDetails] = useState([]);
   const [cast, setCast] = useState(null);
   const [crew, setCrew] = useState(null);
-  const [isVisible, setisVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     async function awaitGetDetails() {
@@ -71,8 +71,13 @@ export default function Movies({route, navigation}) {
 
   const renderHeader = () => {
     return (
-      <View>
-        <ModalAvaluate />
+      <View style={styles.containerHeader}>
+        <ModalAvaluate
+          modalIsVisible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}
+        />
         <Image
           style={styles.backGroundMovie}
           source={{
@@ -87,7 +92,6 @@ export default function Movies({route, navigation}) {
         <TouchableOpacity style={styles.containerButtonStar}>
           <Feather name="star" size={25} style={styles.buttonStar} />
         </TouchableOpacity>
-
         <View style={styles.detailsMovies}>
           <View style={styles.containerMovieImg}>
             <Image
@@ -96,7 +100,11 @@ export default function Movies({route, navigation}) {
                 uri: `http://image.tmdb.org/t/p/w780/${details.poster_path}`,
               }}
             />
-            <TouchableOpacity style={styles.evaluate} onPress={() => {}}>
+            <TouchableOpacity
+              style={styles.evaluate}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+              }}>
               <Text style={styles.evaluate.text}>Avalie agora</Text>
             </TouchableOpacity>
           </View>
