@@ -143,7 +143,7 @@ export default function Home({navigation}) {
           renderItem={renderItem}
         />
       ) : (
-        <Loading />
+        <Loading/>
       )}
     </View>
   );

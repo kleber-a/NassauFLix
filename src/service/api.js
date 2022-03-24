@@ -15,6 +15,16 @@ export async function postFavoriteMovie(accountId, sessionId, body) {
     console.log(error);
   }
 }
+export async function getFavoriteMovie(accountId, sessionId) {
+  try {
+    const { data } = await api.get(
+      `account/${accountId}/favorite/movies?api_key=c3dc5cb91b1c309207a60a76c5742842&session_id=${sessionId}`,
+    );
+    return data.results;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export async function getMovie(page) {
   try {
