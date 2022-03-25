@@ -5,6 +5,7 @@ import ButtonPlay from '../components/TabButtons/ButtonPlay';
 import ButtonUser from '../components/TabButtons/ButtonUser';
 import StackMovies from './StackMovies.routes';
 import StackTvShows from './StackTvShos.routes';
+import Profile from '../pages/Profile'
 
 const Tab = createBottomTabNavigator();
 

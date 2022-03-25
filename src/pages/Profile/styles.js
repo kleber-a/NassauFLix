@@ -42,6 +42,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 40,
     marginTop: 15,
+    alignItems:'center',
+    justifyContent:'center'
+  },
+  imageUserBoxPerfil:{
+    width:78,
+    height:78,
+    borderRadius:40
   },
 
   nameBoxPerfil: {
@@ -54,7 +61,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '700',
     marginTop: 20,
-    color: 'white',
+    color: '#9C4A8B',
+    fontFamily: 'open sans'
   },
 
   evaluationBoxPerfil: {
