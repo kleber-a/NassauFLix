@@ -42,7 +42,6 @@ export default function FavoritesTvShows({navigation}) {
           </Text>
         </View>
 
-        <View style={styles.boxFlatList}>
           <FlatList
             data={favoritesTvShows.results}
             numColumns={4}
@@ -53,14 +52,12 @@ export default function FavoritesTvShows({navigation}) {
                   style={styles.Image}
                   pathImage={item.item.poster_path}
                   posterSize={'w92'}
-                  height={150}
+                  height={130}
                 />
-               
-               
               </View>
             )}
           />
-        </View>
+        
       </View>
     </>
   );
