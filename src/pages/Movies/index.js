@@ -1,18 +1,13 @@
-import {
-  View,
-  Modal,
-  Text,
-  TouchableOpacity,
-  Image,
-  FlatList,
-} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
+import React, {useState, useEffect, useContext} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/EvilIcons';
 import Feather from 'react-native-vector-icons/Feather';
-import {getCredits, getDetails} from '../../service/api';
+import {getCredits, getDetails, getRate} from '../../service/api';
 import styles from './styles';
 import Loading from '../../components/Loading';
 import ModalAvaluate from '../../components/ModalAvaluate';
+import {AuthContext} from '../../context/auth';
 
 export default function Movies({route, navigation}) {
   const id = route.params[0];
@@ -21,6 +16,10 @@ export default function Movies({route, navigation}) {
   const [cast, setCast] = useState(null);
   const [crew, setCrew] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [isRated, setIsRated] = useState(null);
+  const [moviesRated, setMoviesRated] = useState(null);
+  const [movieRated, setMovieRated] = useState({});
+  const {account, sessionId} = useContext(AuthContext);
 
   useEffect(() => {
     async function awaitGetDetails() {
@@ -47,6 +46,25 @@ export default function Movies({route, navigation}) {
     awaitGetCredits();
   }, [id]);
 
+  useEffect(() => {
+    async function awaitAvaluates() {
+      try {
+        const ratedMovies = await getRate(account.id, sessionId);
+
+        setIsRated(ratedMovies.map(movie => movie.id).includes(id));
+        setMoviesRated(ratedMovies);
+        setMovieRated(
+          ratedMovies.find(movie => {
+            return movie.id === id;
+          }),
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    awaitAvaluates();
+  }, [account.id, sessionId, id]);
+
   const renderItem = ({item}) => {
     return (
       <View style={styles.containerCast}>
@@ -69,7 +87,6 @@ export default function Movies({route, navigation}) {
       </View>
     );
   };
-
   const renderHeader = () => {
     return (
       <View style={styles.containerHeader}>
@@ -103,13 +120,38 @@ export default function Movies({route, navigation}) {
                 uri: `http://image.tmdb.org/t/p/w780/${details.poster_path}`,
               }}
             />
-            <TouchableOpacity
-              style={styles.evaluate}
-              onPress={() => {
-                setModalVisible(!modalVisible);
-              }}>
-              <Text style={styles.evaluate.text}>Avalie agora</Text>
-            </TouchableOpacity>
+
+            {isRated ? (
+              <View
+                style={[
+                  styles.rating,
+                  isRated && {backgroundColor: '#8BE0EC'},
+                ]}>
+                <Text style={[styles.ratingText]}>
+                  Sua nota: {movieRated.rating}/10
+                </Text>
+                <TouchableOpacity
+                  style={styles.ratingContainerIcon}
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                  }}>
+                  <Icon
+                    style={styles.ratingIcon}
+                    name="pencil"
+                    size={10}
+                    color="#000"
+                  />
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <TouchableOpacity
+                style={[styles.rating, isRated && {backgroundColor: '#E9A6A6'}]}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}>
+                <Text style={[styles.ratingText]}>AVALIE AGORA</Text>
+              </TouchableOpacity>
+            )}
           </View>
 
           <View style={styles.detaisMoviesTitle}>

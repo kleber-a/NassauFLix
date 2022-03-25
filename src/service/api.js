@@ -133,12 +133,28 @@ export async function getTvShows(page) {
   }
 }
 
-export async function postRateMovie(idType, sessionId, body) {
+export async function postRate(idType, sessionId, body) {
   try {
-    const {data} = await api.post(
+    await api.post(
       `movie/${idType}/rating?api_key=${apiKey}&session_id=${sessionId}`,
       body,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
     );
+  } catch (error) {
+    console.log(error.response.data);
+  }
+}
+
+export async function getRate(accountId, sessionId) {
+  try {
+    const {data} = await api.get(
+      `account/${accountId}/rated/movies?api_key=${apiKey}&session_id=${sessionId}`,
+    );
+    return data.results;
   } catch (error) {
     console.log(error);
   }

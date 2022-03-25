@@ -1,9 +1,9 @@
 import {View, Text, TextInput, TouchableOpacity, Modal} from 'react-native';
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import {AuthContext} from '../../context/auth';
-import {postRateMovie} from '../../service/api';
+import {postRate} from '../../service/api';
 
 export default function ModalAvaluate({
   modalIsVisible,
@@ -15,12 +15,7 @@ export default function ModalAvaluate({
   const {sessionId} = useContext(AuthContext);
 
   async function changeAvaluate() {
-    try {
-      await postRateMovie(idType, sessionId, avaluate);
-      // console.warn(idType, sessionId, avaluate);
-    } catch (error) {
-      console.log(error);
-    }
+    await postRate(idType, sessionId, avaluate);
   }
 
   return (
@@ -60,9 +55,7 @@ export default function ModalAvaluate({
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonOk}
-            onPress={() => {
-              changeAvaluate();
-            }}>
+            onPress={changeAvaluate() && onRequestClose}>
             <Text style={styles.buttonOk.text}>ok</Text>
           </TouchableOpacity>
         </View>
