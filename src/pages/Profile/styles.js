@@ -45,6 +45,10 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center'
   },
+  txtImageBoxPerfil:{
+    fontSize:50,
+    
+  },
   imageUserBoxPerfil:{
     width:78,
     height:78,

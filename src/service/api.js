@@ -143,12 +143,22 @@ export async function getRatedTvShow(accountId,sessionId) {
     console.log(error);
   }
 }
+export async function getFavoriteTvShow(accountId,sessionId) {
+  try {
+    const {data} = await api.get(
+      `/account/${accountId}/favorite/tv?api_key=${apiKey}&session_id=${sessionId}`,
+    );
+    return data.results;
+  } catch (error) {
+    console.log(error);
+  }
+}
 export async function getRatedMovies(accountId,sessionId) {
   try {
     const {data} = await api.get(
-      `/account/${accountId}/favorite/movies?api_key=${apiKey}&session_id=${sessionId}`,
+      `/account/${accountId}/rated/movies?api_key=${apiKey}&session_id=${sessionId}`,
     );
-    return data;
+    return data.results;
   } catch (error) {
     console.log(error);
   }
@@ -159,20 +169,11 @@ export async function getFavoriteMovies(accountId,sessionId) {
     const {data} = await api.get(
       `/account/${accountId}/favorite/movies?api_key=${apiKey}&session_id=${sessionId}`,
     );
-    return data;
+    return data.results;
   } catch (error) {
     console.log(error);
   }
 }
-export async function getFavoriteTvShow(accountId,sessionId) {
-  try {
-    const {data} = await api.get(
-      `/account/${accountId}/favorite/tv?api_key=${apiKey}&session_id=${sessionId}`,
-    );
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-}
+
 
 export default api;
