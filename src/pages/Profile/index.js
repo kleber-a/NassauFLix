@@ -15,7 +15,8 @@ import {
 } from '../../service/api';
 import MovieImage from '../../components/Movie/MovieImage';
 import MovieEvaluation from '../../components/Movie/MovieEvaluation';
-import VerifyName from '../../components/User/verifyName';
+import VerifyName from '../../components/User/VerifyName';
+import Loading from '../../components/Loading'
 
 export default function Profile() {
   const {account} = useContext(AuthContext);
@@ -43,7 +44,13 @@ export default function Profile() {
       setFavoriteTvShow(favoriteTvShow);
       const ratedTvShow = await getRatedTvShow(account.id, sessionId);
       setRatedTvShow(ratedTvShow);
-      setEvaluation(ratedMovies.length+ratedTvShow.length)
+      setEvaluation(ratedMovies.length + ratedTvShow.length);
+
+      setBtMovies(true);
+      setBtSeries(false);
+      setListF(favoriteMovies);
+      setListR(ratedMovies);
+      setNameList('Filmes');
     }
     awaitData();
   }, []);
@@ -62,28 +69,30 @@ export default function Profile() {
     setListR(ratedTvShow);
     setNameList('Séries');
   }
-
-  
-  
-
   return (
     <View style={styles.fullscreen}>
       <View style={styles.boxPerfil}>
         <TouchableOpacity
           onPress={() => {
-            getProfile();
+            console.warn('Sair')
           }}
           style={styles.buttonBoxExit}>
           <Exit size={10} name="exit-outline" />
           <Text style={styles.TextBoxExit}>Sair</Text>
         </TouchableOpacity>
-
-        <View style={styles.userBoxPerfil}>
+          {evaluation? 
+          <>
+          <View style={styles.userBoxPerfil}>
           <UserImg />
         </View>
-          <Text style={styles.nameBoxPerfil}><VerifyName/></Text>
+        <Text style={styles.nameBoxPerfil}>
+          <VerifyName />
+        </Text>
         <Text style={styles.valueBoxPerfil}>{evaluation}</Text>
-        <Text style={styles.evaluationBoxPerfil}>Avaliações</Text>
+        <Text style={styles.evaluationBoxPerfil}>Avaliações</Text> 
+        </>
+          : <Loading />}
+        
       </View>
 
       <View style={styles.boxButton}>
@@ -104,21 +113,18 @@ export default function Profile() {
         <View style={styles.favoritesListBoxList}>
           <View style={styles.boxFavoritesList}>
             <Text style={styles.textBoxFavoritesList}>
-              {nameList} favoritos de <VerifyName/>
+              {nameList} favoritos de <VerifyName />
             </Text>
             <TouchableOpacity style={styles.buttonBoxFavoritesList}>
               <Text style={styles.textButtonBoxFavoritesList}>Ver tudo</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.listBoxList}>
-            {listF &&
+            {listF? (
               listF.map((listF, index) =>
                 index <= 3 ? (
                   <TouchableOpacity
                     key={listF.id}
-                    onPress={() => {
-                      console.warn(profile);
-                    }}
                     style={styles.buttonListBoxList}>
                     <MovieImage
                       pathImage={listF.poster_path}
@@ -126,21 +132,22 @@ export default function Profile() {
                     />
                   </TouchableOpacity>
                 ) : null,
-              )}
+              )): <Loading />
+              }
           </View>
         </View>
 
         <View style={styles.evaluationListBoxList}>
           <View style={styles.boxFavoritesList}>
             <Text style={styles.textBoxFavoritesList}>
-              Avaliações de {nameList} recentes de <VerifyName/>
+              Avaliações de {nameList} recentes de <VerifyName />
             </Text>
             <TouchableOpacity style={styles.buttonBoxFavoritesList}>
               <Text style={styles.textButtonBoxFavoritesList}>Ver tudo</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.listBoxList}>
-            {listR &&
+            {listR ? (
               listR.map((listR, index) =>
                 index <= 3 ? (
                   <TouchableOpacity
@@ -153,7 +160,8 @@ export default function Profile() {
                     <MovieEvaluation votes={listR.vote_average} />
                   </TouchableOpacity>
                 ) : null,
-              )}
+              )) : <Loading />
+            }
           </View>
         </View>
       </View>
