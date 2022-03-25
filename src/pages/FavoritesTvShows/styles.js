@@ -60,10 +60,16 @@ const styles = StyleSheet.create({
         fontSize: 12,
       },
       Image:{
-         height:95,
+         height:75,
          width:75,
-         justifyContent: "center",
-         margin:"3%"
+         justifyContent:"center",
+      },
+      boxImage:{
+          alignItems:"center",
+          justifyContent:"center",
+          width:92,
+          height:170,
+          
       },
 
 });
