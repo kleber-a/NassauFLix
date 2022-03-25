@@ -109,7 +109,6 @@ const styles = StyleSheet.create({
 
   //----------
 
-  //52% usado da altura
 
   //Box List
   boxList: {

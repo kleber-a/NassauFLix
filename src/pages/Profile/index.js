@@ -7,12 +7,7 @@ import Exit from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-community/async-storage';
 import UserImg from '../../components/User/UserImg';
 import {AuthContext} from '../../context/auth';
-import {
-  getFavoriteMovies,
-  getFavoriteTvShow,
-  getRatedMovies,
-  getRatedTvShow,
-} from '../../service/api';
+import { getFavoriteMovies,getFavoriteTvShow,getRatedMovies,getRatedTvShow,} from '../../service/api';
 import MovieImage from '../../components/Movie/MovieImage';
 import MovieEvaluation from '../../components/Movie/MovieEvaluation';
 import VerifyName from '../../components/User/VerifyName';
@@ -20,14 +15,18 @@ import Loading from '../../components/Loading'
 
 export default function Profile() {
   const {account} = useContext(AuthContext);
+  const [evaluation, setEvaluation] = useState(null);
+
+  //Lista Favoritos e Avaliados
   const [listF, setListF] = useState(null);
   const [listR, setListR] = useState(null);
   const [nameList, setNameList] = useState(null);
 
-  const [evaluation, setEvaluation] = useState(null);
+  //Botão Movie e Séries
   const [btMovies, setBtMovies] = useState(false);
   const [btSeries, setBtSeries] = useState(false);
 
+  //Filmes e Séries Avaliados e Favoritos
   const [favoriteMovies, setFavoriteMovies] = useState(null);
   const [ratedMovies, setRatedMovies] = useState(null);
   const [favoriteTvShow, setFavoriteTvShow] = useState(null);
@@ -80,14 +79,15 @@ export default function Profile() {
           <Exit size={10} name="exit-outline" />
           <Text style={styles.TextBoxExit}>Sair</Text>
         </TouchableOpacity>
-          {evaluation? 
-          <>
+         
           <View style={styles.userBoxPerfil}>
           <UserImg />
         </View>
         <Text style={styles.nameBoxPerfil}>
           <VerifyName />
         </Text>
+        {evaluation? 
+          <>
         <Text style={styles.valueBoxPerfil}>{evaluation}</Text>
         <Text style={styles.evaluationBoxPerfil}>Avaliações</Text> 
         </>
