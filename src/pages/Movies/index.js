@@ -15,7 +15,8 @@ import Loading from '../../components/Loading';
 import ModalAvaluate from '../../components/ModalAvaluate';
 
 export default function Movies({route, navigation}) {
-  const id = route.params;
+  const id = route.params[0];
+  const type = route.params[1];
   const [details, setDetails] = useState([]);
   const [cast, setCast] = useState(null);
   const [crew, setCrew] = useState(null);
@@ -73,6 +74,8 @@ export default function Movies({route, navigation}) {
     return (
       <View style={styles.containerHeader}>
         <ModalAvaluate
+          type={type}
+          idType={id}
           modalIsVisible={modalVisible}
           onRequestClose={() => {
             setModalVisible(!modalVisible);

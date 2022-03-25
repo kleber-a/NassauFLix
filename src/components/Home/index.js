@@ -76,7 +76,7 @@ export default function Home({navigate, type}) {
       <TouchableOpacity
         style={styles.containerMovie}
         onPress={() => {
-          navigate.navigate(type, item.id);
+          navigate.navigate(type, [item.id, type]);
         }}>
         <View style={styles.styleApiMovie}>
           <MovieImage pathImage={item.poster_path} posterSize={'w92'} />

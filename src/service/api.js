@@ -132,4 +132,15 @@ export async function getTvShows(page) {
     console.log(error);
   }
 }
+
+export async function postRateMovie(idType, sessionId, body) {
+  try {
+    const {data} = await api.post(
+      `movie/${idType}/rating?api_key=${apiKey}&session_id=${sessionId}`,
+      body,
+    );
+  } catch (error) {
+    console.log(error);
+  }
+}
 export default api;
