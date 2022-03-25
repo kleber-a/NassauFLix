@@ -118,9 +118,9 @@ export default function Movies({route, navigation}) {
               <AntDesign name="heart" size={20} style={styles.heartIcon} />
             </View>
             <Text style={styles.liked}>
-              {Math.floor(details.popularity).toString().length > 3
-                ? Math.floor(details.popularity) + 'M'
-                : Math.floor(details.popularity) + 'K'}
+              {details && details.vote_count.toString().length > 3
+                ? `${(details.vote_count / 1000).toFixed(1)}K`
+                : details.vote_count}
             </Text>
           </View>
         </View>
