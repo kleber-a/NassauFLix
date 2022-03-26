@@ -1,20 +1,11 @@
 import React from 'react';
-<<<<<<< HEAD
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import StackDefault from './StackDefault.routes';
-import FavoriteMovies from '../pages/FavoriteMovies';
-import ButtonHome from '../components/ButtonHome';
-import ButtonPlay from '../components/ButtonPlay';
-import ButtonUser from '../components/ButtonUser';
-=======
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import ButtonHome from '../components/TabButtons/ButtonHome';
 import ButtonPlay from '../components/TabButtons/ButtonPlay';
 import ButtonUser from '../components/TabButtons/ButtonUser';
 import StackMovies from './StackMovies.routes';
 import StackTvShows from './StackTvShos.routes';
->>>>>>> devel
-
+import FavoriteMovies from '../pages/FavoriteMovies';
 const Tab = createBottomTabNavigator();
 
 function HomeTabScreen() {
@@ -33,13 +24,8 @@ function HomeTabScreen() {
         },
       }}>
       <Tab.Screen
-<<<<<<< HEAD
-        name="Play"
-        component={FavoriteMovies}
-=======
         name="StackTvShows"
         component={StackTvShows}
->>>>>>> devel
         options={{
           tabBarIcon: () => <ButtonPlay name="StackTvShows" />,
         }}
@@ -53,7 +39,7 @@ function HomeTabScreen() {
       />
       <Tab.Screen
         name="User"
-        component={StackMovies}
+        component={FavoriteMovies}
         options={{
           tabBarIcon: () => <ButtonUser name="User" />,
         }}

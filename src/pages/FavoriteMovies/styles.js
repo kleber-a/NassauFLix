@@ -48,12 +48,13 @@ const styles = StyleSheet.create({
     },
 
     boxImage: {
-        flex: 1,
+        flexGrow: 1,
         // backgroundColor: 'blue',
-        justifyContent: 'space-between',
-        height: 150,
-        width: '100%',
-        alignItems: 'center',
+        marginHorizontal: 4,
+        marginVertical: 4,
+        height: 120,
+        width: 76,
+
 
     },
     imageFlatList: {

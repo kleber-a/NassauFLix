@@ -6,7 +6,7 @@ import Loading from '../../components/Loading';
 import { getFavoriteMovie, getAccountDetails } from '../../service/api';
 import AsyncStorage from '@react-native-community/async-storage';
 import styles from './styles'
-
+import MovieImage from '../../components/Movie/MovieImage'
 export default function FavoriteMovies(navigation) {
 
     const [movies, setMovies] = useState()
@@ -39,7 +39,7 @@ export default function FavoriteMovies(navigation) {
             <View style={styles.BoxButtonAndText}>
                 <TouchableOpacity
                     style={styles.buttonBack}
-                // onPress={() => navigation.goBack()}
+                    onPress={() => navigation.goBack()}
                 >
                     <AntDesign name="arrowleft" size={25} style={{ color: 'black' }} />
                 </TouchableOpacity>
@@ -47,15 +47,17 @@ export default function FavoriteMovies(navigation) {
             </View>
         )
     };
+    /* <Image
+
+                  style={styles.imageFlatList}
+                  source={{
+                      uri: `http://image.tmdb.org/t/p/w92${item}`,
+                  }}
+              /> */
     const renderItem = ({ item }) => {
         return (
             <View style={styles.boxImage}>
-                <Image
-                    style={styles.imageFlatList}
-                    source={{
-                        uri: `http://image.tmdb.org/t/p/w92${item}`,
-                    }}
-                />
+                <MovieImage pathImage={item} posterSize={'w92'} />
             </View>
         )
     };
