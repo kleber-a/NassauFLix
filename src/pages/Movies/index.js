@@ -16,9 +16,9 @@ export default function Movies({route, navigation}) {
   const [cast, setCast] = useState(null);
   const [crew, setCrew] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [isRated, setIsRated] = useState(null);
+  const [isRated, setIsRated] = useState(false);
   const [moviesRated, setMoviesRated] = useState(null);
-  const [movieRated, setMovieRated] = useState({});
+  const [movieRated, setMovieRated] = useState(null);
   const {account, sessionId} = useContext(AuthContext);
 
   useEffect(() => {
@@ -48,15 +48,36 @@ export default function Movies({route, navigation}) {
 
   async function awaitAvaluates() {
     try {
-      const ratedMovies = await getRate(account.id, sessionId);
-
-      setIsRated(ratedMovies.map(movie => movie.id).includes(id));
-      setMoviesRated(ratedMovies);
-      setMovieRated(
-        ratedMovies.find(movie => {
-          return movie.id === id;
-        }),
-      );
+      let ratedMovies = await getRate(account.id, sessionId, 1);
+      if (
+        (ratedMovies.page =
+          ratedMovies.total_pages &&
+          ratedMovies.results.map(movie => movie.id).includes(id))
+      ) {
+        setIsRated(true);
+        setMovieRated(
+          ratedMovies.results.find(movie => {
+            return movie.id === id;
+          }),
+        );
+      } else if (ratedMovies.page < ratedMovies.total_pages) {
+        for (
+          let pages = 1;
+          ratedMovies.page < ratedMovies.total_pages;
+          pages++
+        ) {
+          ratedMovies = await getRate(account.id, sessionId, pages);
+          if (ratedMovies.results.map(movie => movie.id).includes(id)) {
+            setIsRated(true);
+            setMovieRated(
+              ratedMovies.results.find(movie => {
+                return movie.id === id;
+              }),
+            );
+            pages = 500;
+          }
+        }
+      }
     } catch (error) {
       console.log(error);
     }
@@ -64,7 +85,7 @@ export default function Movies({route, navigation}) {
 
   useEffect(() => {
     awaitAvaluates();
-  }, [id]);
+  }, []);
 
   const renderItem = ({item}) => {
     return (
@@ -97,6 +118,7 @@ export default function Movies({route, navigation}) {
           modalIsVisible={modalVisible}
           setModalVisible={setModalVisible}
           awaitAvaluates={awaitAvaluates}
+          setIsRated={setIsRated}
         />
         <Image
           style={styles.backGroundMovie}
@@ -120,7 +142,6 @@ export default function Movies({route, navigation}) {
                 uri: `http://image.tmdb.org/t/p/w780/${details.poster_path}`,
               }}
             />
-
             {isRated ? (
               <View
                 style={[
@@ -128,7 +149,7 @@ export default function Movies({route, navigation}) {
                   isRated && {backgroundColor: '#8BE0EC'},
                 ]}>
                 <Text style={[styles.ratingText]}>
-                  Sua nota: {movieRated.rating}/10
+                  Sua nota: {movieRated && movieRated.rating}/10
                 </Text>
                 <TouchableOpacity
                   style={styles.ratingContainerIcon}

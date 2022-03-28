@@ -149,12 +149,12 @@ export async function postRate(idType, sessionId, body) {
   }
 }
 
-export async function getRate(accountId, sessionId) {
+export async function getRate(accountId, sessionId, page) {
   try {
     const {data} = await api.get(
-      `account/${accountId}/rated/movies?api_key=${apiKey}&session_id=${sessionId}`,
+      `account/${accountId}/rated/movies?api_key=${apiKey}&session_id=${sessionId}&page=${page}`,
     );
-    return data.results;
+    return data;
   } catch (error) {
     console.log(error);
   }

@@ -1,11 +1,6 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  // containerTeste: {
-  //   flex: 1,
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  // },
   container: {
     top: 220,
     alignSelf: 'center',
@@ -91,6 +86,12 @@ const styles = StyleSheet.create({
       textTransform: 'uppercase',
       fontWeight: '700',
     },
+  },
+  textErrorModal: {
+    fontFamily: 'Open Sans',
+    fontSize: 11,
+    lineHeight: 12,
+    color: '#EC2626',
   },
 });
 export default styles;

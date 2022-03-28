@@ -1,5 +1,5 @@
 import {View, Text, TextInput, TouchableOpacity, Modal} from 'react-native';
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import {AuthContext} from '../../context/auth';
@@ -10,13 +10,22 @@ export default function ModalAvaluate({
   setModalVisible,
   idType,
   awaitAvaluates,
+  setIsRated,
 }) {
   const [avaluate, setAvaluate] = useState(null);
+  const [error, setError] = useState(false);
   const {sessionId} = useContext(AuthContext);
+
+  function handleError(value) {
+    const regexModal =
+      /^(?:[1-9]|0[1-9]|10)$|^[1-9]?[/.|/,][0|5]|^[0-9]?[/.|/,][5]/;
+    return !regexModal.test(value);
+  }
 
   async function changeAvaluate() {
     await postRate(idType, sessionId, avaluate);
-    awaitAvaluates();
+    await awaitAvaluates();
+    setIsRated(true);
   }
 
   return (
@@ -50,6 +59,11 @@ export default function ModalAvaluate({
           </View>
           <Text style={styles.inputText}> / 10</Text>
         </View>
+        {error && (
+          <Text style={styles.textErrorModal}>
+            A nota deve ser entre 0,5 a 10
+          </Text>
+        )}
         <View style={styles.buttons}>
           <TouchableOpacity
             style={styles.buttonCancel}
@@ -61,8 +75,9 @@ export default function ModalAvaluate({
           <TouchableOpacity
             style={styles.buttonOk}
             onPress={() => {
-              changeAvaluate();
-              setModalVisible(!modalIsVisible);
+              handleError(avaluate && avaluate.value)
+                ? setError(true)
+                : changeAvaluate() && setModalVisible(!modalIsVisible);
             }}>
             <Text style={styles.buttonOk.text}>ok</Text>
           </TouchableOpacity>
