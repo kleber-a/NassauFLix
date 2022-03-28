@@ -132,4 +132,15 @@ export async function getTvShows(page) {
     console.log(error);
   }
 }
+export async function getTvShowsSeasons(id) {
+  try {
+    const {data} = await api.get(
+      `/tv/158793/season/1?api_key=c3dc5cb91b1c309207a60a76c5742842`,
+    );
+    return data;
+  } catch (error) {
+    console.warn(error);
+  }
+}
+
 export default api;
