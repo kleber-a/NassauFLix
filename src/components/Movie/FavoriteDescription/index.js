@@ -1,29 +1,31 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import React, {useState, useEffect, useContext} from 'react';
+import {Text, TouchableOpacity} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import styles from './styles'
-import { AuthContext } from '../../context/auth';
-export default function FavoriteDescription({ type }) {
-    // const [name, setName] = useState(null);
-    // const { account } = useContext(AuthContext);
+import styles from './styles';
+import {AuthContext} from '../../../context/auth';
 
-    // useEffect(() => {
-    //     if (account.name) {
-    //         setName(account.name);
-    //     } else {
-    //         setName(account.username);
-    //     }
-    // }, [account]);
+export default function FavoriteDescription({navigation}) {
+  const [name, setName] = useState(null);
+  const {account} = useContext(AuthContext);
 
-    return (
-        <>
-            <TouchableOpacity
-                style={styles.buttonBack}
-                onPress={() => navigation.goBack()}
-            >
-                <AntDesign name="arrowleft" size={25} style={{ color: 'black' }} />
-            </TouchableOpacity>
-            <Text style={styles.containerText}>Filmes favoritos do <Text style={styles.userText}> felipe</Text></Text>
-        </>
-    )
-};
+  useEffect(() => {
+    if (account.name) {
+      setName(account.name);
+    } else {
+      setName(account.username);
+    }
+  }, [account]);
+
+  return (
+    <>
+      <TouchableOpacity
+        style={styles.buttonBack}
+        onPress={() => navigation.goBack()}>
+        <AntDesign name="arrowleft" size={25} style={{color: 'black'}} />
+      </TouchableOpacity>
+      <Text style={styles.containerText}>
+        Filmes favoritos do <Text style={styles.userText}>{name && name}</Text>
+      </Text>
+    </>
+  );
+}

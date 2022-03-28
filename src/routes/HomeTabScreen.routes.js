@@ -38,7 +38,7 @@ function HomeTabScreen() {
         }}
       />
       <Tab.Screen
-        name="User"
+        name="FavoriteMovies"
         component={FavoriteMovies}
         options={{
           tabBarIcon: () => <ButtonUser name="User" />,
