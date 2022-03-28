@@ -1,6 +1,6 @@
 import React from 'react';
-import Movies from '../pages/Movies';
 import HomeTvShows from '../pages/HomeTvShows';
+import TvShows from '../pages/TvShows';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -13,7 +13,7 @@ function StackTvShows() {
         headerShown: false,
       }}>
       <Stack.Screen name="HomeTvShows" component={HomeTvShows} />
-      <Stack.Screen name="Movies" component={Movies} />
+      <Stack.Screen name="TvShows" component={TvShows} />
     </Stack.Navigator>
   );
 }

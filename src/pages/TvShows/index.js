@@ -1,17 +1,16 @@
 import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {getCredits, getDetails} from '../../service/api';
-import styles from '../../TvShows/styles';
+import styles from './styles';
 import Loading from '../../components/Loading';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 
-export default function TvShow({}) {
+export default function TvShows({route, navigation}) {
   const id = route.params;
   const [details, setDetails] = useState([]);
   const [season_number, setSeasonNumber] = useState(null);
   const [episode_number, setEpisodeNumber] = useState(null);
-  
 
   useEffect(() => {
     async function awaitGetDetails() {
@@ -29,8 +28,9 @@ export default function TvShow({}) {
     async function awaitGetCredits() {
       try {
         const dataCredits = await getCredits(id);
-        setSeasonNumber(dataCredits.season_number);
-        setEpisodeNumber(dataCredits.episode_number);
+        console.warn(dataCredits);
+        setSeasonNumber(dataCredits.next_episode_to_air.season_number);
+        setEpisodeNumber(dataCredits.next_episode_to_air.episode_number);
       } catch (error) {
         console.warn(error);
       }
@@ -97,7 +97,6 @@ export default function TvShow({}) {
               </Text>{' '}
               <Text style={styles.timeTvShow}>{details.runtime} min</Text>
             </Text>
-    
           </View>
         </View>
 
@@ -129,8 +128,7 @@ export default function TvShow({}) {
           keyExtractor={(item, index) => index}
           renderItem={renderItem}
           ListHeaderComponent={renderHeader}
-        /> 
-
+        />
       ) : (
         <Loading />
       )}
