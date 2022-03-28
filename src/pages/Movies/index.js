@@ -13,8 +13,12 @@ export default function Movies({ route, navigation }) {
   const [details, setDetails] = useState([]);
   const [cast, setCast] = useState(null);
   const [crew, setCrew] = useState(null);
-  const [clickOn, setClickOn] = useState(false);
-  const [favorite, setFavorite] = useState(true);
+  const [clickOn, setClickOn] = useState({
+    media_type: "movie",
+    media_id: id,
+    favorite: favorite && (favorite === true)
+  });
+  const [favorite, setFavorite] = useState(false);
 
   let dataFavorite = {
     media_type: "movie",
@@ -24,11 +28,10 @@ export default function Movies({ route, navigation }) {
 
   async function awaitFavoriteMovies(bodyfavorite) {
     try {
-
       const sessionId = await AsyncStorage.getItem('@CodeApi:session')
       const accountId = await getAccountDetails(sessionId)
       postFavoriteMovie(accountId.id, sessionId, bodyfavorite);
-      setClickOn(!clickOn)
+      setClickOn(!favorite)
       setFavorite(!favorite)
     } catch (error) {
       console.warn(error);
@@ -100,10 +103,10 @@ export default function Movies({ route, navigation }) {
 
         <TouchableOpacity
           style={clickOn ? styles.containerButtonStarOn : styles.containerButtonStar}
-         
-         onPress={() => awaitFavoriteMovies(dataFavorite)}>
 
-          <Feather name="star" size={25} style={styles.buttonStar}  />
+          onPress={() => awaitFavoriteMovies(dataFavorite)}>
+
+          <Feather name="star" size={25} style={styles.buttonStar} />
         </TouchableOpacity>
 
         <View style={styles.detailsMovies}>

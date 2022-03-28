@@ -1,18 +1,30 @@
 import { NavigationContainer } from '@react-navigation/native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext, AuthContext } from 'react';
 import { View, FlatList, Text, TouchableOpacity, Image } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Loading from '../../components/Loading';
 import { getFavoriteMovie, getAccountDetails } from '../../service/api';
 import AsyncStorage from '@react-native-community/async-storage';
-import styles from './styles'
+import FavoriteDescription from '../../components/Movie/FavoriteDescription';
 import MovieImage from '../../components/Movie/MovieImage'
+import styles from './styles'
 export default function FavoriteMovies(navigation) {
 
     const [movies, setMovies] = useState()
     const [state, setState] = useState({
         isFetching: false,
     })
+
+    const [name, setName] = useState(null);
+    const { account } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (account.name) {
+            setName(account.name);
+        } else {
+            setName(account.username);
+        }
+    }, [account]);
 
 
     function onRefresh() {
@@ -26,34 +38,20 @@ export default function FavoriteMovies(navigation) {
             const data = await getFavoriteMovie(accountId.id, sessionId);
             const result = data.map(data => data.poster_path)
             setMovies(result)
-            console.log(result)
         } catch (error) {
             console.warn(error);
         }
     }
     awaitFavoriteMovies();
 
-
     const renderHeader = () => {
         return (
             <View style={styles.BoxButtonAndText}>
-                <TouchableOpacity
-                    style={styles.buttonBack}
-                    onPress={() => navigation.goBack()}
-                >
-                    <AntDesign name="arrowleft" size={25} style={{ color: 'black' }} />
-                </TouchableOpacity>
-                <Text style={styles.containerText}>Filmes favoritos do <Text style={styles.userText}>JOHN!</Text></Text>
+                <FavoriteDescription />
             </View>
         )
     };
-    /* <Image
 
-                  style={styles.imageFlatList}
-                  source={{
-                      uri: `http://image.tmdb.org/t/p/w92${item}`,
-                  }}
-              /> */
     const renderItem = ({ item }) => {
         return (
             <View style={styles.boxImage}>
