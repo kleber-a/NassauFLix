@@ -46,24 +46,25 @@ export default function Movies({route, navigation}) {
     awaitGetCredits();
   }, [id]);
 
-  useEffect(() => {
-    async function awaitAvaluates() {
-      try {
-        const ratedMovies = await getRate(account.id, sessionId);
+  async function awaitAvaluates() {
+    try {
+      const ratedMovies = await getRate(account.id, sessionId);
 
-        setIsRated(ratedMovies.map(movie => movie.id).includes(id));
-        setMoviesRated(ratedMovies);
-        setMovieRated(
-          ratedMovies.find(movie => {
-            return movie.id === id;
-          }),
-        );
-      } catch (error) {
-        console.log(error);
-      }
+      setIsRated(ratedMovies.map(movie => movie.id).includes(id));
+      setMoviesRated(ratedMovies);
+      setMovieRated(
+        ratedMovies.find(movie => {
+          return movie.id === id;
+        }),
+      );
+    } catch (error) {
+      console.log(error);
     }
+  }
+
+  useEffect(() => {
     awaitAvaluates();
-  }, [account.id, sessionId, id]);
+  }, [id]);
 
   const renderItem = ({item}) => {
     return (
@@ -94,9 +95,8 @@ export default function Movies({route, navigation}) {
           type={type}
           idType={id}
           modalIsVisible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}
+          setModalVisible={setModalVisible}
+          awaitAvaluates={awaitAvaluates}
         />
         <Image
           style={styles.backGroundMovie}

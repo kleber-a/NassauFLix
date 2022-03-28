@@ -7,15 +7,16 @@ import {postRate} from '../../service/api';
 
 export default function ModalAvaluate({
   modalIsVisible,
-  onRequestClose,
-  type,
+  setModalVisible,
   idType,
+  awaitAvaluates,
 }) {
   const [avaluate, setAvaluate] = useState(null);
   const {sessionId} = useContext(AuthContext);
 
   async function changeAvaluate() {
     await postRate(idType, sessionId, avaluate);
+    awaitAvaluates();
   }
 
   return (
@@ -23,7 +24,9 @@ export default function ModalAvaluate({
       animationType="fade"
       transparent={true}
       visible={modalIsVisible}
-      onRequestClose={onRequestClose}>
+      onRequestClose={() => {
+        setModalVisible(!modalIsVisible);
+      }}>
       <View style={styles.container}>
         <Text style={styles.textAvaluate}>Faça a sua avaliação!</Text>
         <View style={styles.inputGroup}>
@@ -40,7 +43,7 @@ export default function ModalAvaluate({
               maxLength={3}
               onChangeText={value => {
                 setAvaluate({
-                  value: parseInt(value),
+                  value: parseFloat(value),
                 });
               }}
             />
@@ -50,12 +53,17 @@ export default function ModalAvaluate({
         <View style={styles.buttons}>
           <TouchableOpacity
             style={styles.buttonCancel}
-            onPress={onRequestClose}>
+            onPress={() => {
+              setModalVisible(!modalIsVisible);
+            }}>
             <Text style={styles.buttonCancel.text}>cancelar</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonOk}
-            onPress={changeAvaluate() && onRequestClose}>
+            onPress={() => {
+              changeAvaluate();
+              setModalVisible(!modalIsVisible);
+            }}>
             <Text style={styles.buttonOk.text}>ok</Text>
           </TouchableOpacity>
         </View>
