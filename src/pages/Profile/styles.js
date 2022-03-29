@@ -18,21 +18,19 @@ const styles = StyleSheet.create({
   //Button Exit-------------
   buttonExitPerfil: {
     width: 50,
-    height:14,
+    height: 14,
     backgroundColor: '#E9A6A6',
-    alignSelf:'flex-end',
+    alignSelf: 'flex-end',
     top: 20,
     borderRadius: 20,
-    marginRight:20,
-    flexDirection:'row',
-    justifyContent:'space-around'
-    
+    marginRight: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
-  TextExitPerfil:{
-    fontSize:10,
-    fontWeight:'600'
+  TextExitPerfil: {
+    fontSize: 10,
+    fontWeight: '600',
   },
-
 
   //End Button Exit-------
 
@@ -42,8 +40,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 40,
     marginTop: 15,
-    alignItems:'center',
-    justifyContent:'center'
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   namePerfil: {
@@ -57,7 +55,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginTop: 20,
     color: '#9C4A8B',
-    fontFamily: 'open sans'
+    fontFamily: 'open sans',
   },
 
   evaluationPerfil: {
@@ -100,7 +98,6 @@ const styles = StyleSheet.create({
 
   //----------
 
-
   //Container List
   containerList: {
     height: '54%',
@@ -108,22 +105,24 @@ const styles = StyleSheet.create({
   },
 
   boxListMovie: {
-    width: '100%',
-    height: '50%',
+    paddingTop: 5,
+    alignSelf: 'center',
+    width: '90%',
+    height: '45%',
   },
   description: {
     width: '100%',
     height: '14%',
     backgroundColor: 'black',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     paddingTop: 10,
+    paddingHorizontal: 10,
   },
   textDescription: {
     fontSize: 10,
     fontWeight: '800',
     color: '#FFFFFF',
-    paddingEnd: 100,
   },
   buttonDescription: {
     height: 15,
@@ -136,12 +135,11 @@ const styles = StyleSheet.create({
   listFavorites: {
     flexDirection: 'row',
     paddingVertical: 20,
-    alignSelf:'center',
+    alignSelf: 'center',
     flexWrap: 'wrap',
-    justifyContent:'space-evenly'
-    
+    justifyContent: 'space-evenly',
   },
-  buttonListFavorites:{
+  buttonListFavorites: {
     width: 67,
     height: 89,
     backgroundColor: 'white',
@@ -150,18 +148,21 @@ const styles = StyleSheet.create({
   },
   //-----------------------
   boxListTvShow: {
+    alignSelf: 'center',
+    paddingHorizontal: '5%',
+    paddingTop: 5,
     width: '100%',
-    height: '50%',
+    height: '55%',
     borderTopWidth: 1,
     borderTopColor: '#FFFFFF30',
   },
   listRated: {
     flexDirection: 'row',
     paddingVertical: 20,
-    alignSelf:'center',
+    alignSelf: 'center',
     flexWrap: 'wrap',
   },
-  buttonListTvShow:{
+  buttonListTvShow: {
     width: 58,
     height: 82,
     backgroundColor: 'white',
