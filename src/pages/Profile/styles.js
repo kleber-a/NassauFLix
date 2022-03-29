@@ -45,15 +45,6 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center'
   },
-  txtImageBoxPerfil:{
-    fontSize:50,
-    
-  },
-  imageUserBoxPerfil:{
-    width:78,
-    height:78,
-    borderRadius:40
-  },
 
   namePerfil: {
     fontSize: 18,
@@ -84,7 +75,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
-  button1Container: {
+  buttonMovieContainer: {
     backgroundColor: 'black',
     width: '50%',
     height: '100%',
@@ -95,7 +86,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  button2Container: {
+  buttonTvShowContainer: {
     backgroundColor: 'black',
     width: '50%',
     height: '100%',
@@ -110,17 +101,17 @@ const styles = StyleSheet.create({
   //----------
 
 
-  //Box List
-  List: {
+  //Container List
+  containerList: {
     height: '54%',
     width: '100%',
   },
 
-  containerFavorite: {
+  boxListMovie: {
     width: '100%',
     height: '50%',
   },
-  boxList: {
+  description: {
     width: '100%',
     height: '14%',
     backgroundColor: 'black',
@@ -128,46 +119,57 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     paddingTop: 10,
   },
-  textBoxList: {
+  textDescription: {
     fontSize: 10,
     fontWeight: '800',
     color: '#FFFFFF',
     paddingEnd: 100,
   },
-  buttonBoxList: {
+  buttonDescription: {
     height: 15,
   },
-
-  textButtonBoxList: {
+  textButtonDescription: {
     color: '#E9A6A6',
     fontSize: 9,
     fontWeight: '600',
   },
-
-  listBoxList: {
+  listFavorites: {
     flexDirection: 'row',
     paddingVertical: 20,
     alignSelf:'center',
     flexWrap: 'wrap',
+    justifyContent:'space-evenly'
     
   },
-
-  buttonList:{
-    width: 62,
-    height: 93,
+  buttonListFavorites:{
+    width: 67,
+    height: 89,
     backgroundColor: 'white',
     marginHorizontal: 10,
     borderRadius: 10,
   },
-
-  evaluationContainerList: {
+  //-----------------------
+  boxListTvShow: {
     width: '100%',
     height: '50%',
     borderTopWidth: 1,
     borderTopColor: '#FFFFFF30',
   },
+  listRated: {
+    flexDirection: 'row',
+    paddingVertical: 20,
+    alignSelf:'center',
+    flexWrap: 'wrap',
+  },
+  buttonListTvShow:{
+    width: 58,
+    height: 82,
+    backgroundColor: 'white',
+    marginHorizontal: 5,
+    borderRadius: 10,
+  },
 
-  //End Box List
+  //End Container List
 });
 
 export default styles;

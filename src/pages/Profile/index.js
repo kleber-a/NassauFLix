@@ -96,35 +96,36 @@ export default function Profile() {
 
       <View style={styles.containerButton}>
         <TouchableOpacity
-          style={styles.button1Container}
+          style={styles.buttonMovieContainer}
           onPress={() => selectionButtonMovie()}>
           <ButtonMovie loading={btMovies} />
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.button2Container}
+          style={styles.buttonTvShowContainer}
           onPress={() => selectionButtonSeries()}>
           <ButtonSeries loading1={btSeries} />
         </TouchableOpacity>
       </View>
 
-      <View style={styles.List}>
-        <View style={styles.containerFavorite}>
-          <View style={styles.boxList}>
-            <Text style={styles.textBoxList}>
+      <View style={styles.containerList}>
+       
+        <View style={styles.boxListMovie}>
+          <View style={styles.description}>
+            <Text style={styles.textDescription}>
               {nameList} favoritos de <VerifyName />
             </Text>
-            <TouchableOpacity style={styles.buttonBoxList}>
-              <Text style={styles.textButtonBoxList}>Ver tudo</Text>
+            <TouchableOpacity style={styles.buttonDescription}>
+              <Text style={styles.textButtonDescription}>Ver tudo</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.listBoxList}>
+          <View style={styles.listFavorites}>
             {listFavorites? (
               listFavorites.map((listFavorites, index) =>
                 index <= 3 ? (
                   <TouchableOpacity
                     key={listFavorites.id}
-                    style={styles.buttonList}>
+                    style={styles.buttonListFavorites}>
                     <MovieImage
                       pathImage={listFavorites.poster_path}
                       posterSize={'w92'}
@@ -136,22 +137,22 @@ export default function Profile() {
           </View>
         </View>
 
-        <View style={styles.evaluationContainerList}>
-          <View style={styles.boxList}>
-            <Text style={styles.textBoxList}>
+        <View style={styles.boxListTvShow}>
+          <View style={styles.description}>
+            <Text style={styles.textDescription}>
               Avaliações de {nameList} recentes de <VerifyName />
             </Text>
-            <TouchableOpacity style={styles.buttonBoxList}>
-              <Text style={styles.textButtonBoxList}>Ver tudo</Text>
+            <TouchableOpacity style={styles.buttonDescription}>
+              <Text style={styles.textButtonDescription}>Ver tudo</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.listBoxList}>
+          <View style={styles.listRated}>
             {listRated ? (
               listRated.map((listRated, index) =>
-                index <= 3 ? (
+                index <= 4 ? (
                   <TouchableOpacity
                     key={listRated.id}
-                    style={styles.buttonList}>
+                    style={styles.buttonListTvShow}>
                     <MovieImage
                       pathImage={listRated.poster_path}
                       posterSize={'w92'}
