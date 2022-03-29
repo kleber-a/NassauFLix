@@ -9,14 +9,14 @@ const styles = StyleSheet.create({
   },
 
   //Box Perfil
-  boxPerfil: {
+  Perfil: {
     width: '100%',
     height: '36%',
     alignItems: 'center',
   },
 
-  //Box Exit-------------
-  buttonBoxExit: {
+  //Button Exit-------------
+  buttonExitPerfil: {
     width: 50,
     height:14,
     backgroundColor: '#E9A6A6',
@@ -28,15 +28,15 @@ const styles = StyleSheet.create({
     justifyContent:'space-around'
     
   },
-  TextBoxExit:{
+  TextExitPerfil:{
     fontSize:10,
     fontWeight:'600'
   },
 
 
-  //End Box Exit-------
+  //End Button Exit-------
 
-  userBoxPerfil: {
+  userPerfil: {
     width: 78,
     height: 78,
     backgroundColor: 'white',
@@ -55,13 +55,13 @@ const styles = StyleSheet.create({
     borderRadius:40
   },
 
-  nameBoxPerfil: {
+  namePerfil: {
     fontSize: 18,
     fontWeight: '700',
     color: 'white',
   },
 
-  valueBoxPerfil: {
+  valuePerfil: {
     fontSize: 24,
     fontWeight: '700',
     marginTop: 20,
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     fontFamily: 'open sans'
   },
 
-  evaluationBoxPerfil: {
+  evaluationPerfil: {
     fontSize: 11,
     fontWeight: '400',
     color: 'white',
@@ -77,14 +77,14 @@ const styles = StyleSheet.create({
   //Fim Box Perfil
 
   //Box Button
-  boxButton: {
+  containerButton: {
     width: '100%',
     height: '10%',
     backgroundColor: 'black',
     flexDirection: 'row',
   },
 
-  button1BoxButton: {
+  button1Container: {
     backgroundColor: 'black',
     width: '50%',
     height: '100%',
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  button2BoxButton: {
+  button2Container: {
     backgroundColor: 'black',
     width: '50%',
     height: '100%',
@@ -111,16 +111,16 @@ const styles = StyleSheet.create({
 
 
   //Box List
-  boxList: {
+  List: {
     height: '54%',
     width: '100%',
   },
 
-  favoritesListBoxList: {
+  containerFavorite: {
     width: '100%',
     height: '50%',
   },
-  boxFavoritesList: {
+  boxList: {
     width: '100%',
     height: '14%',
     backgroundColor: 'black',
@@ -128,17 +128,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     paddingTop: 10,
   },
-  textBoxFavoritesList: {
+  textBoxList: {
     fontSize: 10,
     fontWeight: '800',
     color: '#FFFFFF',
     paddingEnd: 100,
   },
-  buttonBoxFavoritesList: {
+  buttonBoxList: {
     height: 15,
   },
 
-  textButtonBoxFavoritesList: {
+  textButtonBoxList: {
     color: '#E9A6A6',
     fontSize: 9,
     fontWeight: '600',
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     
   },
 
-  buttonListBoxList:{
+  buttonList:{
     width: 62,
     height: 93,
     backgroundColor: 'white',
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 
-  evaluationListBoxList: {
+  evaluationContainerList: {
     width: '100%',
     height: '50%',
     borderTopWidth: 1,

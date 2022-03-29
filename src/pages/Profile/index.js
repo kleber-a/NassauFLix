@@ -14,12 +14,12 @@ import VerifyName from '../../components/User/VerifyName';
 import Loading from '../../components/Loading'
 
 export default function Profile() {
-  const {account} = useContext(AuthContext);
+  const {account,sessionId} = useContext(AuthContext);
   const [evaluation, setEvaluation] = useState(null);
 
   //Lista Favoritos e Avaliados
-  const [listF, setListF] = useState(null);
-  const [listR, setListR] = useState(null);
+  const [listFavorites, setListFavorites] = useState(null);
+  const [listRated, setListRated] = useState(null);
   const [nameList, setNameList] = useState(null);
 
   //Botão Movie e Séries
@@ -34,7 +34,6 @@ export default function Profile() {
 
   useEffect(() => {
     async function awaitData() {
-      const sessionId = await AsyncStorage.getItem('@CodeApi:session');
       const favoriteMovies = await getFavoriteMovies(account.id, sessionId);
       setFavoriteMovies(favoriteMovies);
       const ratedMovies = await getRatedMovies(account.id, sessionId);
@@ -47,8 +46,8 @@ export default function Profile() {
 
       setBtMovies(true);
       setBtSeries(false);
-      setListF(favoriteMovies);
-      setListR(ratedMovies);
+      setListFavorites(favoriteMovies);
+      setListRated(ratedMovies);
       setNameList('Filmes');
     }
     awaitData();
@@ -57,77 +56,77 @@ export default function Profile() {
   function selectionButtonMovie() {
     setBtMovies(true);
     setBtSeries(false);
-    setListF(favoriteMovies);
-    setListR(ratedMovies);
+    setListFavorites(favoriteMovies);
+    setListRated(ratedMovies);
     setNameList('Filmes');
   }
   function selectionButtonSeries() {
     setBtSeries(true);
     setBtMovies(false);
-    setListF(favoriteTvShow);
-    setListR(ratedTvShow);
+    setListFavorites(favoriteTvShow);
+    setListRated(ratedTvShow);
     setNameList('Séries');
   }
   return (
     <View style={styles.fullscreen}>
-      <View style={styles.boxPerfil}>
+      <View style={styles.Perfil}>
         <TouchableOpacity
           onPress={() => {
             console.warn('Sair')
           }}
-          style={styles.buttonBoxExit}>
+          style={styles.buttonExitPerfil}>
           <Exit size={10} name="exit-outline" />
-          <Text style={styles.TextBoxExit}>Sair</Text>
+          <Text style={styles.TextExitPerfil}>Sair</Text>
         </TouchableOpacity>
          
-          <View style={styles.userBoxPerfil}>
+          <View style={styles.userPerfil}>
           <UserImg />
         </View>
-        <Text style={styles.nameBoxPerfil}>
+        <Text style={styles.namePerfil}>
           <VerifyName />
         </Text>
         {evaluation? 
           <>
-        <Text style={styles.valueBoxPerfil}>{evaluation}</Text>
-        <Text style={styles.evaluationBoxPerfil}>Avaliações</Text> 
+        <Text style={styles.valuePerfil}>{evaluation}</Text>
+        <Text style={styles.evaluationPerfil}>Avaliações</Text> 
         </>
           : <Loading />}
         
       </View>
 
-      <View style={styles.boxButton}>
+      <View style={styles.containerButton}>
         <TouchableOpacity
-          style={styles.button1BoxButton}
+          style={styles.button1Container}
           onPress={() => selectionButtonMovie()}>
           <ButtonMovie loading={btMovies} />
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.button2BoxButton}
+          style={styles.button2Container}
           onPress={() => selectionButtonSeries()}>
           <ButtonSeries loading1={btSeries} />
         </TouchableOpacity>
       </View>
 
-      <View style={styles.boxList}>
-        <View style={styles.favoritesListBoxList}>
-          <View style={styles.boxFavoritesList}>
-            <Text style={styles.textBoxFavoritesList}>
+      <View style={styles.List}>
+        <View style={styles.containerFavorite}>
+          <View style={styles.boxList}>
+            <Text style={styles.textBoxList}>
               {nameList} favoritos de <VerifyName />
             </Text>
-            <TouchableOpacity style={styles.buttonBoxFavoritesList}>
-              <Text style={styles.textButtonBoxFavoritesList}>Ver tudo</Text>
+            <TouchableOpacity style={styles.buttonBoxList}>
+              <Text style={styles.textButtonBoxList}>Ver tudo</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.listBoxList}>
-            {listF? (
-              listF.map((listF, index) =>
+            {listFavorites? (
+              listFavorites.map((listFavorites, index) =>
                 index <= 3 ? (
                   <TouchableOpacity
-                    key={listF.id}
-                    style={styles.buttonListBoxList}>
+                    key={listFavorites.id}
+                    style={styles.buttonList}>
                     <MovieImage
-                      pathImage={listF.poster_path}
+                      pathImage={listFavorites.poster_path}
                       posterSize={'w92'}
                     />
                   </TouchableOpacity>
@@ -137,27 +136,27 @@ export default function Profile() {
           </View>
         </View>
 
-        <View style={styles.evaluationListBoxList}>
-          <View style={styles.boxFavoritesList}>
-            <Text style={styles.textBoxFavoritesList}>
+        <View style={styles.evaluationContainerList}>
+          <View style={styles.boxList}>
+            <Text style={styles.textBoxList}>
               Avaliações de {nameList} recentes de <VerifyName />
             </Text>
-            <TouchableOpacity style={styles.buttonBoxFavoritesList}>
-              <Text style={styles.textButtonBoxFavoritesList}>Ver tudo</Text>
+            <TouchableOpacity style={styles.buttonBoxList}>
+              <Text style={styles.textButtonBoxList}>Ver tudo</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.listBoxList}>
-            {listR ? (
-              listR.map((listR, index) =>
+            {listRated ? (
+              listRated.map((listRated, index) =>
                 index <= 3 ? (
                   <TouchableOpacity
-                    key={listR.id}
-                    style={styles.buttonListBoxList}>
+                    key={listRated.id}
+                    style={styles.buttonList}>
                     <MovieImage
-                      pathImage={listR.poster_path}
+                      pathImage={listRated.poster_path}
                       posterSize={'w92'}
                     />
-                    <MovieEvaluation votes={listR.vote_average} />
+                    <MovieEvaluation votes={listRated.vote_average} />
                   </TouchableOpacity>
                 ) : null,
               )) : <Loading />
