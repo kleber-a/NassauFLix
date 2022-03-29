@@ -9,55 +9,56 @@ const styles = StyleSheet.create({
   },
 
   //Box Perfil
-  boxPerfil: {
+  Perfil: {
     width: '100%',
     height: '36%',
     alignItems: 'center',
   },
 
-  //Box Exit-------------
-  buttonBoxExit: {
+  //Button Exit-------------
+  buttonExitPerfil: {
     width: 50,
-    height:14,
+    height: 14,
     backgroundColor: '#E9A6A6',
-    alignSelf:'flex-end',
+    alignSelf: 'flex-end',
     top: 20,
     borderRadius: 20,
-    marginRight:20,
-    flexDirection:'row',
-    justifyContent:'space-around'
-    
+    marginRight: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
-  TextBoxExit:{
-    fontSize:10,
-    fontWeight:'600'
+  TextExitPerfil: {
+    fontSize: 10,
+    fontWeight: '600',
   },
 
+  //End Button Exit-------
 
-  //End Box Exit-------
-
-  userBoxPerfil: {
+  userPerfil: {
     width: 78,
     height: 78,
     backgroundColor: 'white',
     borderRadius: 40,
     marginTop: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
-  nameBoxPerfil: {
+  namePerfil: {
     fontSize: 18,
     fontWeight: '700',
     color: 'white',
   },
 
-  valueBoxPerfil: {
+  valuePerfil: {
     fontSize: 24,
     fontWeight: '700',
     marginTop: 20,
-    color: 'white',
+    color: '#9C4A8B',
+    fontFamily: 'open sans',
   },
 
-  evaluationBoxPerfil: {
+  evaluationPerfil: {
     fontSize: 11,
     fontWeight: '400',
     color: 'white',
@@ -65,14 +66,14 @@ const styles = StyleSheet.create({
   //Fim Box Perfil
 
   //Box Button
-  boxButton: {
+  containerButton: {
     width: '100%',
     height: '10%',
     backgroundColor: 'black',
     flexDirection: 'row',
   },
 
-  button1BoxButton: {
+  buttonMovieContainer: {
     backgroundColor: 'black',
     width: '50%',
     height: '100%',
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  button2BoxButton: {
+  buttonTvShowContainer: {
     backgroundColor: 'black',
     width: '50%',
     height: '100%',
@@ -97,66 +98,79 @@ const styles = StyleSheet.create({
 
   //----------
 
-  //52% usado da altura
-
-  //Box List
-  boxList: {
+  //Container List
+  containerList: {
     height: '54%',
     width: '100%',
   },
 
-  favoritesListBoxList: {
-    width: '100%',
-    height: '50%',
+  boxListMovie: {
+    paddingTop: 5,
+    alignSelf: 'center',
+    width: '90%',
+    height: '45%',
   },
-  boxFavoritesList: {
+  description: {
     width: '100%',
     height: '14%',
     backgroundColor: 'black',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     paddingTop: 10,
+    paddingHorizontal: 10,
   },
-  textBoxFavoritesList: {
+  textDescription: {
     fontSize: 10,
     fontWeight: '800',
     color: '#FFFFFF',
-    paddingEnd: 100,
   },
-  buttonBoxFavoritesList: {
+  buttonDescription: {
     height: 15,
   },
-
-  textButtonBoxFavoritesList: {
+  textButtonDescription: {
     color: '#E9A6A6',
     fontSize: 9,
     fontWeight: '600',
   },
-
-  listBoxList: {
+  listFavorites: {
     flexDirection: 'row',
     paddingVertical: 20,
-    alignSelf:'center',
+    alignSelf: 'center',
     flexWrap: 'wrap',
-    
+    justifyContent: 'space-evenly',
   },
-
-  buttonListBoxList:{
-    width: 62,
-    height: 93,
+  buttonListFavorites: {
+    width: 67,
+    height: 89,
     backgroundColor: 'white',
     marginHorizontal: 10,
     borderRadius: 10,
   },
-
-  evaluationListBoxList: {
+  //-----------------------
+  boxListTvShow: {
+    alignSelf: 'center',
+    paddingHorizontal: '5%',
+    paddingTop: 5,
     width: '100%',
-    height: '50%',
+    height: '55%',
     borderTopWidth: 1,
     borderTopColor: '#FFFFFF30',
   },
+  listRated: {
+    flexDirection: 'row',
+    paddingVertical: 20,
+    alignSelf: 'center',
+    flexWrap: 'wrap',
+  },
+  buttonListTvShow: {
+    width: 58,
+    height: 82,
+    backgroundColor: 'white',
+    marginHorizontal: 5,
+    borderRadius: 10,
+  },
 
-  //End Box List
+  //End Container List
 });
 
 export default styles;

@@ -132,4 +132,28 @@ export async function getTvShows(page) {
     console.log(error);
   }
 }
+
+
+export async function getFRTvShow(accountId,sessionId,name) {
+  try {
+    const {data} = await api.get(
+      `/account/${accountId}/${name}/tv?api_key=${apiKey}&session_id=${sessionId}`,
+    );
+    return data.results;
+  } catch (error) {
+    console.log(error);
+  }
+}
+export async function getFRMovies(accountId,sessionId,name) {
+  try {
+    const {data} = await api.get(
+      `/account/${accountId}/${name}/movies?api_key=${apiKey}&session_id=${sessionId}`,
+    );
+    return data.results;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
 export default api;

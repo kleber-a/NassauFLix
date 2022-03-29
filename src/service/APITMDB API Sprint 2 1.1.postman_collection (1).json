@@ -232,7 +232,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {	
+						"url": {
 							"raw": "{{API_URL}}/account/ACCOUNT_ID/favorite/movies?api_key={{api_key}}&session_id=SESSION_ID",
 							"host": [
 								"{{API_URL}}"
