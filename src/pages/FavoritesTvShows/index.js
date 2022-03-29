@@ -7,6 +7,7 @@ import {getAccountDetails, getFavoritesTvShows} from '../../service/api';
 import AsyncStorage from '@react-native-community/async-storage';
 import MovieImage from '../../components/Movie/MovieImage';
 import {AuthContext} from '../../context/auth';
+import ButtonReturn from '../../components/ButtonReturn';
 
 export default function FavoritesTvShows({navigation}) {
   const lista = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
@@ -43,11 +44,7 @@ export default function FavoritesTvShows({navigation}) {
   return (
     <>
       <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.return}
-          onPress={() => navigation.goBack()}>
-          <AntDesign style={styles.button} name="arrowleft" size={25} />
-        </TouchableOpacity>
+        <ButtonReturn navigation={navigation} />
         <View style={styles.boxHeader}>
           <Text style={styles.textFavoritesTvShow}>
             Séries favoritas do <Text style={{color: 'pink'}}>{name}!</Text>

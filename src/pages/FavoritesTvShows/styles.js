@@ -17,20 +17,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  return: {
-    backgroundColor: '#ffffff',
-    borderRadius: 15,
-    width: 30,
-    height: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 25,
-    left: 15,
-  },
-  button: {
-    color: '#000000',
-  },
-
   Image: {
     height: 75,
     width: 75,
