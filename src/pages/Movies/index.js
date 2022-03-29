@@ -1,40 +1,48 @@
-import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
+import React, {useState, useEffect, useContext} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Feather from 'react-native-vector-icons/Feather';
-import { getCredits, getDetails, postFavoriteMovie, getAccountDetails } from '../../service/api';
+import {
+  getCredits,
+  getDetails,
+  getState,
+  postFavorite,
+} from '../../service/api';
 import styles from './styles';
 import Loading from '../../components/Loading';
-import { CurrentRenderContext } from '@react-navigation/native';
-import AsyncStorage from '@react-native-community/async-storage';
+import {AuthContext} from '../../context/auth';
 
-export default function Movies({ route, navigation }) {
+export default function Movies({route, navigation}) {
   const id = route.params;
   const [details, setDetails] = useState([]);
   const [cast, setCast] = useState(null);
   const [crew, setCrew] = useState(null);
-  const [clickOn, setClickOn] = useState({
-    favorite: (favorite === true)
-  });
-  const [favorite, setFavorite] = useState(false);
-
-  let dataFavorite = {
-    media_type: "movie",
+  // const [clickOn, setClickOn] = useState({
+  //   favorite: favorite === true,
+  // });
+  const [isFavorite, setIsFavorite] = useState(null);
+  const [dataFavorite, setDataFavorite] = useState({
+    media_type: 'movie',
     media_id: id,
-    favorite: (favorite)
-  }
+    favorite: false,
+  });
+  const {sessionId, account} = useContext(AuthContext);
 
-  async function awaitFavoriteMovies(bodyfavorite) {
+  async function awaitFavoriteMovies() {
     try {
-      const sessionId = await AsyncStorage.getItem('@CodeApi:session')
-      const accountId = await getAccountDetails(sessionId)
-      postFavoriteMovie(accountId.id, sessionId, bodyfavorite);
-      setClickOn(!favorite)
-      setFavorite(!favorite)
+      await postFavorite(account.id, sessionId, dataFavorite);
     } catch (error) {
       console.warn(error);
     }
   }
+
+  useEffect(() => {
+    async function awaitIsFavorite(bodyfavorite) {
+      const {favorite} = await getState('movie', id, sessionId);
+      setIsFavorite(favorite);
+      setDataFavorite(prevState => ({...prevState, favorite: !favorite}));
+    }
+    awaitIsFavorite();
+  }, [id, sessionId]);
 
   useEffect(() => {
     async function awaitGetDetails() {
@@ -61,7 +69,7 @@ export default function Movies({ route, navigation }) {
     awaitGetCredits();
   }, [id]);
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({item}) => {
     return (
       <View style={styles.containerCast}>
         <View style={styles.containerProfileImg}>
@@ -100,11 +108,21 @@ export default function Movies({ route, navigation }) {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={clickOn ? styles.containerButtonStarOn : styles.containerButtonStar}
-
-          onPress={() => awaitFavoriteMovies(dataFavorite)}>
-
-          <Feather name="star" size={25} style={styles.buttonStar} />
+          style={[styles.containerButtonStarOn]}
+          onPress={() => {
+            setIsFavorite(!isFavorite);
+            setDataFavorite({
+              media_type: 'movie',
+              media_id: id,
+              favorite: isFavorite,
+            });
+            awaitFavoriteMovies();
+          }}>
+          <AntDesign
+            name="star"
+            size={24}
+            style={isFavorite && styles.buttonStar}
+          />
         </TouchableOpacity>
 
         <View style={styles.detailsMovies}>
