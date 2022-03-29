@@ -1,12 +1,12 @@
 {
   "files.exclude": {
-    "node_modules": false,
+    "node_modules": true,
     ".gitignore": true,
     "public": true,
     ".bundle": true,
     ".buckconfig": true,
     "__tests__": true,
-    "*js": false,
+    "*js": true,
     ".flowconfig": true,
     ".ruby-version": true,
     ".watchmanconfig": true,

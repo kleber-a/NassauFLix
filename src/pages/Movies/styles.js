@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
   userText: {
     fontSize: 25,
     fontWeight: '600',
-    color: 'white',
+    color: '#ddd',
   },
   viewFLatList: {
     backgroundColor: 'black',

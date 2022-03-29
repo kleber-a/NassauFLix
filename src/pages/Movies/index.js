@@ -125,7 +125,7 @@ export default function Movies({ route, navigation }) {
         </View>
         <View style={styles.boxCast}>
           <Text style={styles.cast}>Elenco</Text>
-          <View style={styles.line}></View>
+          <View style={styles.line} />
         </View>
       </View>
     );
