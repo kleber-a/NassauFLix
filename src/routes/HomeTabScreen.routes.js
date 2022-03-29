@@ -5,6 +5,7 @@ import ButtonPlay from '../components/TabButtons/ButtonPlay';
 import ButtonUser from '../components/TabButtons/ButtonUser';
 import StackMovies from './StackMovies.routes';
 import StackTvShows from './StackTvShos.routes';
+import FavoritesTvShows from '../pages/FavoritesTvShows';
 
 const Tab = createBottomTabNavigator();
 
@@ -40,6 +41,13 @@ function HomeTabScreen() {
       <Tab.Screen
         name="User"
         component={StackMovies}
+        options={{
+          tabBarIcon: () => <ButtonUser name="User" />,
+        }}
+      />
+      <Tab.Screen
+        name="FavoritesTvShows  "
+        component={FavoritesTvShows}
         options={{
           tabBarIcon: () => <ButtonUser name="User" />,
         }}
