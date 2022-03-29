@@ -7,7 +7,7 @@ import Exit from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-community/async-storage';
 import UserImg from '../../components/User/UserImg';
 import {AuthContext} from '../../context/auth';
-import { getFavoriteMovies,getFavoriteTvShow,getRatedMovies,getRatedTvShow,} from '../../service/api';
+import { getFRMovies,getFRTvShow} from '../../service/api';
 import MovieImage from '../../components/Movie/MovieImage';
 import MovieEvaluation from '../../components/Movie/MovieEvaluation';
 import VerifyName from '../../components/User/VerifyName';
@@ -34,13 +34,13 @@ export default function Profile() {
 
   useEffect(() => {
     async function awaitData() {
-      const favoriteMovies = await getFavoriteMovies(account.id, sessionId);
+      const favoriteMovies = await getFRMovies(account.id, sessionId,'favorite');
       setFavoriteMovies(favoriteMovies);
-      const ratedMovies = await getRatedMovies(account.id, sessionId);
+      const ratedMovies = await getFRMovies(account.id, sessionId,'rated');
       setRatedMovies(ratedMovies);
-      const favoriteTvShow = await getFavoriteTvShow(account.id, sessionId);
+      const favoriteTvShow = await getFRTvShow(account.id, sessionId,'favorite');
       setFavoriteTvShow(favoriteTvShow);
-      const ratedTvShow = await getRatedTvShow(account.id, sessionId);
+      const ratedTvShow = await getFRTvShow(account.id, sessionId,'rated');
       setRatedTvShow(ratedTvShow);
       setEvaluation(ratedMovies.length + ratedTvShow.length);
 
