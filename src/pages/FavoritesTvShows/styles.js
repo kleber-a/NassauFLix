@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import { render } from 'react-native/Libraries/Renderer/implementations/ReactNativeRenderer-prod';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,17 +10,18 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontFamily: 'open sans',
     fontSize: 20,
+    fontWeight:'bold',
   },
   boxHeader: {
-    height: '10%',
+    height: 70,
     width: '100%',
     marginVertical: '4%',
-    alignItems: 'center',
+    alignItems: 'center', 
     justifyContent: 'center',
   },
   Image: {
-    height: 75,
-    width: 75,
+    height: 95,
+    width: 76,
     justifyContent: 'center',
   },
   boxImage: {
