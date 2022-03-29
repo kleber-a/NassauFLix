@@ -3,23 +3,22 @@ import React, {useState, useEffect, useContext} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import Feather from 'react-native-vector-icons/Feather';
-import {getCredits, getDetails, getRate} from '../../service/api';
+import {getCredits, getDetails, getState} from '../../service/api';
 import styles from './styles';
 import Loading from '../../components/Loading';
 import ModalAvaluate from '../../components/ModalAvaluate';
 import {AuthContext} from '../../context/auth';
 
 export default function Movies({route, navigation}) {
-  const id = route.params[0];
-  const type = route.params[1];
+  const [id, type] = route.params;
   const [details, setDetails] = useState([]);
   const [cast, setCast] = useState(null);
   const [crew, setCrew] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [isRated, setIsRated] = useState(false);
-  const [moviesRated, setMoviesRated] = useState(null);
   const [movieRated, setMovieRated] = useState(null);
-  const {account, sessionId} = useContext(AuthContext);
+
+  const {sessionId} = useContext(AuthContext);
 
   useEffect(() => {
     async function awaitGetDetails() {
@@ -48,36 +47,8 @@ export default function Movies({route, navigation}) {
 
   async function awaitAvaluates() {
     try {
-      let ratedMovies = await getRate(account.id, sessionId, 1);
-      if (
-        (ratedMovies.page =
-          ratedMovies.total_pages &&
-          ratedMovies.results.map(movie => movie.id).includes(id))
-      ) {
-        setIsRated(true);
-        setMovieRated(
-          ratedMovies.results.find(movie => {
-            return movie.id === id;
-          }),
-        );
-      } else if (ratedMovies.page < ratedMovies.total_pages) {
-        for (
-          let pages = 1;
-          ratedMovies.page < ratedMovies.total_pages;
-          pages++
-        ) {
-          ratedMovies = await getRate(account.id, sessionId, pages);
-          if (ratedMovies.results.map(movie => movie.id).includes(id)) {
-            setIsRated(true);
-            setMovieRated(
-              ratedMovies.results.find(movie => {
-                return movie.id === id;
-              }),
-            );
-            pages = 500;
-          }
-        }
-      }
+      const stateMovie = await getState(type, id, sessionId);
+      setMovieRated(stateMovie.rated.value);
     } catch (error) {
       console.log(error);
     }
@@ -85,7 +56,7 @@ export default function Movies({route, navigation}) {
 
   useEffect(() => {
     awaitAvaluates();
-  }, []);
+  }, [isRated]);
 
   const renderItem = ({item}) => {
     return (
@@ -114,7 +85,7 @@ export default function Movies({route, navigation}) {
       <View style={styles.containerHeader}>
         <ModalAvaluate
           type={type}
-          idType={id}
+          typeId={id}
           modalIsVisible={modalVisible}
           setModalVisible={setModalVisible}
           awaitAvaluates={awaitAvaluates}
@@ -142,14 +113,10 @@ export default function Movies({route, navigation}) {
                 uri: `http://image.tmdb.org/t/p/w780/${details.poster_path}`,
               }}
             />
-            {isRated ? (
-              <View
-                style={[
-                  styles.rating,
-                  isRated && {backgroundColor: '#8BE0EC'},
-                ]}>
+            {movieRated ? (
+              <View style={[styles.rating, {backgroundColor: '#8BE0EC'}]}>
                 <Text style={[styles.ratingText]}>
-                  Sua nota: {movieRated && movieRated.rating}/10
+                  Sua nota: {movieRated}/10
                 </Text>
                 <TouchableOpacity
                   style={styles.ratingContainerIcon}
@@ -166,7 +133,7 @@ export default function Movies({route, navigation}) {
               </View>
             ) : (
               <TouchableOpacity
-                style={[styles.rating, isRated && {backgroundColor: '#E9A6A6'}]}
+                style={[styles.rating, {backgroundColor: '#E9A6A6'}]}
                 onPress={() => {
                   setModalVisible(!modalVisible);
                 }}>

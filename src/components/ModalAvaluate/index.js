@@ -8,7 +8,8 @@ import {postRate} from '../../service/api';
 export default function ModalAvaluate({
   modalIsVisible,
   setModalVisible,
-  idType,
+  typeId,
+  type,
   awaitAvaluates,
   setIsRated,
 }) {
@@ -23,7 +24,7 @@ export default function ModalAvaluate({
   }
 
   async function changeAvaluate() {
-    await postRate(idType, sessionId, avaluate);
+    await postRate(type, typeId, sessionId, avaluate);
     await awaitAvaluates();
     setIsRated(true);
   }
