@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     width: 67,
     height: 89,
     backgroundColor: 'white',
-    marginHorizontal: 10,
+    marginHorizontal: 5,
     borderRadius: 10,
   },
   //-----------------------
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     width: 58,
     height: 82,
     backgroundColor: 'white',
-    marginHorizontal: 5,
+    marginHorizontal: 3,
     borderRadius: 10,
   },
 
