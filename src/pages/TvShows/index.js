@@ -1,6 +1,6 @@
 import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {getCredits, getDetails} from '../../service/api';
+import {getCredits, getTvShow, getTvShowSeason} from '../../service/api';
 import styles from './styles';
 import Loading from '../../components/Loading';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -8,55 +8,42 @@ import Feather from 'react-native-vector-icons/Feather';
 
 export default function TvShows({route, navigation}) {
   const id = route.params;
-  const [TvShow, setTvShows] = useState([]);
-  const [season_number, setSeasonNumber] = useState(null);
+  const [tvShow, setTvShow] = useState(null);
+  const [season, setSeason] = useState(null);
   const [episode_number, setEpisodeNumber] = useState(null);
 
   useEffect(() => {
-    async function awaitGetTvShows() {
+    async function awaitGetTvShow() {
       try {
-        const dataTvShows = await getTvShows(id);
-        setTvShows(dataTvShows);
+        const dataTvShow = await getTvShow(id);
+        setTvShow(dataTvShow);
       } catch (error) {
         console.warn(error);
       }
     }
-    awaitGetTvShows();
+    awaitGetTvShow();
   }, [id]);
 
   useEffect(() => {
-    async function awaitGetCredits() {
+    async function awaitGetSeasonTvShow() {
       try {
-        const dataCredits = await getCredits(id);
-        console.warn(dataCredits);
-        setSeasonNumber(dataCredits.next_episode_to_air.season_number);
-        setEpisodeNumber(dataCredits.next_episode_to_air.episode_number);
+        const dataSeason = await getTvShowSeason(id, 1);
+        setSeason(dataSeason);
       } catch (error) {
         console.warn(error);
       }
-    } 
-    awaitGetCredits();
+    }
+    awaitGetSeasonTvShow();
   }, [id]);
 
   const renderItem = ({item}) => {
     return (
-      <View style={styles.containerCast}>
-        <View style={styles.containerProfileImg}>
-          {item.profile_path === null ? (
-            <Text style={styles.userText}>{item.name[0]}</Text>
-          ) : (
-            <Image
-              style={styles.imageFlatList}
-              source={{
-                uri: `http://image.tmdb.org/t/p/${item.profile_path}`,
-              }}
-            />
-          )}
-        </View>
-        <View style={styles.containerProfileText}>
-          <Text style={styles.name}>{item.name}</Text>
-          <Text style={styles.character}>{item.character}</Text>
-        </View>
+      <View style={styles.containerSeasons}>
+        <Text style={styles.textSeasons}>{item.name}</Text>
+        {season &&
+          season.episodes.map(episode => {
+            return <Text style={styles.textEpisode}>{episode.name}</Text>;
+          })}
       </View>
     );
   };
@@ -65,9 +52,9 @@ export default function TvShows({route, navigation}) {
     return (
       <View>
         <Image
-          style={styles.backGroundTvShow}
+          style={styles.backGroundtvShow}
           source={{
-            uri: `http://image.tmdb.org/t/p/w780/${TvShow.backdrop_path}`,
+            uri: `http://image.tmdb.org/t/p/w780/${tvShow.backdrop_path}`,
           }}
         />
         <TouchableOpacity
@@ -79,26 +66,24 @@ export default function TvShows({route, navigation}) {
           <Feather name="star" size={25} style={styles.buttonStar} />
         </TouchableOpacity>
 
-        <View style={styles.detailsTvShow}>
+        <View style={styles.detailstvShow}>
           <View>
             <Image
-              style={styles.capaTvShow}
+              style={styles.capatvShow}
               source={{
-                uri: `http://image.tmdb.org/t/p/${details.poster_path}`,
+                uri: `http://image.tmdb.org/t/p/${tvShow.poster_path}`,
               }}
             />
           </View>
 
           <View style={styles.detailsTvShowTitle}>
-            <Text style={styles.titleTvShow}>
-              {details.title}{' '}
-            </Text>
+            <Text style={styles.titleTvShow}>{tvShow.name} </Text>
           </View>
         </View>
 
         <View style={styles.datailRatedLiked}>
           <View style={styles.detailsRated}>
-            <Text style={styles.TvShowsRate}>{details.vote_average}/10</Text>
+            <Text style={styles.tvShowsRate}>{tvShow.vote_average}/10</Text>
           </View>
 
           <View style={styles.datailsLiked}>
@@ -106,9 +91,9 @@ export default function TvShows({route, navigation}) {
               <AntDesign name="heart" size={20} style={styles.heartIcon} />
             </View>
             <Text style={styles.liked}>
-              {details && details.vote_count.toString().length > 3
-                ? `${(details.vote_count / 1000).toFixed(1)}K`
-                : details.vote_count}
+              {tvShow.length > 0 && tvShow.vote_count.toString().length > 3
+                ? `${(tvShow.vote_count / 1000).toFixed(1)}K`
+                : tvShow.vote_count}
             </Text>
           </View>
         </View>
@@ -117,10 +102,9 @@ export default function TvShows({route, navigation}) {
   };
   return (
     <View style={styles.container}>
-      {1===1 ? (
+      {tvShow ? (
         <FlatList
-          style={styles.viewFLatList}
-          data={season_number}
+          data={tvShow.seasons}
           keyExtractor={(item, index) => index}
           renderItem={renderItem}
           ListHeaderComponent={renderHeader}

@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react';
 import {View, FlatList, TouchableOpacity} from 'react-native';
-import {getMovie, getTvShows} from '../../service/api';
+import {getMovie, getPopularTvShows, getTvShows} from '../../service/api';
 import styles from './styles';
 import Loading from '../Loading';
 import UserImage from '../User/UserImage';
@@ -34,7 +34,7 @@ export default function Home({navigate, type}) {
     }
     setLoading(true);
     try {
-      const results = await getTvShows(page);
+      const results = await getPopularTvShows(page);
       setData([...data, ...results]);
       setPage(page + 1);
       setLoading(false);
