@@ -16,9 +16,6 @@ export default function Movies({route, navigation}) {
   const [details, setDetails] = useState([]);
   const [cast, setCast] = useState(null);
   const [crew, setCrew] = useState(null);
-  // const [clickOn, setClickOn] = useState({
-  //   favorite: favorite === true,
-  // });
   const [isFavorite, setIsFavorite] = useState(null);
   const [dataFavorite, setDataFavorite] = useState({
     media_type: 'movie',
