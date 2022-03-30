@@ -1,16 +1,24 @@
-import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
+import React, {useState, useEffect, useContext} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/EvilIcons';
 import Feather from 'react-native-vector-icons/Feather';
-import { getCredits, getDetails } from '../../service/api';
+import {getCredits, getDetails, getState} from '../../service/api';
 import styles from './styles';
 import Loading from '../../components/Loading';
+import ModalAvaluate from '../../components/ModalAvaluate';
+import {AuthContext} from '../../context/auth';
 
-export default function Movies({ route, navigation }) {
-  const id = route.params;
+export default function Movies({route, navigation}) {
+  const [id, type] = route.params;
   const [details, setDetails] = useState([]);
   const [cast, setCast] = useState(null);
   const [crew, setCrew] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [isRated, setIsRated] = useState(false);
+  const [movieRated, setMovieRated] = useState(null);
+
+  const {sessionId} = useContext(AuthContext);
 
   useEffect(() => {
     async function awaitGetDetails() {
@@ -37,7 +45,20 @@ export default function Movies({ route, navigation }) {
     awaitGetCredits();
   }, [id]);
 
-  const renderItem = ({ item }) => {
+  async function awaitAvaluates() {
+    try {
+      const stateMovie = await getState(type, id, sessionId);
+      setMovieRated(stateMovie.rated.value);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    awaitAvaluates();
+  }, [isRated]);
+
+  const renderItem = ({item}) => {
     return (
       <View style={styles.containerCast}>
         <View style={styles.containerProfileImg}>
@@ -59,10 +80,17 @@ export default function Movies({ route, navigation }) {
       </View>
     );
   };
-
   const renderHeader = () => {
     return (
-      <View>
+      <View style={styles.containerHeader}>
+        <ModalAvaluate
+          type={type}
+          typeId={id}
+          modalIsVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          awaitAvaluates={awaitAvaluates}
+          setIsRated={setIsRated}
+        />
         <Image
           style={styles.backGroundMovie}
           source={{
@@ -77,15 +105,41 @@ export default function Movies({ route, navigation }) {
         <TouchableOpacity style={styles.containerButtonStar}>
           <Feather name="star" size={25} style={styles.buttonStar} />
         </TouchableOpacity>
-
         <View style={styles.detailsMovies}>
-          <View>
+          <View style={styles.containerMovieImg}>
             <Image
-              style={styles.capaMovie}
+              style={styles.movieImg}
               source={{
                 uri: `http://image.tmdb.org/t/p/w780/${details.poster_path}`,
               }}
             />
+            {movieRated ? (
+              <View style={[styles.rating, {backgroundColor: '#8BE0EC'}]}>
+                <Text style={[styles.ratingText]}>
+                  Sua nota: {movieRated}/10
+                </Text>
+                <TouchableOpacity
+                  style={styles.ratingContainerIcon}
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                  }}>
+                  <Icon
+                    style={styles.ratingIcon}
+                    name="pencil"
+                    size={10}
+                    color="#000"
+                  />
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <TouchableOpacity
+                style={[styles.rating, {backgroundColor: '#E9A6A6'}]}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}>
+                <Text style={[styles.ratingText]}>AVALIE AGORA</Text>
+              </TouchableOpacity>
+            )}
           </View>
 
           <View style={styles.detaisMin}>

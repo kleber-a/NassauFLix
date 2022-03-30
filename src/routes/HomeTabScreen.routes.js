@@ -45,13 +45,7 @@ function HomeTabScreen() {
           tabBarIcon: () => <ButtonUser name="User" />,
         }}
       />
-      <Tab.Screen
-        name="FavoritesTvShows  "
-        component={FavoritesTvShows}
-        options={{
-          tabBarIcon: () => <ButtonUser name="User" />,
-        }}
-      />
+     
     </Tab.Navigator>
   );
 }

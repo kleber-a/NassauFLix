@@ -1,6 +1,6 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, FlatList, TouchableOpacity} from 'react-native';
-import {getMovie, getTvShows} from '../../service/api';
+import {getMovie, getMoviesOrTv, getTvShows} from '../../service/api';
 import styles from './styles';
 import Loading from '../Loading';
 import UserImage from '../User/UserImage';
@@ -13,52 +13,29 @@ export default function Home({navigate, type}) {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  async function awaitMovie() {
+  async function awaitMoviesOrTv() {
     if (loading) {
       return;
     }
     setLoading(true);
     try {
-      const results = await getMovie(page);
+      const results = await getMoviesOrTv(Object.keys(type)[0], page);
       setData([...data, ...results]);
       setPage(page + 1);
       setLoading(false);
     } catch (error) {
       console.log(error);
-    }
-  }
-
-  async function awaitTvShows() {
-    if (loading) {
-      return;
-    }
-    setLoading(true);
-    try {
-      const results = await getTvShows(page);
-      setData([...data, ...results]);
-      setPage(page + 1);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  function handleType() {
-    if (type === 'Movies') {
-      awaitMovie();
-    } else if (type === 'TvShows') {
-      awaitTvShows();
     }
   }
 
   useEffect(() => {
-    handleType();
+    awaitMoviesOrTv();
   }, []);
 
   const renderHeader = () => {
     return (
       <View style={styles.boxHeader}>
-        <PopularDescription type={type === 'Movies' ? 'Filmes' : 'Séries'} />
+        <PopularDescription type={Object.values(type)[0]} />
         <UserImage size={50} />
       </View>
     );
@@ -76,7 +53,10 @@ export default function Home({navigate, type}) {
       <TouchableOpacity
         style={styles.containerMovie}
         onPress={() => {
-          navigate.navigate(type, item.id);
+          navigate.navigate(Object.keys(type)[0], [
+            item.id,
+            Object.keys(type)[0],
+          ]);
         }}>
         <View style={styles.styleApiMovie}>
           <MovieImage pathImage={item.poster_path} posterSize={'w92'} />
@@ -94,7 +74,7 @@ export default function Home({navigate, type}) {
           keyExtractor={(item, index) => index}
           ListHeaderComponent={renderHeader}
           ListFooterComponent={renderFooter}
-          onEndReached={page < 500 ? handleType : null}
+          onEndReached={page < 500 ? awaitMoviesOrTv : null}
           onEndReachedThreshold={0.3}
           numColumns={4}
           renderItem={renderItem}
