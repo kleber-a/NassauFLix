@@ -90,7 +90,7 @@ export default function Profile() {
         <Text style={styles.valuePerfil}>{evaluation}</Text>
         <Text style={styles.evaluationPerfil}>Avaliações</Text> 
         </>
-          : <Loading />}
+          : <Loading size={"large"} color={"#E9A6A6"} />}
         
       </View>
 
@@ -132,7 +132,7 @@ export default function Profile() {
                     />
                   </TouchableOpacity>
                 ) : null,
-              )): <Loading />
+              )): <Loading size={"large"} color={"#E9A6A6"} />
               }
           </View>
         </View>
@@ -160,7 +160,7 @@ export default function Profile() {
                     <MovieEvaluation votes={listRated.vote_average} />
                   </TouchableOpacity>
                 ) : null,
-              )) : <Loading />
+              )) : <Loading size={"large"} color={"#E9A6A6"}/>
             }
           </View>
         </View>
@@ -168,3 +168,4 @@ export default function Profile() {
     </View>
   );
 }
+ 
