@@ -32,11 +32,7 @@ export default function FavoriteMovies({navigation}) {
   awaitFavoriteMovies();
 
   const renderHeader = () => {
-    return (
-      <View style={styles.BoxButtonAndText}>
-        <FavoriteDescription navigation={navigation} />
-      </View>
-    );
+    return <FavoriteDescription navigation={navigation} />;
   };
 
   const renderItem = ({item}) => {

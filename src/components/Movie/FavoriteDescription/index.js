@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import {Text, View, TouchableOpacity} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import styles from './styles';
 import {AuthContext} from '../../../context/auth';
@@ -17,15 +17,15 @@ export default function FavoriteDescription({navigation}) {
   }, [account]);
 
   return (
-    <>
+    <View style={styles.boxButtonAndText}>
       <TouchableOpacity
         style={styles.buttonBack}
         onPress={() => navigation.goBack()}>
-        <AntDesign name="arrowleft" size={25} style={{color: 'black'}} />
+        <AntDesign name="arrowleft" size={25} color="black" />
       </TouchableOpacity>
       <Text style={styles.containerText}>
         Filmes favoritos do <Text style={styles.userText}>{name && name}</Text>
       </Text>
-    </>
+    </View>
   );
 }
