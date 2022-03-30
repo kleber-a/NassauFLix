@@ -118,11 +118,6 @@ export default function Movies({ route, navigation }) {
               </View>
               <Text style={styles.liked}>{Math.floor(details.popularity)}K</Text>
             </View>
-            <Text style={styles.liked}>
-              {details && details.vote_count.toString().length > 3
-                ? `${(details.vote_count / 1000).toFixed(1)}K`
-                : details.vote_count}
-            </Text>
           </View>
         </View>
         <View style={styles.detailsDescription}>
