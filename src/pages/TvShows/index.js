@@ -1,6 +1,6 @@
 import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {getCredits, getDetails} from '../../service/api';
+import {getCredits, getTvShows} from '../../service/api';
 import styles from '../../TvShows/styles';
 import Loading from '../../components/Loading';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -8,21 +8,21 @@ import Feather from 'react-native-vector-icons/Feather';
 
 export default function TvShow({}) {
   const id = route.params;
-  const [details, setDetails] = useState([]);
+  const [TvShow, setTvShows] = useState([]);
   const [season_number, setSeasonNumber] = useState(null);
   const [episode_number, setEpisodeNumber] = useState(null);
   
 
   useEffect(() => {
-    async function awaitGetDetails() {
+    async function awaitGetTvShows() {
       try {
-        const dataDetails = await getDetails(id);
-        setDetails(dataDetails);
+        const dataTvShows = await getTvShows(id);
+        setTvShows(dataTvShows);
       } catch (error) {
         console.warn(error);
       }
     }
-    awaitGetDetails();
+    awaitGetTvShows();
   }, [id]);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function TvShow({}) {
       } catch (error) {
         console.warn(error);
       }
-    }
+    } 
     awaitGetCredits();
   }, [id]);
 
@@ -48,7 +48,7 @@ export default function TvShow({}) {
             <Image
               style={styles.imageFlatList}
               source={{
-                uri: `https://image.tmdb.org/t/p/w45/${item.profile_path}`,
+                uri: `http://image.tmdb.org/t/p/${item.profile_path}`,
               }}
             />
           )}
@@ -67,7 +67,7 @@ export default function TvShow({}) {
         <Image
           style={styles.backGroundTvShow}
           source={{
-            uri: `http://image.tmdb.org/t/p/w780/${details.backdrop_path}`,
+            uri: `http://image.tmdb.org/t/p/w780/${TvShow.backdrop_path}`,
           }}
         />
         <TouchableOpacity
@@ -84,26 +84,21 @@ export default function TvShow({}) {
             <Image
               style={styles.capaTvShow}
               source={{
-                uri: `http://image.tmdb.org/t/p/w780/${details.poster_path}`,
+                uri: `http://image.tmdb.org/t/p/${details.poster_path}`,
               }}
             />
           </View>
 
-          <View style={styles.detaisTvShowTitle}>
+          <View style={styles.detailsTvShowTitle}>
             <Text style={styles.titleTvShow}>
               {details.title}{' '}
-              <Text style={styles.yearTvShow}>
-                {new Date(details.release_date).getFullYear()}
-              </Text>{' '}
-              <Text style={styles.timeTvShow}>{details.runtime} min</Text>
             </Text>
-    
           </View>
         </View>
 
         <View style={styles.datailRatedLiked}>
           <View style={styles.detailsRated}>
-            <Text style={styles.ratedTvShow}>{details.vote_average}/10</Text>
+            <Text style={styles.TvShowsRate}>{details.vote_average}/10</Text>
           </View>
 
           <View style={styles.datailsLiked}>
@@ -122,7 +117,7 @@ export default function TvShow({}) {
   };
   return (
     <View style={styles.container}>
-      {season_number ? (
+      {1===1 ? (
         <FlatList
           style={styles.viewFLatList}
           data={season_number}

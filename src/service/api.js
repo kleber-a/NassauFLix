@@ -100,10 +100,10 @@ export async function getIdAccessToken(token) {
   }
 }
 
-export async function getAccountDetails(seesionId) {
+export async function getAccountDetails(sessionId) {
   try {
     const {data} = await api.get(
-      `account?api_key=${apiKey}&session_id=${seesionId}`,
+      `account?api_key=${apiKey}&session_id=${sessionId}`,
     );
     return data;
   } catch (error) {
@@ -122,20 +122,40 @@ export async function getChangeMovies(dateStart) {
   }
 }
 
-export async function getTvShows(page) {
+export async function getPopularTvShows(page) {
   try {
     const {data} = await api.get(
-      `tv/popular?api_key=c3dc5cb91b1c309207a60a76c5742842&language=pt-BR&page=${page}`,
+      `tv/popular?api_key=${apiKey}&language=pt-BR&page=${page}`,
     );
     return data.results;
   } catch (error) {
     console.log(error);
   }
 }
+export async function getTvShows(id) {
+  try {
+    const {data} = await api.get(
+      `tv/158793?api_key=${apiKey}&language=pt-BR`,
+    );
+    return data;
+  } catch (error) {
+    console.warn(error);
+  }
+}
 export async function getTvShowsSeasons(id) {
   try {
     const {data} = await api.get(
-      `/tv/158793/season/1?api_key=c3dc5cb91b1c309207a60a76c5742842`,
+      `/tv/${id}/season/1?api_key=${apiKey}`,
+    );
+    return data;
+  } catch (error) {
+    console.warn(error);
+  }
+}
+export async function getTvShowsRate(id) {
+  try {
+    const {data} = await api.get(
+      `/tv/${id}/rating?api_key=${apiKey}&session_id=${sessionId}`,
     );
     return data;
   } catch (error) {
