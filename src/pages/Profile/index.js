@@ -14,7 +14,7 @@ import VerifyName from '../../components/User/VerifyName';
 import Loading from '../../components/Loading'
 
 export default function Profile() {
-  const {account,sessionId} = useContext(AuthContext);
+  const {account,sessionId,logout} = useContext(AuthContext);
   const [evaluation, setEvaluation] = useState(null);
 
   //Lista Favoritos e Avaliados
@@ -72,7 +72,7 @@ export default function Profile() {
       <View style={styles.Perfil}>
         <TouchableOpacity
           onPress={() => {
-            console.warn('Sair')
+            logout()
           }}
           style={styles.buttonExitPerfil}>
           <Exit size={10} name="exit-outline" />
