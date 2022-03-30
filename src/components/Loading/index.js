@@ -5,7 +5,7 @@ import styles from './styles';
 function Loading() {
   return (
     <View style={styles.loading}>
-      <ActivityIndicator size="large" color="#EC2626" />
+      <ActivityIndicator size="large" color="#EC2626"  />
     </View>
   );
 }

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Image, Alert} from 'react-native';
 import styles from './styles';
 import ButtonMovie from '../../components/ButtonMovie';
 import ButtonSeries from '../../components/ButtonSeries';
@@ -67,12 +67,29 @@ export default function Profile() {
     setListRated(ratedTvShow);
     setNameList('Séries');
   }
+
+  const showAlert = () =>{
+    Alert.alert("Atenção", "Deseja mesmo sair?",[
+      {
+        text:"Cancelar",
+        style:"cancel"
+      },
+      {
+        text:"Sim",
+        onPress: () => logout(),
+      }
+    ],
+    {cancelable:true}
+    );
+  }
+
+
   return (
     <View style={styles.fullscreen}>
       <View style={styles.Perfil}>
         <TouchableOpacity
           onPress={() => {
-            logout()
+            showAlert()
           }}
           style={styles.buttonExitPerfil}>
           <Exit size={10} name="exit-outline" />
