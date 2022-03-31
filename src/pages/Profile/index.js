@@ -118,7 +118,7 @@ export default function Profile() {
             <Text style={styles.evaluationPerfil}>Avaliações</Text>
           </>
         ) : (
-          <Loading />
+          <Loading size={'large'} color={'#E9A6A6'} />
         )}
       </View>
 
@@ -161,7 +161,7 @@ export default function Profile() {
                 ) : null,
               )
             ) : (
-              <Loading />
+              <Loading size={'large'} color={'#E9A6A6'} />
             )}
           </View>
         </View>
@@ -191,7 +191,7 @@ export default function Profile() {
                 ) : null,
               )
             ) : (
-              <Loading />
+              <Loading size={'large'} color={'#E9A6A6'} />
             )}
           </View>
         </View>
