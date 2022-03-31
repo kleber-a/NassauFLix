@@ -1,8 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-
-return: {
+  return: {
     backgroundColor: '#ffffff',
     borderRadius: 15,
     width: 30,
@@ -15,7 +14,6 @@ return: {
   button: {
     color: '#000000',
   },
+});
 
-})
-
-export default styles
+export default styles;

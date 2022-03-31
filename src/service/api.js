@@ -7,6 +7,40 @@ const api = axios.create({
   baseURL: 'https://api.themoviedb.org/3/',
 });
 
+export async function postFavorite(accountId, sessionId, body) {
+  try {
+    const {data} = await api.post(
+      `account/${accountId}/favorite?api_key=${apiKey}&session_id=${sessionId}`,
+      body,
+    );
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getFavoriteMovie(accountId, sessionId) {
+  try {
+    const {data} = await api.get(
+      `account/${accountId}/favorite/movies?api_key=${apiKey}&session_id=${sessionId}`,
+    );
+    return data.results;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getMovie(page) {
+  try {
+    const {data} = await api.get(
+      `movie/popular?api_key=${apiKey}&language=pt-BR&page=${page}`,
+    );
+    return data.results;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function getDetails(id) {
   try {
     const {data} = await api.get(
@@ -89,10 +123,10 @@ export async function getIdAccessToken(token) {
   }
 }
 
-export async function getAccountDetails(seesionId) {
+export async function getAccountDetails(sessionId) {
   try {
     const {data} = await api.get(
-      `account?api_key=${apiKey}&session_id=${seesionId}`,
+      `account?api_key=${apiKey}&session_id=${sessionId}`,
     );
     return data;
   } catch (error) {
@@ -169,17 +203,6 @@ export async function getFRTvShow(accountId, sessionId, name) {
   }
 }
 
-export async function getState(type, movieId, sessionId) {
-  try {
-    const {data} = await api.get(
-      `${type}/${movieId}/account_states?api_key=${apiKey}&session_id=${sessionId}`,
-    );
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 export async function getFRMovies(accountId, sessionId, name) {
   try {
     const {data} = await api.get(
@@ -191,4 +214,14 @@ export async function getFRMovies(accountId, sessionId, name) {
   }
 }
 
+export async function getState(type, movieId, sessionId) {
+  try {
+    const {data} = await api.get(
+      `${type}/${movieId}/account_states?api_key=${apiKey}&session_id=${sessionId}`,
+    );
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
 export default api;

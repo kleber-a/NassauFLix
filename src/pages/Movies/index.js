@@ -2,11 +2,15 @@ import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
 import React, {useState, useEffect, useContext} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Icon from 'react-native-vector-icons/EvilIcons';
-import Feather from 'react-native-vector-icons/Feather';
-import {getCredits, getDetails, getState} from '../../service/api';
-import styles from './styles';
 import Loading from '../../components/Loading';
 import ModalAvaluate from '../../components/ModalAvaluate';
+import {
+  getCredits,
+  getDetails,
+  getState,
+  postFavorite,
+} from '../../service/api';
+import styles from './styles';
 import {AuthContext} from '../../context/auth';
 
 export default function Movies({route, navigation}) {
@@ -18,7 +22,30 @@ export default function Movies({route, navigation}) {
   const [isRated, setIsRated] = useState(false);
   const [movieRated, setMovieRated] = useState(null);
 
-  const {sessionId} = useContext(AuthContext);
+  const [isFavorite, setIsFavorite] = useState(null);
+  const [dataFavorite, setDataFavorite] = useState({
+    media_type: 'movie',
+    media_id: id,
+    favorite: false,
+  });
+  const {sessionId, account} = useContext(AuthContext);
+
+  async function awaitFavoriteMovies() {
+    try {
+      await postFavorite(account.id, sessionId, dataFavorite);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+
+  useEffect(() => {
+    async function awaitIsFavorite(bodyfavorite) {
+      const {favorite} = await getState('movie', id, sessionId);
+      setIsFavorite(favorite);
+      setDataFavorite(prevState => ({...prevState, favorite: !favorite}));
+    }
+    awaitIsFavorite();
+  }, [id, sessionId]);
 
   useEffect(() => {
     async function awaitGetDetails() {
@@ -102,8 +129,23 @@ export default function Movies({route, navigation}) {
           onPress={() => navigation.goBack()}>
           <AntDesign style={styles.buttonBack} name="arrowleft" size={25} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.containerButtonStar}>
-          <Feather name="star" size={25} style={styles.buttonStar} />
+
+        <TouchableOpacity
+          style={[styles.containerButtonStarOn]}
+          onPress={() => {
+            setIsFavorite(!isFavorite);
+            setDataFavorite({
+              media_type: 'movie',
+              media_id: id,
+              favorite: isFavorite,
+            });
+            awaitFavoriteMovies();
+          }}>
+          <AntDesign
+            name="star"
+            size={24}
+            style={isFavorite && styles.buttonStar}
+          />
         </TouchableOpacity>
         <View style={styles.detailsMovies}>
           <View style={styles.containerMovieImg}>
@@ -170,7 +212,9 @@ export default function Movies({route, navigation}) {
               <View>
                 <AntDesign name="heart" size={20} style={styles.heartIcon} />
               </View>
-              <Text style={styles.liked}>{Math.floor(details.popularity)}K</Text>
+              <Text style={styles.liked}>
+                {Math.floor(details.popularity)}K
+              </Text>
             </View>
           </View>
         </View>
