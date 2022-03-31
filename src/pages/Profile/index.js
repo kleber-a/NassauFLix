@@ -6,7 +6,7 @@ import ButtonSeries from '../../components/ButtonSeries';
 import Exit from 'react-native-vector-icons/Ionicons';
 import UserImg from '../../components/User/UserImg';
 import {AuthContext} from '../../context/auth';
-import {getFRMovies, getFRTvShow} from '../../service/api';
+import {getFRMovies, getFRTvShow, getAllRatedEvaliation} from '../../service/api';
 import MovieImage from '../../components/Movie/MovieImage';
 import MovieEvaluation from '../../components/Movie/MovieEvaluation';
 import VerifyName from '../../components/User/VerifyName';
@@ -16,6 +16,7 @@ export default function Profile({navigation}) {
   const {account, sessionId, logout} = useContext(AuthContext);
   const [evaluation, setEvaluation] = useState(null);
   const [type, setType] = useState('movies');
+
 
   //Lista Favoritos e Avaliados
   const [listFavorites, setListFavorites] = useState(null);
@@ -43,15 +44,15 @@ export default function Profile({navigation}) {
       setFavoriteMovies(favoriteMovies);
       const ratedMovies = await getFRMovies(account.id, sessionId, 'rated');
       setRatedMovies(ratedMovies);
-      const favoriteTvShow = await getFRTvShow(
-        account.id,
-        sessionId,
-        'favorite',
-      );
+      const favoriteTvShow = await getFRTvShow(account.id,sessionId,'favorite');
       setFavoriteTvShow(favoriteTvShow);
       const ratedTvShow = await getFRTvShow(account.id, sessionId, 'rated');
+
+      const evaluation = await getAllRatedEvaliation(account.id, sessionId);
+      setEvaluation(evaluation);
+      
       setRatedTvShow(ratedTvShow);
-      setEvaluation(ratedMovies.length + ratedTvShow.length);
+     
       setBtMovies(true);
       setBtSeries(false);
       setListFavorites(favoriteMovies);
@@ -59,7 +60,6 @@ export default function Profile({navigation}) {
     }
     awaitData();
   }, []);
-
   function selectionButtonMovie() {
     setType('movies');
     setNameRated('Filmes');

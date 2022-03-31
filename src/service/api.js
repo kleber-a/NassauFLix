@@ -235,4 +235,21 @@ export async function getState(type, movieId, sessionId) {
     console.log(error);
   }
 }
+
+export async function getAllRatedEvaliation(accountId, sessionId) {
+  try {
+    const {data} = await api.get(
+      `/account/${accountId}/rated/movies?api_key=${apiKey}&session_id=${sessionId}`,
+    );
+    const response = await api.get(
+      `/account/${accountId}/rated/tv?api_key=${apiKey}&session_id=${sessionId}`,
+    );
+
+    const total = data.total_results + response.data.total_results
+    
+    return total
+  } catch (error) {
+    console.log(error);
+  }
+}
 export default api;
