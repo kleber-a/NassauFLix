@@ -83,8 +83,7 @@ export default function Home({navigate, type}) {
           <MovieEvaluation votes={item.vote_average} />
         </View>
       </TouchableOpacity>
-    );
-  };
+    )};
 
   return (
     <View style={styles.container}>
@@ -100,7 +99,7 @@ export default function Home({navigate, type}) {
           renderItem={renderItem}
         />
       ) : (
-        <Loading />
+        <Loading size={"large"} color={"#FFFFFF"}/>
       )}
     </View>
   );
