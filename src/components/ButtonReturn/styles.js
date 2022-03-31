@@ -8,8 +8,9 @@ const styles = StyleSheet.create({
     height: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 25,
-    left: 15,
+    position: 'absolute',
+    top: 20,
+    left: 0,
   },
   button: {
     color: '#000000',

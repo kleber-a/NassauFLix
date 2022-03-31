@@ -5,6 +5,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'black',
     alignItems: 'center',
+    justifyContent: 'center',
+  },
+  containerHeader: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 80,
+    paddingBottom: 40,
   },
   boxImage: {
     marginHorizontal: 7,

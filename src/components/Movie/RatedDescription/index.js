@@ -4,17 +4,10 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import styles from './styles';
 import VerifyName from '../../User/VerifyName';
 
-export default function RatedDescription({navigation, nameRated}) {
+export default function RatedDescription({nameRated}) {
   return (
-    <View style={styles.boxButtonAndText}>
-      <TouchableOpacity
-        style={styles.buttonBack}
-        onPress={() => navigation.goBack()}>
-        <AntDesign name="arrowleft" size={25} color="black" />
-      </TouchableOpacity>
-      <Text style={styles.containerText}>
-        Avaliações de {nameRated} recentes de <VerifyName />
-      </Text>
-    </View>
+    <Text style={styles.containerText}>
+      Avaliações de {nameRated} recentes de <VerifyName color={'pink'} />
+    </Text>
   );
 }

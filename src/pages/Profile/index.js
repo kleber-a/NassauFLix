@@ -20,7 +20,7 @@ export default function Profile({navigation}) {
   //Lista Favoritos e Avaliados
   const [listFavorites, setListFavorites] = useState(null);
   const [listRated, setListRated] = useState(null);
-  const [nameRated, setNameRated] = useState('Filmes');
+  const [nameRated, setNameRated] = useState('Avaliações de filmes recentes');
   const [nameFavorite, setNameFavorite] = useState('Filmes favoritos');
 
   //Botão Movie e Séries
@@ -58,11 +58,11 @@ export default function Profile({navigation}) {
       setListRated(ratedMovies);
     }
     awaitData();
-  }, []);
+  }, [account.id, sessionId]);
 
   function selectionButtonMovie() {
     setType('movies');
-    setNameRated('Filmes');
+    setNameRated('Avaliações de filmes recentes');
     setNameFavorite('Filmes favoritos');
     setBtMovies(true);
     setBtSeries(false);
@@ -71,7 +71,7 @@ export default function Profile({navigation}) {
   }
   function selectionButtonSeries() {
     setType('tv');
-    setNameRated('Séries');
+    setNameRated('Avaliações de série recentes');
     setNameFavorite('Séries favoritas');
     setBtSeries(true);
     setBtMovies(false);
@@ -148,7 +148,11 @@ export default function Profile({navigation}) {
             <TouchableOpacity
               style={styles.buttonDescription}
               onPress={() => {
-                navigation.navigate('Favorites', [type, nameFavorite]);
+                navigation.navigate('InterationList', [
+                  'favorite',
+                  type,
+                  nameFavorite,
+                ]);
               }}>
               <Text style={styles.textButtonDescription}>Ver tudo</Text>
             </TouchableOpacity>
@@ -176,12 +180,16 @@ export default function Profile({navigation}) {
         <View style={styles.boxListTvShow}>
           <View style={styles.description}>
             <Text style={styles.textDescription}>
-              Avaliações de {nameRated} recentes de <VerifyName />
+              {nameRated} <VerifyName />
             </Text>
             <TouchableOpacity
               style={styles.buttonDescription}
               onPress={() => {
-                navigation.navigate('Rateds', [type, nameRated]);
+                navigation.navigate('InterationList', [
+                  'rated',
+                  type,
+                  nameRated,
+                ]);
               }}>
               <Text style={styles.textButtonDescription}>Ver tudo</Text>
             </TouchableOpacity>
