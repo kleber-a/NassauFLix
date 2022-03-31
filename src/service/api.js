@@ -31,7 +31,7 @@ export async function getPopularTvShows(page) {
 export async function getDetails(id) {
   try {
     const {data} = await api.get(
-      `movie/${id}?api_key=${apiKey}&language=pt-BR`,
+      `tv/${id}?api_key=${apiKey}&language=pt-BR`,
     );
     return data;
   } catch (error) {

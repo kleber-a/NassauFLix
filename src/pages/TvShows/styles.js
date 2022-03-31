@@ -64,30 +64,8 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     marginTop: 15,
   },
-  yearTvShow: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    fontFamily: 'Open Sans',
-    color: '#FFFFFF',
-  },
-  timeTvShow: {
-    fontSize: 7,
-    color: 'white',
-    fontFamily: 'Open Sans',
-  },
-  textAutor: {
-    marginLeft: 16,
-    color: 'white',
-    fontSize: 8,
-    fontFamily: 'Open Sans',
-  },
-  autorTvShow: {
-    fontFamily: 'Open Sans',
-    fontSize: 8,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-  },
-  datailRatedLiked: {
+
+  detailRatedLiked: {
     marginTop: -90,
     marginLeft: 145,
     width: 260,
@@ -103,7 +81,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 50,
   },
-  datailsLiked: {
+  detailsLiked: {
     marginLeft: 31,
     width: 50,
     height: 50,
@@ -118,22 +96,56 @@ const styles = StyleSheet.create({
     fontFamily: 'Open Sans',
     fontSize: 10,
   },
-  detailsDescription: {
-    width: '100%',
-    marginTop: 25,
+  detailsTvDescription: {
+    color: '#fff',
+   backgroundColor:"#fff",
     alignItems: 'center',
   },
   containerSeasons: {
-    width: '100%',
-    height: 100,
-    backgroundColor: 'white',
-    flex: 1,
+    width: 400,
+    height: 42,
+    margin: 5,
+    alignContent:'center',
+    backgroundColor: '#FFFFFF80',
+    borderRadius: 5,
+  
+  },
+  containerEpisodes:{
+    alignContent:'center',
+    backgroundColor: '#FFFFFF80',
+    borderRadius: 5,
+    height: 42,
+    margin: 5,
+    width: 400,
+    
   },
   textSeasons: {
-    fontSize: 30,
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: 'bold',
+    left: 15,
   },
   textEpisode: {
-    fontSize: 20,
+    fontSize: 7,
+    color: '#fff',
+
+  },
+  icon:{
+      color: '#fff',
+      top: 15,
+      marginLeft: 100,
+  },
+  
+  descriptionTvShow: {
+      textAlign: 'justify',
+      color: '#FFFFFF',
+      fontSize: 12,
+      width: '90%',
+      fontFamily: 'Open Sans',
+  },
+  nameTvShow: {
+    color: 'white',
+    fontSize: 15,
   },
 });
 

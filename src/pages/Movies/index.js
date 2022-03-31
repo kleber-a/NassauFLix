@@ -52,9 +52,9 @@ export default function Movies({route, navigation}) {
             />
           )}
         </View>
-        <View style={styles.containerProfileText}>
-          <Text style={styles.name}>{item.name}</Text>
-          <Text style={styles.character}>{item.character}</Text>
+        <View>
+          <Text style={styles.nameTvShow}>{item.name}</Text>
+       
         </View>
       </View>
     );
@@ -88,7 +88,7 @@ export default function Movies({route, navigation}) {
             />
           </View>
 
-          <View style={styles.detaisMoviesTitle}>
+          <View style={styles.detailsMoviesTitle}>
             <Text style={styles.titleMovie}>
               {details.title}{' '}
               <Text style={styles.yearMovie}>
