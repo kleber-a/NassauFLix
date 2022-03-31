@@ -7,6 +7,29 @@ const api = axios.create({
   baseURL: 'https://api.themoviedb.org/3/',
 });
 
+export async function postFavorite(accountId, sessionId, body) {
+  try {
+    const {data} = await api.post(
+      `account/${accountId}/favorite?api_key=${apiKey}&session_id=${sessionId}`,
+      body,
+    );
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getFavoriteMovie(accountId, sessionId) {
+  try {
+    const {data} = await api.get(
+      `account/${accountId}/favorite/movies?api_key=${apiKey}&session_id=${sessionId}`,
+    );
+    return data.results;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function getMovie(page) {
   try {
     const {data} = await api.get(
@@ -100,10 +123,10 @@ export async function getIdAccessToken(token) {
   }
 }
 
-export async function getAccountDetails(seesionId) {
+export async function getAccountDetails(sessionId) {
   try {
     const {data} = await api.get(
-      `account?api_key=${apiKey}&session_id=${seesionId}`,
+      `account?api_key=${apiKey}&session_id=${sessionId}`,
     );
     return data;
   } catch (error) {
@@ -122,10 +145,10 @@ export async function getChangeMovies(dateStart) {
   }
 }
 
-export async function getTvShows(page) {
+export async function getMoviesOrTv(type, page) {
   try {
     const {data} = await api.get(
-      `tv/popular?api_key=c3dc5cb91b1c309207a60a76c5742842&language=pt-BR&page=${page}`,
+      `${type}/popular?api_key=c3dc5cb91b1c309207a60a76c5742842&language=pt-BR&page=${page}`,
     );
     return data.results;
   } catch (error) {
@@ -133,8 +156,43 @@ export async function getTvShows(page) {
   }
 }
 
+export async function getFavoritesTvShows(accountId, sessionId) {
+  try {
+    const {data} = await api.get(
+      `/account/${accountId}/favorite/tv?api_key=${apiKey}&session_id=${sessionId}`,
+    );
+  } catch (error) {
+    console.log(error.response.data);
+  }
+}
+export async function postRate(type, typeId, sessionId, body) {
+  try {
+    await api.post(
+      `${type}/${typeId}/rating?api_key=${apiKey}&session_id=${sessionId}`,
+      body,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+  } catch (error) {
+    console.log(error.response.data);
+  }
+}
 
-export async function getFRTvShow(accountId,sessionId,name) {
+export async function getRate(accountId, sessionId) {
+  try {
+    const {data} = await api.get(
+      `account/${accountId}/rated/movies?api_key=${apiKey}&session_id=${sessionId}`,
+    );
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getFRTvShow(accountId, sessionId, name) {
   try {
     const {data} = await api.get(
       `/account/${accountId}/${name}/tv?api_key=${apiKey}&session_id=${sessionId}`,
@@ -144,7 +202,8 @@ export async function getFRTvShow(accountId,sessionId,name) {
     console.log(error);
   }
 }
-export async function getFRMovies(accountId,sessionId,name) {
+
+export async function getFRMovies(accountId, sessionId, name) {
   try {
     const {data} = await api.get(
       `/account/${accountId}/${name}/movies?api_key=${apiKey}&session_id=${sessionId}`,
@@ -155,5 +214,14 @@ export async function getFRMovies(accountId,sessionId,name) {
   }
 }
 
-
+export async function getState(type, movieId, sessionId) {
+  try {
+    const {data} = await api.get(
+      `${type}/${movieId}/account_states?api_key=${apiKey}&session_id=${sessionId}`,
+    );
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
 export default api;
