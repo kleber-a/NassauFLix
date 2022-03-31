@@ -1,9 +1,10 @@
-import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
-import React, {useState, useEffect, useContext} from 'react';
+import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import Loading from '../../components/Loading';
 import ModalAvaluate from '../../components/ModalAvaluate';
+import ButtonReturn from '../../components/ButtonReturn'
 import {
   getCredits,
   getDetails,
@@ -11,9 +12,11 @@ import {
   postFavorite,
 } from '../../service/api';
 import styles from './styles';
-import {AuthContext} from '../../context/auth';
+import { AuthContext } from '../../context/auth';
+import HeaderMoviesOrSeriesDetails from '../../components/MoviesOrSeriesDetails'
+import { NavigationActions } from 'react-navigation';
 
-export default function Movies({route, navigation}) {
+export default function Movies({ route, navigation }) {
   const [id, type] = route.params;
   const [details, setDetails] = useState([]);
   const [cast, setCast] = useState(null);
@@ -28,7 +31,7 @@ export default function Movies({route, navigation}) {
     media_id: id,
     favorite: false,
   });
-  const {sessionId, account} = useContext(AuthContext);
+  const { sessionId, account } = useContext(AuthContext);
 
   async function awaitFavoriteMovies() {
     try {
@@ -40,9 +43,9 @@ export default function Movies({route, navigation}) {
 
   useEffect(() => {
     async function awaitIsFavorite(bodyfavorite) {
-      const {favorite} = await getState('movie', id, sessionId);
+      const { favorite } = await getState('movie', id, sessionId);
       setIsFavorite(favorite);
-      setDataFavorite(prevState => ({...prevState, favorite: !favorite}));
+      setDataFavorite(prevState => ({ ...prevState, favorite: !favorite }));
     }
     awaitIsFavorite();
   }, [id, sessionId]);
@@ -85,7 +88,8 @@ export default function Movies({route, navigation}) {
     awaitAvaluates();
   }, [isRated]);
 
-  const renderItem = ({item}) => {
+
+  const renderItem = ({ item }) => {
     return (
       <View style={styles.containerCast}>
         <View style={styles.containerProfileImg}>
@@ -107,127 +111,7 @@ export default function Movies({route, navigation}) {
       </View>
     );
   };
-  const renderHeader = () => {
-    return (
-      <View style={styles.containerHeader}>
-        <ModalAvaluate
-          type={type}
-          typeId={id}
-          modalIsVisible={modalVisible}
-          setModalVisible={setModalVisible}
-          awaitAvaluates={awaitAvaluates}
-          setIsRated={setIsRated}
-        />
-        <Image
-          style={styles.backGroundMovie}
-          source={{
-            uri: `http://image.tmdb.org/t/p/w780/${details.backdrop_path}`,
-          }}
-        />
-        <TouchableOpacity
-          style={styles.containerButtonBack}
-          onPress={() => navigation.goBack()}>
-          <AntDesign style={styles.buttonBack} name="arrowleft" size={25} />
-        </TouchableOpacity>
 
-        <TouchableOpacity
-          style={[styles.containerButtonStarOn]}
-          onPress={() => {
-            setIsFavorite(!isFavorite);
-            setDataFavorite({
-              media_type: 'movie',
-              media_id: id,
-              favorite: isFavorite,
-            });
-            awaitFavoriteMovies();
-          }}>
-          <AntDesign
-            name="star"
-            size={24}
-            style={isFavorite && styles.buttonStar}
-          />
-        </TouchableOpacity>
-        <View style={styles.detailsMovies}>
-          <View style={styles.containerMovieImg}>
-            <Image
-              style={styles.movieImg}
-              source={{
-                uri: `http://image.tmdb.org/t/p/w780/${details.poster_path}`,
-              }}
-            />
-            {movieRated ? (
-              <View style={[styles.rating, {backgroundColor: '#8BE0EC'}]}>
-                <Text style={[styles.ratingText]}>
-                  Sua nota: {movieRated}/10
-                </Text>
-                <TouchableOpacity
-                  style={styles.ratingContainerIcon}
-                  onPress={() => {
-                    setModalVisible(!modalVisible);
-                  }}>
-                  <Icon
-                    style={styles.ratingIcon}
-                    name="pencil"
-                    size={10}
-                    color="#000"
-                  />
-                </TouchableOpacity>
-              </View>
-            ) : (
-              <TouchableOpacity
-                style={[styles.rating, {backgroundColor: '#E9A6A6'}]}
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                }}>
-                <Text style={[styles.ratingText]}>AVALIE AGORA</Text>
-              </TouchableOpacity>
-            )}
-          </View>
-
-          <View style={styles.detaisMin}>
-            <Text style={styles.timeMovie}>{details.runtime} min</Text>
-          </View>
-          <View style={styles.detaisMoviesTitle}>
-            <Text style={styles.titleMovie}>
-              {details.title}{' '}
-              <Text style={styles.yearMovie}>
-                {new Date(details.release_date).getFullYear()}
-              </Text>{' '}
-            </Text>
-            <View>
-              <Text style={styles.textAutor}>
-                Direção por{' '}
-                <Text style={styles.autorMovie}>
-                  {crew &&
-                    crew.find(profile => profile.job === 'Director').name}
-                </Text>
-              </Text>
-            </View>
-          </View>
-          <View style={styles.datailRatedLiked}>
-            <View style={styles.detailsRated}>
-              <Text style={styles.ratedMovie}>{details.vote_average}/10</Text>
-            </View>
-            <View style={styles.datailsLiked}>
-              <View>
-                <AntDesign name="heart" size={20} style={styles.heartIcon} />
-              </View>
-              <Text style={styles.liked}>
-                {Math.floor(details.popularity)}K
-              </Text>
-            </View>
-          </View>
-        </View>
-        <View style={styles.detailsDescription}>
-          <Text style={styles.descriptionMovie}>{details.overview}</Text>
-        </View>
-        <View style={styles.boxCast}>
-          <Text style={styles.cast}>Elenco</Text>
-          <View style={styles.line} />
-        </View>
-      </View>
-    );
-  };
   return (
     <View style={styles.container}>
       {cast ? (
@@ -236,7 +120,7 @@ export default function Movies({route, navigation}) {
           data={cast}
           keyExtractor={(item, index) => index}
           renderItem={renderItem}
-          ListHeaderComponent={renderHeader}
+          ListHeaderComponent={<HeaderMoviesOrSeriesDetails route={route} navigation={navigation} />}
         />
       ) : (
         <Loading />

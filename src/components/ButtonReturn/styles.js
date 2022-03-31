@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   return: {
@@ -8,8 +8,9 @@ const styles = StyleSheet.create({
     height: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 25,
-    left: 15,
+    position: 'absolute',
+    top: 19,
+    left: 20,
   },
   button: {
     color: '#000000',
