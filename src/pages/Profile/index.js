@@ -1,10 +1,9 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, Text, TouchableOpacity, Image, Alert} from 'react-native';
+import {View, Text, TouchableOpacity, Alert} from 'react-native';
 import styles from './styles';
 import ButtonMovie from '../../components/ButtonMovie';
 import ButtonSeries from '../../components/ButtonSeries';
 import Exit from 'react-native-vector-icons/Ionicons';
-import AsyncStorage from '@react-native-community/async-storage';
 import UserImg from '../../components/User/UserImg';
 import {AuthContext} from '../../context/auth';
 import {getFRMovies, getFRTvShow} from '../../service/api';
@@ -13,14 +12,16 @@ import MovieEvaluation from '../../components/Movie/MovieEvaluation';
 import VerifyName from '../../components/User/VerifyName';
 import Loading from '../../components/Loading';
 
-export default function Profile() {
+export default function Profile({navigation}) {
   const {account, sessionId, logout} = useContext(AuthContext);
   const [evaluation, setEvaluation] = useState(null);
+  const [type, setType] = useState('movies');
 
   //Lista Favoritos e Avaliados
   const [listFavorites, setListFavorites] = useState(null);
   const [listRated, setListRated] = useState(null);
-  const [nameList, setNameList] = useState(null);
+  const [nameRated, setNameRated] = useState('Filmes');
+  const [nameFavorite, setNameFavorite] = useState('Filmes favoritos');
 
   //Botão Movie e Séries
   const [btMovies, setBtMovies] = useState(false);
@@ -51,29 +52,31 @@ export default function Profile() {
       const ratedTvShow = await getFRTvShow(account.id, sessionId, 'rated');
       setRatedTvShow(ratedTvShow);
       setEvaluation(ratedMovies.length + ratedTvShow.length);
-
       setBtMovies(true);
       setBtSeries(false);
       setListFavorites(favoriteMovies);
       setListRated(ratedMovies);
-      setNameList('Filmes');
     }
     awaitData();
   }, []);
 
   function selectionButtonMovie() {
+    setType('movies');
+    setNameRated('Filmes');
+    setNameFavorite('Filmes favoritos');
     setBtMovies(true);
     setBtSeries(false);
     setListFavorites(favoriteMovies);
     setListRated(ratedMovies);
-    setNameList('Filmes');
   }
   function selectionButtonSeries() {
+    setType('tv');
+    setNameRated('Séries');
+    setNameFavorite('Séries favoritas');
     setBtSeries(true);
     setBtMovies(false);
     setListFavorites(favoriteTvShow);
     setListRated(ratedTvShow);
-    setNameList('Séries');
   }
 
   const showAlert = () => {
@@ -140,9 +143,13 @@ export default function Profile() {
         <View style={styles.boxListMovie}>
           <View style={styles.description}>
             <Text style={styles.textDescription}>
-              {nameList} favoritos de <VerifyName />
+              {nameFavorite} de <VerifyName />
             </Text>
-            <TouchableOpacity style={styles.buttonDescription}>
+            <TouchableOpacity
+              style={styles.buttonDescription}
+              onPress={() => {
+                navigation.navigate('Favorites', [type, nameFavorite]);
+              }}>
               <Text style={styles.textButtonDescription}>Ver tudo</Text>
             </TouchableOpacity>
           </View>
@@ -169,9 +176,13 @@ export default function Profile() {
         <View style={styles.boxListTvShow}>
           <View style={styles.description}>
             <Text style={styles.textDescription}>
-              Avaliações de {nameList} recentes de <VerifyName />
+              Avaliações de {nameRated} recentes de <VerifyName />
             </Text>
-            <TouchableOpacity style={styles.buttonDescription}>
+            <TouchableOpacity
+              style={styles.buttonDescription}
+              onPress={() => {
+                navigation.navigate('Rateds', [type, nameRated]);
+              }}>
               <Text style={styles.textButtonDescription}>Ver tudo</Text>
             </TouchableOpacity>
           </View>
