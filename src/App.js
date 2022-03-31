@@ -2,7 +2,6 @@ import React from 'react';
 import {StatusBar} from 'react-native';
 import Login from './pages/Login';
 import HomeTabScreen from './routes/HomeTabScreen.routes';
-
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {LogBox} from 'react-native';

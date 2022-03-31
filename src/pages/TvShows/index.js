@@ -19,7 +19,7 @@ export default function TvShows({route, navigation}) {
   const [season, setSeason] = useState(null);
   const [episode_number, setEpisodeNumber] = useState(null);
 
-
+  const [selection, setSelection] = useState(false);
 
   useEffect(() => {
     async function awaitGetTvShow() {
@@ -32,39 +32,52 @@ export default function TvShows({route, navigation}) {
     }
     awaitGetTvShow();
   }, [id]);
-  console.warn(tvShow.overview)
+  console.warn(tvShow);
   useEffect(() => {
-    async function awaitGetSeasonTvShow() {
-      try {
-        const dataSeason = await getTvShowSeason(id, 1);
-        setSeason(dataSeason);
-      } catch (error) {
-        console.warn(error);
-      }
-    }
     awaitGetSeasonTvShow();
   }, [id]);
+  async function awaitGetSeasonTvShow(season) {
+    try {
+      const dataSeason = await getTvShowSeason(id, season);
+      setSeason(dataSeason);
+      setSelection(!selection);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
 
+  function Selection() {}
+  console.warn(selection);
   const renderItem = ({item}) => {
     return (
-      <TouchableOpacity>
-        <View style={styles.containerSeasons}>
-          <Icon name={'chevron-down'} style={styles.icon} />
+      <>
+        <TouchableOpacity
+          onPress={() => awaitGetSeasonTvShow(item.season_number)}>
+          <View style={styles.containerSeasons}>
+            <Icon name={'chevron-down'} style={styles.icon} />
 
-          <Text style={styles.textSeasons}>{item.name}</Text>
-        </View>
-       
-        <View>
-          {season &&
-            season.episodes.map(episode => {
-              return (
-                <TouchableOpacity style={styles.containerEpisodes}>
-                  <Text style={styles.textEpisode}>{episode.name}</Text>
-                </TouchableOpacity>
-              );
-            })}
-        </View>
-      </TouchableOpacity>
+            <Text style={styles.textSeasons}>{item.name}</Text>
+          </View>
+        </TouchableOpacity>
+        {selection === true ? (
+          <View>
+            {season &&
+              season.season_number === item.season_number &&
+              season.episodes.map(episode => {
+                return (
+                  <View style={styles.containerEpisodes}>
+                    <View style={styles.containerText}>
+                      <Text style={styles.textEpisode}>
+                        T{season.season_number} | E{episode.episode_number}
+                      </Text>
+                      <Text style={styles.textTitleEpisode}>{episode.name}</Text>
+                    </View>
+                  </View>
+                );
+              })}
+          </View>
+        ) : null}
+      </>
     );
   };
 
@@ -77,7 +90,7 @@ export default function TvShows({route, navigation}) {
             uri: `http://image.tmdb.org/t/p/w780/${tvShow.backdrop_path}`,
           }}
         />
-        
+
         <TouchableOpacity
           style={styles.containerButtonBack}
           onPress={() => navigation.goBack()}>
@@ -117,10 +130,9 @@ export default function TvShows({route, navigation}) {
           </View>
         </View>
         <View style={styles.detailsTvDescription}>
-          <Text>{tvShow.overview}</Text>
+          <Text>{tvShow && tvShow.overview}</Text>
         </View>
       </View>
-      
     );
   };
   return (

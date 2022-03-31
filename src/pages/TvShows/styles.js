@@ -117,7 +117,12 @@ const styles = StyleSheet.create({
     height: 42,
     margin: 5,
     width: 400,
-    
+    justifyContent:'center',
+    alignItems:'flex-start',
+    paddingHorizontal:15
+  },
+  containerText: {
+    height:25,
   },
   textSeasons: {
     color: '#fff',
@@ -126,9 +131,14 @@ const styles = StyleSheet.create({
     left: 15,
   },
   textEpisode: {
-    fontSize: 7,
+    fontSize: 12,
+    fontWeight:'700',
     color: '#fff',
-
+  },
+  textTitleEpisode: {
+    fontSize: 7,
+    fontWeight:'40',
+    color: '#fff',
   },
   icon:{
       color: '#fff',
