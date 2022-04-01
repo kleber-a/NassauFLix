@@ -2,89 +2,71 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: '100%',
+    flex: 1,
     backgroundColor: 'black',
-    resizeMode: 'cover',
   },
   //Header FlatList---
-  containerRenderHeader: {
-    marginBottom: 15,
-  },
   backGroundHeader: {
     width: '100%',
     height: 170,
-    position: 'relative',
   },
-  containerButtonBack: {
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
-    top: 19,
-    left: 20,
-    borderRadius: 40,
-    width: 30,
-    height: 30,
-  },
-  buttonBack: {
-    color: 'black',
-  },
+
   containerButtonStar: {
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
-    top: 19,
-    right: 10,
+    top: 20,
+    right: 20,
     borderRadius: 40,
     width: 30,
     height: 30,
-  },
-  buttonStar: {
-    color: 'black',
+    backgroundColor: 'white',
   },
   detailsTvShow: {
     flexDirection: 'row',
     width: '100%',
+    height: 128,
+    paddingHorizontal: 20,
   },
-  capaTvShow: {
+  posterTvShow: {
     position: 'relative',
-    top: -35,
-    marginLeft: 20,
-    width: 116,
-    height: 182,
+    top: -60,
+    width: 120,
+    height: 188,
     borderRadius: 8,
   },
   containerDetails: {
-    width: '50%',
-    justifyContent: 'space-around',
-  },
-  boxDetails1: {
-    width: '100%',
-    backgroundColor: 'pink',
-    flexDirection: 'column',
-    paddingLeft: 10,
+    width: '65%',
+    paddingHorizontal: 14,
+    justifyContent: 'space-between',
+    paddingTop: 10,
   },
   detailsTvShowTitle: {
     fontSize: 20,
     fontWeight: '700',
-    alignItems: 'flex-start',
-    color:'white'
+    color: 'white',
   },
   detailsTvShowAge: {
     fontSize: 10,
-    color:'white'
+    color: 'white',
   },
-  boxDetails2: {
-    width: '100%',
+  criatedText: {
+    fontSize: 10,
+    color: 'white',
+  },
+  criatedName: {
+    fontWeight: '700',
+  },
+  boxDetailsIcons: {
+    alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-around',
   },
   tvShowsRate: {
     color: '#E9A6A6',
     fontSize: 30,
     fontWeight: '400',
+    marginRight: 30,
   },
-
   detailsLiked: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -95,32 +77,29 @@ const styles = StyleSheet.create({
     color: 'red',
     alignSelf: 'center',
   },
-
   liked: {
     color: 'white',
     textAlign: 'center',
     fontFamily: 'Open Sans',
     fontSize: 10,
   },
-
-  detailsTvDescription: {
-    width: 332,
-    marginHorizontal: 20,
-  },
   textDetailsTvDescription: {
+    textAlign: 'justify',
     fontSize: 12,
+    marginHorizontal: 20,
+    marginVertical: 25,
     fontFamily: 'Open Sans',
     fontWeight: '400',
     justifyContent: 'center',
-    color:'white'
+    color: 'white',
   },
 
   //End Header FaltList
 
   //Render Item
   buttonSeason: {
-    width: 400,
-    height: 42,
+    marginHorizontal: 20,
+    padding: 12,
     marginVertical: 5,
     backgroundColor: '#FFFFFF80',
     borderRadius: 5,
@@ -143,9 +122,9 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     backgroundColor: '#FFFFFF80',
     borderRadius: 5,
-    height: 42,
-    margin: 5,
-    width: 400,
+    marginHorizontal: 20,
+    padding: 12,
+    marginVertical: 5,
     justifyContent: 'center',
     alignItems: 'flex-start',
     paddingHorizontal: 15,
@@ -153,14 +132,13 @@ const styles = StyleSheet.create({
   containerText: {
     height: 25,
   },
-
   textEpisode: {
     fontSize: 12,
     fontWeight: '700',
     color: '#fff',
   },
   textTitleEpisode: {
-    fontSize: 7,
+    fontSize: 8,
     fontWeight: '40',
     color: '#fff',
   },

@@ -7,9 +7,9 @@ export default function IconTvShow(props) {
   return (
     <View>
       {loading === false ? (
-        <Icon size={20} color={'white'}  name={'chevron-down'} />
+        <Icon size={20} color={'white'} name={'chevron-down'} />
       ) : (
-        <Icon size={20} color={'white'} name={'chevron-up'}  />
+        <Icon size={20} color={'white'} name={'chevron-up'} />
       )}
     </View>
   );
