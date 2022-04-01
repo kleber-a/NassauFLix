@@ -8,9 +8,9 @@ const styles = StyleSheet.create({
     height: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'absolute',
     top: 20,
-    left: 0,
+    left: 20,
+    position: 'absolute',
   },
   button: {
     color: '#000000',
