@@ -34,50 +34,14 @@ export default function TvShows({route, navigation}) {
   // }, [id]);
 
   async function awaitGetSeasonTvShow(season) {
+    setSelection(!selection);
     try {
       const dataSeason = await getTvShowSeason(id, season);
       setSeason(dataSeason);
-      setSelection(!selection);
     } catch (error) {
       console.warn(error);
     }
   }
-
-  const renderItem = ({item}) => {
-    return (
-      <>
-        <TouchableOpacity
-          style={styles.buttonSeason}
-          onPress={() => awaitGetSeasonTvShow(item.season_number)}>
-          <View style={styles.listContainerSeasons}>
-            <Text style={styles.textSeasons}>{item.name}</Text>
-            <IconTvShow loading={selection} />
-          </View>
-        </TouchableOpacity>
-        {selection === true ? (
-          <View>
-            {season &&
-              season.season_number === item.season_number &&
-              season.episodes.map((episode, index) => {
-                return (
-                  <View style={styles.containerEpisodes} key={index}>
-                    <View style={styles.containerText}>
-                      <Text style={styles.textEpisode}>
-                        T{season.season_number} | E{episode.episode_number}
-                      </Text>
-                      <Text style={styles.textTitleEpisode}>
-                        {episode.name}
-                      </Text>
-                    </View>
-                  </View>
-                );
-              })}
-          </View>
-        ) : null}
-      </>
-    );
-  };
-
   const renderHeader = () => {
     return (
       <View style={styles.containerRenderHeader}>
@@ -113,7 +77,7 @@ export default function TvShows({route, navigation}) {
                   {tvShow &&
                     tvShow.created_by.map((item, index) => {
                       return (
-                        <Text style={styles.criatedName}>
+                        <Text key={index} style={styles.criatedName}>
                           {index > 1 && ', '}
                           {item.name}
                         </Text>
@@ -142,6 +106,49 @@ export default function TvShows({route, navigation}) {
       </View>
     );
   };
+
+  const renderItem = ({item}) => {
+    return (
+      <>
+        <TouchableOpacity
+          style={styles.buttonSeason}
+          onPress={() => awaitGetSeasonTvShow(item.season_number)}>
+          <View style={styles.listContainerSeasons}>
+            <Text style={styles.textSeasons}>{item.name}</Text>
+            <IconTvShow loading={selection} />
+          </View>
+        </TouchableOpacity>
+        {selection === true ? (
+          <View>
+            {season &&
+              season.season_number === item.season_number &&
+              season.episodes.map((episode, index) => {
+                return (
+                  <View style={styles.containerEpisodes} key={index}>
+                    <View style={styles.containerText}>
+                      <Text style={styles.textEpisode}>
+                        T
+                        {season.season_number < 10 && season.season_number > 0
+                          ? '0' + season.season_number
+                          : season.season_number}
+                        | E
+                        {episode.episode_number < 10
+                          ? '0' + episode.episode_number
+                          : episode.episode_number}
+                      </Text>
+                      <Text style={styles.textTitleEpisode}>
+                        {episode.name}
+                      </Text>
+                    </View>
+                  </View>
+                );
+              })}
+          </View>
+        ) : null}
+      </>
+    );
+  };
+
   return (
     <View style={styles.container}>
       {tvShow ? (

@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   //Render Item
   buttonSeason: {
     marginHorizontal: 20,
-    padding: 12,
+    padding: 10,
     marginVertical: 5,
     backgroundColor: '#FFFFFF80',
     borderRadius: 5,
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF80',
     borderRadius: 5,
     marginHorizontal: 20,
-    padding: 12,
+    padding: 10,
     marginVertical: 5,
     justifyContent: 'center',
     alignItems: 'flex-start',
