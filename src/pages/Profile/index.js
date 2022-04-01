@@ -65,9 +65,10 @@ export default function Profile({navigation}) {
       setListFavorites(favoriteMovies);
       setListRated(ratedMovies);
     }
-    awaitData();
-  }, [account.id, sessionId]);
-
+    navigation.addListener('focus', () => {
+      awaitData();
+    });
+  }, [account.id, sessionId, navigation]);
   function selectionButtonMovie() {
     setType('movies');
     setNameRated('Avaliações de filmes recentes');
@@ -171,7 +172,10 @@ export default function Profile({navigation}) {
                 index <= 3 ? (
                   <TouchableOpacity
                     key={listFavorites.id}
-                    style={styles.buttonListFavorites}>
+                    style={styles.buttonListFavorites}
+                    onPress={() => {
+                      navigation.navigate(type, [listFavorites.id, type]);
+                    }}>
                     <MovieImage
                       pathImage={listFavorites.poster_path}
                       posterSize={'w92'}
@@ -208,7 +212,10 @@ export default function Profile({navigation}) {
                 index <= 4 ? (
                   <TouchableOpacity
                     key={listRated.id}
-                    style={styles.buttonListTvShow}>
+                    style={styles.buttonListTvShow}
+                    onPress={() => {
+                      navigation.navigate(type, [listFavorites.id, type]);
+                    }}>
                     <MovieImage
                       pathImage={listRated.poster_path}
                       posterSize={'w92'}

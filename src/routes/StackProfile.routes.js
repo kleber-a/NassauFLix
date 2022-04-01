@@ -16,8 +16,8 @@ function StackProfile() {
       }}>
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="InterationList" component={InterationList} />
-      <Stack.Screen name="Movies" component={Movies} />
-      <Stack.Screen name="TvShows" component={TvShows} />
+      <Stack.Screen name="movies" component={Movies} />
+      <Stack.Screen name="tv" component={TvShows} />
     </Stack.Navigator>
   );
 }

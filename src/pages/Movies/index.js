@@ -100,8 +100,9 @@ export default function Movies({route, navigation}) {
             />
           )}
         </View>
-        <View>
-          <Text style={styles.nameTvShow}>{item.name}</Text>
+        <View style={styles.containerProfileText}>
+          <Text style={styles.name}>{item.name}</Text>
+          <Text style={styles.character}>{item.character}</Text>
         </View>
       </View>
     );
@@ -212,7 +213,13 @@ export default function Movies({route, navigation}) {
                 <AntDesign name="heart" size={20} style={styles.heartIcon} />
               </View>
               <Text style={styles.liked}>
-                {Math.floor(details.popularity)}K
+                {details.length > 0 && details.vote_count.toString().length > 3
+                  ? `${details.vote_count.toString()[0]}${
+                      details.vote_count.toString()[1] > 0
+                        ? `.${details.vote_count.toString()[1]}`
+                        : ''
+                    }K`
+                  : details.vote_count}
               </Text>
             </View>
           </View>
