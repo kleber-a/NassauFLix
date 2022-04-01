@@ -1,6 +1,5 @@
 import React from 'react';
-import Favorites from '../pages/Favorites';
-import Rateds from '../pages/Rateds';
+import InterationList from '../pages/InterationList';
 import Profile from '../pages/Profile';
 
 import {createStackNavigator} from '@react-navigation/stack';
@@ -14,8 +13,7 @@ function StackProfile() {
         headerShown: false,
       }}>
       <Stack.Screen name="Profile" component={Profile} />
-      <Stack.Screen name="Rateds" component={Rateds} />
-      <Stack.Screen name="Favorites" component={Favorites} />
+      <Stack.Screen name="InterationList" component={InterationList} />
     </Stack.Navigator>
   );
 }
