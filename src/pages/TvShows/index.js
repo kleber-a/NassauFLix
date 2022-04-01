@@ -10,12 +10,9 @@ import ButtonReturn from '../../components/ButtonReturn';
 
 export default function TvShows({route, navigation}) {
   const id = route.params;
-  const [details, setDetails] = useState([]);
-  const [isIndex, setIsIndex] = useState();
+  const [currentIndex, setCurrentIndex] = useState();
   const [tvShow, setTvShow] = useState(null);
   const [season, setSeason] = useState(null);
-  const [episode_number, setEpisodeNumber] = useState(null);
-
   const [selection, setSelection] = useState(false);
 
   useEffect(() => {
@@ -110,11 +107,11 @@ export default function TvShows({route, navigation}) {
         <TouchableOpacity
           style={styles.buttonSeason}
           onPress={() =>
-            awaitGetSeasonTvShow(item.season_number) && setIsIndex(index)
+            awaitGetSeasonTvShow(item.season_number) && setCurrentIndex(index)
           }>
           <View style={styles.listContainerSeasons}>
             <Text style={styles.textSeasons}>{item.name}</Text>
-            <IconTvShow loading={selection && index === isIndex} />
+            <IconTvShow loading={selection && index === currentIndex} />
           </View>
         </TouchableOpacity>
         {selection === true ? (

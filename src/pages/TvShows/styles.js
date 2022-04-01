@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   },
   textTitleEpisode: {
     fontSize: 8,
-    fontWeight: '40',
+    fontWeight: '400',
     color: '#fff',
   },
 });
