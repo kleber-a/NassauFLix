@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {Alert} from 'react-native';
 
 const apiKey = 'c3dc5cb91b1c309207a60a76c5742842';
 
@@ -103,11 +102,6 @@ export async function validateToken(body) {
     );
     return data.success;
   } catch (error) {
-    if (error.response.data.status_message.includes('You must provide')) {
-      Alert.alert('Usuário inválido', 'Campo não preenchido.');
-    } else {
-      Alert.alert('Usuário inválido', 'Nome ou senha inválidos.');
-    }
     return error.response.data.success;
   }
 }
@@ -226,6 +220,23 @@ export async function getState(type, movieId, sessionId) {
       `${type}/${movieId}/account_states?api_key=${apiKey}&session_id=${sessionId}`,
     );
     return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getAllRatedEvaliation(accountId, sessionId) {
+  try {
+    const {data} = await api.get(
+      `/account/${accountId}/rated/movies?api_key=${apiKey}&session_id=${sessionId}`,
+    );
+    const response = await api.get(
+      `/account/${accountId}/rated/tv?api_key=${apiKey}&session_id=${sessionId}`,
+    );
+
+    const total = data.total_results + response.data.total_results
+    
+    return total
   } catch (error) {
     console.log(error);
   }
