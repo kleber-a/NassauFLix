@@ -36,7 +36,7 @@ export default function Home({navigate, type}) {
     return (
       <View style={styles.boxHeader}>
         <PopularDescription type={Object.values(type)[0]} />
-        <UserImage size={50} />
+        <UserImage navigation={navigate} size={50} />
       </View>
     );
   };
