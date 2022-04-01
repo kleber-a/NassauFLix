@@ -5,7 +5,7 @@ import ButtonPlay from '../components/TabButtons/ButtonPlay';
 import ButtonUser from '../components/TabButtons/ButtonUser';
 import StackMovies from './StackMovies.routes';
 import StackTvShows from './StackTvShos.routes';
-import FavoriteMovies from '../pages/FavoriteMovies';
+import StackProfile from './StackProfile.routes';
 const Tab = createBottomTabNavigator();
 
 function HomeTabScreen() {
@@ -14,8 +14,6 @@ function HomeTabScreen() {
       initialRouteName="StackMovies"
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#000',
-        tabBarInactiveTintColor: '#304FFE',
         tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: '#454545',
@@ -27,21 +25,27 @@ function HomeTabScreen() {
         name="StackTvShows"
         component={StackTvShows}
         options={{
-          tabBarIcon: () => <ButtonPlay name="StackTvShows" />,
+          tabBarIcon: ({color, focused}) => (
+            <ButtonPlay focused={focused} color={color} name="StackTvShows" />
+          ),
         }}
       />
       <Tab.Screen
         name="StackMovies"
         component={StackMovies}
         options={{
-          tabBarIcon: () => <ButtonHome name="StackMovies" />,
+          tabBarIcon: ({color, focused}) => (
+            <ButtonHome focused={focused} color={color} name="StackMovies" />
+          ),
         }}
       />
       <Tab.Screen
-        name="FavoriteMovies"
-        component={FavoriteMovies}
+        name="StackProfile"
+        component={StackProfile}
         options={{
-          tabBarIcon: () => <ButtonUser name="User" />,
+          tabBarIcon: ({color, focused}) => (
+            <ButtonUser focused={focused} color={color} name="User" />
+          ),
         }}
       />
     </Tab.Navigator>

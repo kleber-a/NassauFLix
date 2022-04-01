@@ -20,8 +20,8 @@ export default function Home({navigate, type}) {
     setLoading(true);
     try {
       const results = await getMoviesOrTv(Object.keys(type)[0], page);
-      setData([...data, ...results]);
       setPage(page + 1);
+      setData([...data, ...results]);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -79,7 +79,7 @@ export default function Home({navigate, type}) {
           renderItem={renderItem}
         />
       ) : (
-        <Loading size={"large"} color={"#FFFFFF"}/>
+        <Loading size={77} color={'#ffffff'} />
       )}
     </View>
   );
