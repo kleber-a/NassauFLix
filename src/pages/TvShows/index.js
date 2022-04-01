@@ -46,7 +46,6 @@ export default function TvShows({route, navigation}) {
     }
   }
 
-  function Selection() {}
   console.warn(selection);
   const renderItem = ({item}) => {
     return (
@@ -54,9 +53,8 @@ export default function TvShows({route, navigation}) {
         <TouchableOpacity
           onPress={() => awaitGetSeasonTvShow(item.season_number)}>
           <View style={styles.containerSeasons}>
-            <Icon name={'chevron-down'} style={styles.icon} />
-
             <Text style={styles.textSeasons}>{item.name}</Text>
+            <Icon name={'chevron-down'} style={styles.icon} />
           </View>
         </TouchableOpacity>
         {selection === true ? (
@@ -70,20 +68,22 @@ export default function TvShows({route, navigation}) {
                       <Text style={styles.textEpisode}>
                         T{season.season_number} | E{episode.episode_number}
                       </Text>
-                      <Text style={styles.textTitleEpisode}>{episode.name}</Text>
+                      <Text style={styles.textTitleEpisode}>
+                        {episode.name}
+                      </Text>
                     </View>
                   </View>
                 );
               })}
           </View>
         ) : null}
-      </>
+     </>
     );
   };
 
   const renderHeader = () => {
     return (
-      <View>
+      <View style={styles.containerRenderHeader}>
         <Image
           style={styles.backGroundtvShow}
           source={{
@@ -101,36 +101,46 @@ export default function TvShows({route, navigation}) {
         </TouchableOpacity>
 
         <View style={styles.detailsTvShow}>
-          <View>
-            <Image
-              style={styles.capaTvShow}
-              source={{
-                uri: `http://image.tmdb.org/t/p/w780/${tvShow.poster_path}`,
-              }}
-            />
-          </View>
+          <Image
+            style={styles.capaTvShow}
+            source={{
+              uri: `http://image.tmdb.org/t/p/w780/${tvShow.poster_path}`,
+            }}
+          />
+          <View style={styles.containerDetails}>
+            <View style={styles.boxDetails1}>
+              <Text style={styles.detailsTvShowTitle}>
+                {tvShow.name + ' '}
+                <Text style={styles.detailsTvShowAge}>
+                  {new Date(tvShow.first_air_date).getFullYear()}
+                </Text>
+              </Text>
 
-          <View style={styles.detailsTvShowTitle}></View>
-        </View>
-
-        <View style={styles.detailRatedLiked}>
-          <View style={styles.detailsRated}>
-            <Text style={styles.tvShowsRate}>{tvShow.vote_average}/10</Text>
-          </View>
-
-          <View style={styles.detailsLiked}>
-            <View>
-              <AntDesign name="heart" size={20} style={styles.heartIcon} />
+              <Text>
+                Criado por{' '}
+                {tvShow &&
+                  tvShow.created_by.map(item => {
+                    return <Text>{item.name}</Text>;
+                  })}{' '}
+              </Text>
             </View>
-            <Text style={styles.liked}>
-              {tvShow.length > 0 && tvShow.vote_count.toString().length > 3
-                ? `${(tvShow.vote_count / 1000).toFixed(1)}K`
-                : tvShow.vote_count}
-            </Text>
+            <View style={styles.detailRatedLiked}>
+              <Text style={styles.tvShowsRate}>{tvShow.vote_average}/10</Text>
+
+              <View style={styles.detailsLiked}>
+                <AntDesign name="heart" size={20} style={styles.heartIcon} />
+                <Text style={styles.liked}>
+                  {tvShow.length > 0 && tvShow.vote_count.toString().length > 3
+                    ? `${(tvShow.vote_count / 1000).toFixed(1)}K`
+                    : tvShow.vote_count}
+                </Text>
+              </View>
+            </View>
           </View>
         </View>
+       
         <View style={styles.detailsTvDescription}>
-          <Text>{tvShow && tvShow.overview}</Text>
+          <Text style={styles.textDetailsTvDescription}>{tvShow && tvShow.overview}</Text>
         </View>
       </View>
     );
