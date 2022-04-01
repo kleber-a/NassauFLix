@@ -1,33 +1,29 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {View, FlatList} from 'react-native';
 import Loading from '../../components/Loading';
-import {getFavoriteMovie} from '../../service/api';
-import FavoriteDescription from '../../components/Movie/FavoriteDescription';
+import {getRateds} from '../../service/api';
 import MovieImage from '../../components/Movie/MovieImage';
 import styles from './styles';
 import {AuthContext} from '../../context/auth';
+import RatedDescription from '../../components/Movie/RatedDescription';
 
-export default function FavoriteMovies({navigation}) {
+export default function Rateds({navigation, route}) {
+  const [type, nameRated] = route.params;
   const [movies, setMovies] = useState([]);
   const {account, sessionId} = useContext(AuthContext);
-
   useEffect(() => {
     navigation.addListener('focus', () => {
-      async function awaitFavoriteMovies() {
-        const dataFavorite = await getFavoriteMovie(
-          'movies',
-          account.id,
-          sessionId,
-        );
+      async function awaitFavorites() {
+        const dataFavorite = await getRateds(type, account.id, sessionId);
         const result = dataFavorite.map(data => data.poster_path);
         setMovies(result);
       }
-      awaitFavoriteMovies();
+      awaitFavorites();
     });
-  }, [account.id, sessionId, navigation]);
+  }, [account.id, sessionId, type, navigation]);
 
   const renderHeader = () => {
-    return <FavoriteDescription navigation={navigation} />;
+    return <RatedDescription navigation={navigation} nameRated={nameRated} />;
   };
 
   const renderItem = ({item}) => {

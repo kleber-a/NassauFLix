@@ -28,40 +28,35 @@ export default function UserImage({size}) {
       setNotify(newMovies.results);
     }
     awaitChange();
-  }, []);
-
-  const isNotifyActive = () => {
-    if (notify && notify.length > 0) {
-      return <View style={styles.notifyActive} />;
-    }
-  };
-
-  const isImage = () => {
-    if (icon && icon.length === 1) {
-      return <Text style={styles.userText}>{icon}</Text>;
-    } else {
-      return (
-        <Image
-          style={styles.userImage}
-          source={{
-            uri: `http://image.tmdb.org/t/p/w45/${icon}`,
-          }}
-        />
-      );
-    }
-  };
+    return () => {
+      setNotify(null);
+      setIcon(null);
+    };
+  }, [account]);
 
   return (
-    <View
-      style={[
-        styles.containerNotify,
-        {
-          width: size,
-          height: size,
-        },
-      ]}>
-      {isNotifyActive()}
-      {isImage()}
-    </View>
+    notify &&
+    icon && (
+      <View
+        style={[
+          styles.containerNotify,
+          {
+            width: size,
+            height: size,
+          },
+        ]}>
+        {notify.length > 0 && <View style={styles.notifyActive} />}
+        {icon.length === 1 ? (
+          <Text style={styles.userText}>{icon}</Text>
+        ) : (
+          <Image
+            style={styles.userImage}
+            source={{
+              uri: `http://image.tmdb.org/t/p/w45/${icon}`,
+            }}
+          />
+        )}
+      </View>
+    )
   );
 }
