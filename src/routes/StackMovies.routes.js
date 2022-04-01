@@ -12,7 +12,7 @@ function StackMovies() {
         headerShown: false,
       }}>
       <Stack.Screen name="HomeMovies" component={HomeMovies} />
-      <Stack.Screen name="Movies" component={Movies} />
+      <Stack.Screen name="movie" component={Movies} />
     </Stack.Navigator>
   );
 }

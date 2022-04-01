@@ -4,7 +4,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import styles from './styles';
 import VerifyName from '../../User/VerifyName';
 
-export default function FavoriteDescription({navigation, nameFavorite}) {
+export default function RatedDescription({navigation, nameRated}) {
   return (
     <View style={styles.boxButtonAndText}>
       <TouchableOpacity
@@ -13,7 +13,7 @@ export default function FavoriteDescription({navigation, nameFavorite}) {
         <AntDesign name="arrowleft" size={25} color="black" />
       </TouchableOpacity>
       <Text style={styles.containerText}>
-        {nameFavorite} do <VerifyName color={'pink'} />
+        Avaliações de {nameRated} recentes de <VerifyName />
       </Text>
     </View>
   );
