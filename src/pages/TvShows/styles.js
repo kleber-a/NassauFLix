@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     flexDirection: 'row',
     borderBottomWidth: 4,
-    borderBottomColor: '#E9A6A6',
+    borderBottomColor: '#CCC',
   },
   listContainerSeasons: {
     alignItems: 'flex-start',

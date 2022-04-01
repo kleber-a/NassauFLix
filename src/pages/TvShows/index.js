@@ -1,5 +1,12 @@
-import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import {
+  View,
+  Text,
+  Animated,
+  TouchableOpacity,
+  Image,
+  FlatList,
+} from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
 import {getTvShow, getTvShowSeason} from '../../service/api';
 import styles from './styles';
 import Loading from '../../components/Loading';
@@ -11,9 +18,16 @@ import ButtonReturn from '../../components/ButtonReturn';
 export default function TvShows({route, navigation}) {
   const id = route.params;
   const [currentIndex, setCurrentIndex] = useState();
+  const [previousIndex, setPreviousIndex] = useState();
   const [tvShow, setTvShow] = useState(null);
   const [season, setSeason] = useState(null);
   const [selection, setSelection] = useState(false);
+  const [bodyHeight, setBodyHeight] = useState(new Animated.Value(-500));
+  Animated.timing(bodyHeight, {
+    duration: 1000,
+    toValue: 0,
+    useNativeDriver: false,
+  }).start();
 
   useEffect(() => {
     async function awaitGetTvShow() {
@@ -27,8 +41,9 @@ export default function TvShows({route, navigation}) {
     awaitGetTvShow();
   }, [id]);
 
-  async function awaitGetSeasonTvShow(season) {
+  async function awaitGetSeasonTvShow(season, index) {
     setSelection(!selection);
+    setPreviousIndex(index);
     try {
       const dataSeason = await getTvShowSeason(id, season);
       setSeason(dataSeason);
@@ -103,45 +118,53 @@ export default function TvShows({route, navigation}) {
 
   const renderItem = ({item, index}) => {
     return (
-      <>
+      <View>
         <TouchableOpacity
-          style={styles.buttonSeason}
-          onPress={() =>
-            awaitGetSeasonTvShow(item.season_number) && setCurrentIndex(index)
-          }>
+          style={[
+            styles.buttonSeason,
+            selection &&
+              index === currentIndex && {borderBottomColor: '#E9A6A6'},
+          ]}
+          onPress={() => {
+            awaitGetSeasonTvShow(item.season_number, index);
+            setBodyHeight(new Animated.Value(-1000));
+            setCurrentIndex(index);
+          }}>
           <View style={styles.listContainerSeasons}>
             <Text style={styles.textSeasons}>{item.name}</Text>
             <IconTvShow loading={selection && index === currentIndex} />
           </View>
         </TouchableOpacity>
-        {selection === true ? (
-          <View>
-            {season &&
-              season.season_number === item.season_number &&
-              season.episodes.map((episode, index) => {
-                return (
-                  <View style={styles.containerEpisodes} key={index}>
-                    <View style={styles.containerText}>
-                      <Text style={styles.textEpisode}>
-                        T
-                        {season.season_number < 10 && season.season_number > 0
-                          ? '0' + season.season_number
-                          : season.season_number}
-                        | E
-                        {episode.episode_number < 10
-                          ? '0' + episode.episode_number
-                          : episode.episode_number}
-                      </Text>
-                      <Text style={styles.textTitleEpisode}>
-                        {episode.name}
-                      </Text>
+        <View style={{overflow: 'hidden'}}>
+          {selection ? (
+            <Animated.View style={{top: bodyHeight}}>
+              {season &&
+                season.season_number === item.season_number &&
+                season.episodes.map((episode, index) => {
+                  return (
+                    <View style={styles.containerEpisodes} key={index}>
+                      <View style={styles.containerText}>
+                        <Text style={styles.textEpisode}>
+                          T
+                          {season.season_number < 10 && season.season_number > 0
+                            ? '0' + season.season_number
+                            : season.season_number}
+                          | E
+                          {episode.episode_number < 10
+                            ? '0' + episode.episode_number
+                            : episode.episode_number}
+                        </Text>
+                        <Text style={styles.textTitleEpisode}>
+                          {episode.name}
+                        </Text>
+                      </View>
                     </View>
-                  </View>
-                );
-              })}
-          </View>
-        ) : null}
-      </>
+                  );
+                })}
+            </Animated.View>
+          ) : null}
+        </View>
+      </View>
     );
   };
 
