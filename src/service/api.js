@@ -176,7 +176,7 @@ export async function getMoviesOrTv(type, page) {
 export async function getTvShowSeason(id, numberOfSeason) {
   try {
     const {data} = await api.get(
-      `/tv/${id}/season/${numberOfSeason}?api_key=${apiKey}`,
+      `/tv/${id}/season/${numberOfSeason}?api_key=${apiKey}&language=pt-BR`,
     );
     return data;
   } catch (error) {

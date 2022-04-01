@@ -10,7 +10,8 @@ import styles from './styles';
 import Loading from '../../components/Loading';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
-import Icon from 'react-native-vector-icons/EvilIcons';
+import IconTvShow from '../../components/IconTvShow';
+
 
 export default function TvShows({route, navigation}) {
   const id = route.params;
@@ -50,11 +51,11 @@ export default function TvShows({route, navigation}) {
   const renderItem = ({item}) => {
     return (
       <>
-        <TouchableOpacity
+        <TouchableOpacity style={styles.buttonSeason}
           onPress={() => awaitGetSeasonTvShow(item.season_number)}>
-          <View style={styles.containerSeasons}>
+          <View style={styles.listContainerSeasons} >
             <Text style={styles.textSeasons}>{item.name}</Text>
-            <Icon name={'chevron-down'} style={styles.icon} />
+            <IconTvShow loading={selection} />
           </View>
         </TouchableOpacity>
         {selection === true ? (
@@ -85,7 +86,7 @@ export default function TvShows({route, navigation}) {
     return (
       <View style={styles.containerRenderHeader}>
         <Image
-          style={styles.backGroundtvShow}
+          style={styles.backGroundHeader}
           source={{
             uri: `http://image.tmdb.org/t/p/w780/${tvShow.backdrop_path}`,
           }}
@@ -96,6 +97,7 @@ export default function TvShows({route, navigation}) {
           onPress={() => navigation.goBack()}>
           <AntDesign style={styles.buttonBack} name="arrowleft" size={25} />
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.containerButtonStar}>
           <Feather name="star" size={25} style={styles.buttonStar} />
         </TouchableOpacity>
@@ -124,7 +126,7 @@ export default function TvShows({route, navigation}) {
                   })}{' '}
               </Text>
             </View>
-            <View style={styles.detailRatedLiked}>
+            <View style={styles.boxDetails2}>
               <Text style={styles.tvShowsRate}>{tvShow.vote_average}/10</Text>
 
               <View style={styles.detailsLiked}>
