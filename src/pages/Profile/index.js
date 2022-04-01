@@ -214,7 +214,7 @@ export default function Profile({navigation}) {
                     key={listRated.id}
                     style={styles.buttonListTvShow}
                     onPress={() => {
-                      navigation.navigate(type, [listFavorites.id, type]);
+                      navigation.navigate(type, [listRated.id, type]);
                     }}>
                     <MovieImage
                       pathImage={listRated.poster_path}

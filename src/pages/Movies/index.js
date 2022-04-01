@@ -74,7 +74,7 @@ export default function Movies({route, navigation}) {
 
   async function awaitAvaluates() {
     try {
-      const stateMovie = await getState(type, id, sessionId);
+      const stateMovie = await getState('movie', id, sessionId);
       setMovieRated(stateMovie.rated.value);
     } catch (error) {
       console.log(error);
@@ -111,7 +111,7 @@ export default function Movies({route, navigation}) {
     return (
       <View style={styles.containerHeader}>
         <ModalAvaluate
-          type={type}
+          type={'movie'}
           typeId={id}
           modalIsVisible={modalVisible}
           setModalVisible={setModalVisible}
