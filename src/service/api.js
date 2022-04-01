@@ -59,7 +59,7 @@ export async function getPopularTvShows(page) {
 export async function getDetails(id) {
   try {
     const {data} = await api.get(
-      `tv/${id}?api_key=${apiKey}&language=pt-BR`,
+      `movie/${id}?api_key=${apiKey}&language=pt-BR`,
     );
     return data;
   } catch (error) {
@@ -194,7 +194,6 @@ export async function getTvShowsRate(id) {
   }
 }
 
-
 export async function getFavoritesTvShows(accountId, sessionId) {
   try {
     const {data} = await api.get(
@@ -273,9 +272,9 @@ export async function getAllRatedEvaliation(accountId, sessionId) {
       `/account/${accountId}/rated/tv?api_key=${apiKey}&session_id=${sessionId}`,
     );
 
-    const total = data.total_results + response.data.total_results
-    
-    return total
+    const total = data.total_results + response.data.total_results;
+
+    return total;
   } catch (error) {
     console.log(error);
   }

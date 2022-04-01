@@ -15,7 +15,7 @@ export default function InterationList({navigation, route}) {
   const [totalPages, setTotalPages] = useState(1);
   const {account, sessionId} = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
-
+  console.warn(type);
   async function awaitInteration() {
     if (loading) {
       return;

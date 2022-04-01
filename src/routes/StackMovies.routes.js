@@ -1,7 +1,7 @@
 import React from 'react';
 import Movies from '../pages/Movies';
 import HomeMovies from '../pages/HomeMovies';
-import Profile from '../pages/Profile'
+import Profile from '../pages/Profile';
 import {createStackNavigator} from '@react-navigation/stack';
 
 const Stack = createStackNavigator();

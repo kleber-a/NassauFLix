@@ -35,6 +35,44 @@ const styles = StyleSheet.create({
     height: 188,
     borderRadius: 8,
   },
+  containerMovieImg: {
+    position: 'relative',
+    top: -60,
+    marginLeft: 20,
+  },
+  movieImg: {
+    width: 116,
+    height: 166,
+    borderTopRightRadius: 7,
+    borderTopLeftRadius: 7,
+  },
+  rating: {
+    backgroundColor: '#E9A6A6',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 116,
+    height: 22,
+    borderBottomRightRadius: 7,
+    borderBottomLeftRadius: 7,
+  },
+  ratingText: {
+    fontSize: 10,
+    lineHeight: 14,
+    fontWeight: '900',
+    color: '#000',
+  },
+  ratingContainerIcon: {
+    backgroundColor: '#C4C4C4',
+    borderRadius: 50,
+    padding: 3,
+    position: 'absolute',
+    right: -6,
+    top: -6,
+  },
+  ratingIcon: {
+    width: 9,
+    height: 9,
+  },
   containerDetails: {
     width: '65%',
     paddingHorizontal: 14,
@@ -93,7 +131,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'white',
   },
-
+  buttonStar: {
+    color: 'red',
+  },
   //End Header FaltList
 
   //Render Item

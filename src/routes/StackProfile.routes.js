@@ -1,7 +1,8 @@
 import React from 'react';
 import InterationList from '../pages/InterationList';
 import Profile from '../pages/Profile';
-import Movies from '../pages/Movies'
+import Movies from '../pages/Movies';
+import TvShows from '../pages/TvShows';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -16,7 +17,7 @@ function StackProfile() {
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="InterationList" component={InterationList} />
       <Stack.Screen name="Movies" component={Movies} />
-
+      <Stack.Screen name="TvShows" component={TvShows} />
     </Stack.Navigator>
   );
 }

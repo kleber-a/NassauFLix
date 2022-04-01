@@ -102,7 +102,6 @@ export default function Movies({route, navigation}) {
         </View>
         <View>
           <Text style={styles.nameTvShow}>{item.name}</Text>
-       
         </View>
       </View>
     );
