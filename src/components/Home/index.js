@@ -80,7 +80,7 @@ export default function Home({navigate, type}) {
           renderItem={renderItem}
         />
       ) : (
-        <Loading size={'large'} color={'#ffffff'} />
+        <Loading size={77} color={'#ffffff'} />
       )}
     </View>
   );

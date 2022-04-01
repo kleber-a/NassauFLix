@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {Alert} from 'react-native';
 
 const apiKey = 'c3dc5cb91b1c309207a60a76c5742842';
 
@@ -97,11 +96,6 @@ export async function validateToken(body) {
     );
     return data.success;
   } catch (error) {
-    if (error.response.data.status_message.includes('You must provide')) {
-      Alert.alert('Usuário inválido', 'Campo não preenchido.');
-    } else {
-      Alert.alert('Usuário inválido', 'Nome ou senha inválidos.');
-    }
     return error.response.data.success;
   }
 }
