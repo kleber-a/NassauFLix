@@ -213,7 +213,7 @@ export default function Movies({route, navigation}) {
                 <AntDesign name="heart" size={20} style={styles.heartIcon} />
               </View>
               <Text style={styles.liked}>
-                {details.length > 0 && details.vote_count.toString().length > 3
+                {cast && details.vote_count.toString().length > 3
                   ? `${details.vote_count.toString()[0]}${
                       details.vote_count.toString()[1] > 0
                         ? `.${details.vote_count.toString()[1]}`

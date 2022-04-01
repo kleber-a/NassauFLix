@@ -4,7 +4,7 @@ import {AuthContext} from '../../../context/auth';
 import {getChangeMovies} from '../../../service/api';
 import styles from './styles';
 
-export default function UserImage({size , navigation}) {
+export default function UserImage({size, navigation}) {
   const [notify, setNotify] = useState(null);
   const [icon, setIcon] = useState(null);
   const {account} = useContext(AuthContext);
@@ -38,7 +38,7 @@ export default function UserImage({size , navigation}) {
     notify &&
     icon && (
       <TouchableOpacity
-      onPress={()=> navigation.navigate('Profile')}
+        onPress={() => navigation.navigate('StackProfile')}
         style={[
           styles.containerNotify,
           {

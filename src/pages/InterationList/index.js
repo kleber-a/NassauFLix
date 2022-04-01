@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, FlatList} from 'react-native';
+import {View, FlatList, TouchableOpacity} from 'react-native';
 import Loading from '../../components/Loading';
 import {getInterations} from '../../service/api';
 import MovieImage from '../../components/Movie/MovieImage';
@@ -67,9 +67,13 @@ export default function InterationList({navigation, route}) {
 
   const renderItem = ({item}) => {
     return (
-      <View style={styles.boxImage}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate(type, [item.id, type]);
+        }}
+        style={styles.boxImage}>
         <MovieImage pathImage={item.poster_path} posterSize={'w92'} />
-      </View>
+      </TouchableOpacity>
     );
   };
 
