@@ -99,7 +99,7 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
                 awaitAvaluates={awaitAvaluates}
                 setIsRated={setIsRated}
             />
-            
+
             <Image
                 style={styles.backGroundMovie}
                 source={{
@@ -108,7 +108,7 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
             />
 
             <ButtonReturn navigation={navigation} />
-            
+
             <ButtonFavorite
                 setIsFavorite={setIsFavorite}
                 setDataFavorite={setDataFavorite}
