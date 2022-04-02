@@ -1,19 +1,19 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import StackDefault from './StackDefault.routes';
-import ButtonHome from '../components/ButtonHome';
-import ButtonPlay from '../components/ButtonPlay';
-import ButtonUser from '../components/ButtonUser';
-
+import ButtonHome from '../components/TabButtons/ButtonHome';
+import ButtonPlay from '../components/TabButtons/ButtonPlay';
+import ButtonUser from '../components/TabButtons/ButtonUser';
+import StackMovies from './StackMovies.routes';
+import StackTvShows from './StackTvShos.routes';
+import StackProfile from './StackProfile.routes';
 const Tab = createBottomTabNavigator();
 
 function HomeTabScreen() {
   return (
     <Tab.Navigator
+      initialRouteName="StackMovies"
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#000',
-        tabBarInactiveTintColor: '#304FFE',
         tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: '#454545',
@@ -22,24 +22,30 @@ function HomeTabScreen() {
         },
       }}>
       <Tab.Screen
-        name="Play"
-        component={StackDefault}
+        name="StackTvShows"
+        component={StackTvShows}
         options={{
-          tabBarIcon: () => <ButtonPlay name="Play" />,
+          tabBarIcon: ({color, focused}) => (
+            <ButtonPlay focused={focused} color={color} name="StackTvShows" />
+          ),
         }}
       />
       <Tab.Screen
-        name="Home"
-        component={StackDefault}
+        name="StackMovies"
+        component={StackMovies}
         options={{
-          tabBarIcon: () => <ButtonHome name="StackDefault" />,
+          tabBarIcon: ({color, focused}) => (
+            <ButtonHome focused={focused} color={color} name="StackMovies" />
+          ),
         }}
       />
       <Tab.Screen
-        name="User"
-        component={StackDefault}
+        name="StackProfile"
+        component={StackProfile}
         options={{
-          tabBarIcon: () => <ButtonUser name="User" />,
+          tabBarIcon: ({color, focused}) => (
+            <ButtonUser focused={focused} color={color} name="User" />
+          ),
         }}
       />
     </Tab.Navigator>

@@ -8,68 +8,52 @@ import {
   KeyboardAvoidingView,
   Animated,
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {
-  getIdAccessToken,
-  getRequestToken,
-  validateToken,
-} from '../../service/api';
 import styles from './styles';
+import {AuthContext} from '../../context/auth';
+import Loading from '../../components/Loading';
 
 export default function Login({navigation}) {
-  const [token, setToken] = useState();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  const [isSuccess, setIsSuccess] = useState(null);
+  const [isError, setIsError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const user = {
-    username: username,
-    password: password,
-    request_token: token,
-  };
+  const {userLogin} = useContext(AuthContext);
 
-  useEffect(() => {
-    async function awaitGetToken() {
-      try {
-        const requestTolken = await getRequestToken();
-        setToken(requestTolken);
-      } catch (error) {
-        console.log(error);
-        throw error;
-      }
+  async function handleSubmit() {
+    const isSucess = await userLogin(username, password);
+    setLoading(true);
+    setIsError(true);
+    if (isSucess) {
+      return navigation.reset({
+        index: 0,
+        routes: [{name: 'HomeTabScreen'}],
+      });
+    } else {
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
     }
-    awaitGetToken();
-  }, []);
-
-  async function isSucess(userFull) {
-    try {
-      const isSuccessRequest = await validateToken(userFull);
-      const sessionId = await getIdAccessToken({request_token: token});
-      setIsSuccess(isSuccessRequest);
-      AsyncStorage.multiSet([
-        ['@CodeApi:username', username],
-        ['@CodeApi:token', token],
-        ['@CodeApi:session', sessionId],
-      ]);
-      if (isSuccessRequest) {
-        return navigation.reset({
-          index: 0,
-          routes: [{name: 'HomeTabScreen'}],
-        });
-      }
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+    setIsError(!isSucess);
   }
-  const [bottom, setBottom] = useState(new Animated.Value(800));
-  Animated.timing(bottom, {
+
+  const colorError = isError
+    ? 'rgba(236, 38, 38, 0.65)'
+    : 'rgba(255, 255, 255, 0.5)';
+
+  const colorErrorText = isError ? 'rgba(236, 38, 38, 0.65)' : '#fff';
+
+  const [pixels, setPixels] = useState(new Animated.Value(-1000));
+
+  Animated.timing(pixels, {
     toValue: 0,
     duration: 1000,
+    useNativeDriver: true,
   }).start();
+
   return (
     <KeyboardAvoidingView behavior="position" style={styles.container}>
       <View>
@@ -77,69 +61,79 @@ export default function Login({navigation}) {
           style={styles.banner}
           source={require('../../assets/bannerLogin.png')}
         />
-        <Animated.Image
-          style={{
-            bottom: bottom,
-            height: 130,
-            resizeMode: 'cover',
-            alignSelf: 'center',
-            position: 'absolute',
-          }}
-          source={require('../../assets/logo.png')}
-        />
       </View>
-      <Animated.View
-        style={{
-          top: bottom,
-        }}>
-        <View style={styles.textEntry}>
-          <Text style={styles.textEntry.login}>Login</Text>
-          <Text style={styles.textEntry.description}>
-            Entre na sua conta para continuar.
-          </Text>
-        </View>
-        <View style={styles.inputArea}>
-          <EvilIcons
-            style={styles.userIcon}
-            name="user"
-            color="#fff"
-            size={20}
-          />
-          <TextInput
-            keyboardType={'email-address'}
-            style={styles.input}
-            placeholder="e-mail"
-            onChangeText={usernameInput => {
-              setUsername(usernameInput);
+      {loading && isError ? (
+        <Loading size={77} color={'#F98C8C'} />
+      ) : (
+        <Animated.View
+          style={{
+            translateX: pixels,
+          }}>
+          <Animated.Image
+            style={{
+              translateX: pixels,
+              top: -130,
+              height: 130,
+              resizeMode: 'cover',
+              alignSelf: 'center',
+              position: 'absolute',
             }}
-            placeholderTextColor="rgba(255, 255, 255, 0.5)"
+            source={require('../../assets/logo.png')}
           />
-          <AntDesign
-            style={styles.lockIcon}
-            name="lock"
-            color="#fff"
-            size={18}
-          />
-          <TextInput
-            onChangeText={passwordInput => {
-              setPassword(passwordInput);
-            }}
-            style={styles.input}
-            placeholder="senha"
-            placeholderTextColor="rgba(255, 255, 255, 0.5)"
-            secureTextEntry={true}
-          />
-        </View>
-        <View style={styles.btnSubmit}>
-          <TouchableOpacity
-            onPress={() => {
-              Keyboard.dismiss();
-              isSucess(user);
-            }}>
-            <Text style={styles.btnSubmit.text}>Entrar</Text>
-          </TouchableOpacity>
-        </View>
-      </Animated.View>
+          <View style={styles.textEntry}>
+            <Text style={styles.textEntry.login}>Login</Text>
+            <Text style={styles.textEntry.description}>
+              Entre na sua conta para continuar.
+            </Text>
+          </View>
+          <View style={styles.inputArea}>
+            <EvilIcons
+              style={styles.userIcon}
+              name="user"
+              color={colorError}
+              size={20}
+            />
+            <TextInput
+              onFocus={() => setIsError(false)}
+              keyboardType={'email-address'}
+              style={[styles.input, {color: colorErrorText}]}
+              placeholder="nome de usuário"
+              onChangeText={usernameInput => {
+                setUsername(usernameInput);
+              }}
+              placeholderTextColor={colorError}
+            />
+            <AntDesign
+              style={styles.lockIcon}
+              name="lock"
+              color={colorError}
+              size={18}
+            />
+            <TextInput
+              onFocus={() => setIsError(false)}
+              onChangeText={passwordInput => {
+                setPassword(passwordInput);
+              }}
+              style={[styles.input, {color: colorErrorText}]}
+              placeholder="senha"
+              placeholderTextColor={colorError}
+              secureTextEntry={true}
+            />
+            {isError && (
+              <Text style={styles.textError}>Usuário ou senha inválidos</Text>
+            )}
+          </View>
+          <View style={styles.btnSubmit}>
+            <TouchableOpacity
+              onPress={() => {
+                Keyboard.dismiss();
+                handleSubmit();
+              }}>
+              <Text style={styles.btnSubmit.text}>Entrar</Text>
+            </TouchableOpacity>
+          </View>
+        </Animated.View>
+      )}
     </KeyboardAvoidingView>
   );
 }

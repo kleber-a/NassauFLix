@@ -7,10 +7,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'black',
   },
-  containerHeader: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   backGroundMovie: {
     width: '100%',
     height: 170,
@@ -31,6 +27,19 @@ const styles = StyleSheet.create({
   },
 
   containerButtonStarOn: {
+
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: 19,
+    right: 20,
+    backgroundColor: 'green',
+    borderRadius: 40,
+    width: 30,
+    height: 30,
+
+  },
+  containerButtonStar: {
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
@@ -42,61 +51,24 @@ const styles = StyleSheet.create({
     height: 30,
   },
   buttonStar: {
-    color: 'red',
+    color: 'black',
   },
   detailsMovies: {
     flexDirection: 'row',
   },
   detaisMoviesTitle: {
     marginLeft: 10,
-    width: 220,
-    height: 100,
+    width: 260,
+    height: 120,
     alignItems: 'flex-start',
   },
-  detaisMin: {
-    position: 'absolute',
-    width: 30,
-    height: 20,
-    marginLeft: 365,
-    marginTop: 10,
-  },
-  containerMovieImg: {
+  capaMovie: {
     position: 'relative',
-    top: -60,
+    top: -35,
     marginLeft: 20,
-  },
-  movieImg: {
     width: 116,
-    height: 166,
-    borderTopRightRadius: 7,
-    borderTopLeftRadius: 7,
-  },
-  rating: {
-    backgroundColor: '#E9A6A6',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 116,
-    height: 22,
-    borderBottomRightRadius: 7,
-    borderBottomLeftRadius: 7,
-  },
-  ratingText: {
-    fontSize: 10,
-    lineHeight: 14,
-    fontWeight: '900',
-    color: '#000',
-  },
-  ratingContainerIcon: {
-    backgroundColor: '#C4C4C4',
-    borderRadius: 50,
-    padding: 3,
-    position: 'absolute',
-    right: -6,
-    top: -6,
-  },
-  ratingIcon: {
-    width: 9,
-    height: 9,
+    height: 182,
+    borderRadius: 8,
   },
   titleMovie: {
     color: '#FFFFFF',
@@ -130,12 +102,11 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   datailRatedLiked: {
-    position: 'absolute',
+    marginTop: -90,
+    marginLeft: 145,
     width: 260,
     height: 40,
     flexDirection: 'row',
-    marginTop: 105,
-    marginLeft: 145,
   },
   ratedMovie: {
     marginLeft: 10,
@@ -163,7 +134,7 @@ const styles = StyleSheet.create({
   },
   detailsDescription: {
     width: '100%',
-    marginTop: -10,
+    marginTop: 25,
     alignItems: 'center',
   },
   descriptionMovie: {
@@ -174,7 +145,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Open Sans',
   },
   boxCast: {
-    alignSelf: 'flex-start',
     alignItems: 'center',
     marginTop: 10,
     marginLeft: 20,
@@ -182,7 +152,6 @@ const styles = StyleSheet.create({
   },
   cast: {
     paddingVertical: 3,
-    alignSelf: 'flex-start',
     textAlign: 'center',
     borderColor: 'white',
     borderWidth: 1,
@@ -194,7 +163,6 @@ const styles = StyleSheet.create({
   },
   line: {
     marginTop: 5,
-    marginBottom: 5,
     height: 1,
     width: 23,
     backgroundColor: '#9C4A8B',
@@ -237,7 +205,6 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     marginHorizontal: 20,
   },
-
 });
 
 export default styles;

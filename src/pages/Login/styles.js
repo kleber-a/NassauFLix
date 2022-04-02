@@ -7,8 +7,8 @@ const styles = StyleSheet.create({
   },
   inputArea: {
     borderRadius: 35,
-    marginBottom: 20,
     alignItems: 'center',
+    paddingBottom: 36,
   },
   banner: {
     resizeMode: 'contain',
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 0,
   },
   input: {
-    color: '#fff',
+    fontWeight: '400',
     backgroundColor: '#C4C4C459',
     borderRadius: 30,
     width: 243,
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingLeft: 40,
     paddingBottom: 8,
-    fontSize: 9,
+    fontSize: 10,
   },
   userIcon: {
     padding: 10,
@@ -52,6 +52,14 @@ const styles = StyleSheet.create({
   lockIcon: {
     right: 100,
     top: 25,
+  },
+  textError: {
+    fontWeight: '400',
+    lineHeight: 13,
+    fontSize: 10,
+    color: '#EC2626',
+    position: 'absolute',
+    bottom: 13,
   },
   btnSubmit: {
     backgroundColor: '#E9A6A6',
