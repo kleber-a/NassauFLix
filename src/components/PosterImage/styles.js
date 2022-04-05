@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     height: 166,
     borderTopRightRadius: 7,
     borderTopLeftRadius: 7,
+    
   },
 
 });

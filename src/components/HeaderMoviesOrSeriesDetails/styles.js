@@ -46,24 +46,19 @@ const styles = StyleSheet.create({
   },
   detailsMovies: {
     flexDirection: 'row',
+    width: '100%',
+    paddingHorizontal: 20,
   },
+
   detaisMoviesTitle: {
-    marginLeft: 10,
-    width: 220,
-    height: 100,
+    width: '75%',
+    padding: 16,
     alignItems: 'flex-start',
   },
-  detaisMin: {
-    position: 'absolute',
-    width: 30,
-    height: 20,
-    marginLeft: 365,
-    marginTop: 10,
-  },
+
   containerMovieImg: {
     position: 'relative',
     top: -60,
-    marginLeft: 20,
   },
   movieImg: {
     width: 116,
@@ -103,8 +98,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     fontFamily: 'Open Sans',
-    marginLeft: 16,
-    marginTop: 15,
+
   },
   yearMovie: {
     fontSize: 10,
@@ -118,7 +112,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Open Sans',
   },
   textAutor: {
-    marginLeft: 16,
+
     color: 'white',
     fontSize: 8,
     fontFamily: 'Open Sans',
@@ -185,7 +179,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     textAlign: 'center',
     borderColor: 'white',
-    borderWidth: 1,
     borderRadius: 12,
     color: 'white',
     width: 40,
