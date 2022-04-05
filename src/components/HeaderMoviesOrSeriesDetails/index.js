@@ -9,6 +9,7 @@ import DescriptionTitle from '../DescriptionTitle';
 import TextRated from '../TextRated';
 import Likeds from '../Likeds';
 import OverView from '../OverView'
+import BackDrop from '../BackDrop'
 import {
     getCredits,
     getDetails,
@@ -104,16 +105,10 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
                 awaitAvaluates={awaitAvaluates}
                 setIsRated={setIsRated}
             />
-
-            <Image
-                style={styles.backGroundMovie}
-                source={{
-                    uri: `http://image.tmdb.org/t/p/w780/${details.backdrop_path}`,
-                }}
+            <BackDrop
+                BackDrop={details.backdrop_path}
             />
-
             <ButtonReturn navigation={navigation} />
-
             <ButtonFavorite
                 setIsFavorite={setIsFavorite}
                 setDataFavorite={setDataFavorite}
@@ -121,7 +116,6 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
                 id={id}
                 isFavorite={isFavorite}
             />
-
             <View style={styles.containerDetails}>
                 <View style={styles.containerMovieImg}>
                     <PosterImage
@@ -133,7 +127,6 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
                         modalVisible={modalVisible}
                     />
                 </View>
-
                 <View style={styles.detaisMoviesTitle}>
                     <DescriptionTitle
                         detailsTitle={details.title}
@@ -147,7 +140,6 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
                         <TextRated
                             detailsVoteAverage={details.vote_average}
                         />
-
                         <Likeds
                             detailsPopularity={details.popularity}
                         />
