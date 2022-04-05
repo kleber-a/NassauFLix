@@ -60,7 +60,7 @@ export default function ModalAvaluate({
           </View>
           <Text style={styles.inputText}> / 10</Text>
         </View>
-        {error && (
+        {handleError(avaluate && avaluate.value) && (
           <Text style={styles.textErrorModal}>
             A nota deve ser entre 0,5 a 10
           </Text>
@@ -74,13 +74,25 @@ export default function ModalAvaluate({
             <Text style={styles.buttonCancel.text}>cancelar</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.buttonOk}
+            disabled={handleError(avaluate && avaluate.value)}
+            style={
+              handleError(avaluate && avaluate.value)
+                ? styles.buttonOkDisabled
+                : styles.buttonOk
+            }
             onPress={() => {
               handleError(avaluate && avaluate.value)
                 ? setError(true)
                 : changeAvaluate() && setModalVisible(!modalIsVisible);
             }}>
-            <Text style={styles.buttonOk.text}>ok</Text>
+            <Text
+              style={
+                handleError(avaluate && avaluate.value)
+                  ? styles.buttonOkDisabled.text
+                  : styles.buttonOk.text
+              }>
+              ok
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
