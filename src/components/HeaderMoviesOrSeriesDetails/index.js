@@ -7,6 +7,7 @@ import PosterImage from '../PosterImage';
 import ButtonRated from '../ButtonRated';
 import DescriptionTitle from '../DescriptionTitle';
 import TextRated from '../TextRated';
+import Likeds from '../Likeds';
 import {
     getCredits,
     getDetails,
@@ -141,26 +142,21 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
                         crew={crew}
                         haveMinutes={true}
                     />
-                </View>
-
-                <View style={styles.datailRatedLiked}>
-                    <TextRated
-                        detailsVoteAverage={details.vote_average}
-                    />
 
 
+                    <View style={styles.detailRatedLiked}>
+                        <TextRated
+                            detailsVoteAverage={details.vote_average}
+                        />
 
-
-
-                    <View style={styles.datailsLiked}>
-                        <View>
-                            <AntDesign name="heart" size={20} style={styles.heartIcon} />
-                        </View>
-                        <Text style={styles.liked}>
-                            {Math.floor(details.popularity)}K
-                        </Text>
+                        <Likeds
+                            detailsPopularity={details.popularity}
+                        />
                     </View>
+
                 </View>
+
+
             </View>
             <View style={styles.detailsDescription}>
                 <Text style={styles.descriptionMovie}>{details.overview}</Text>

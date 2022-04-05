@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   detailsMovies: {
+    
     flexDirection: 'row',
     width: '100%',
     paddingHorizontal: 20,
@@ -123,13 +124,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFFFFF',
   },
-  datailRatedLiked: {
-    position: 'absolute',
-    width: 260,
-    height: 40,
+  detailRatedLiked: {
+    
+    marginVertical: 10,
     flexDirection: 'row',
-    marginTop: 105,
-    marginLeft: 145,
+    alignItems:'center',
+
   },
   ratedMovie: {
     marginLeft: 10,
