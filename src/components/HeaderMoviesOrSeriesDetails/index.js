@@ -145,7 +145,6 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
                     </View>
                 </View>
             </View>
-
             <View style={styles.containerOverView}>
                 <OverView
                     detailsOverView={details.overview}
@@ -155,4 +154,4 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
         </View>
 
     )
-}
+};
