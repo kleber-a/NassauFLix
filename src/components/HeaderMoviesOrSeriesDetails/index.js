@@ -4,6 +4,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import ModalAvaluate from '../ModalAvaluate';
 import ButtonReturn from '../ButtonReturn';
+import Nomeestrannho from '../Nomeestranho'
 import {
     getCredits,
     getDetails,
@@ -13,7 +14,6 @@ import {
 import styles from './styles';
 import { AuthContext } from '../../context/auth';
 import ButtonFavorite from '../../components/ButtonFavorite';
-import { NavigationActions } from 'react-navigation';
 
 export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
     const [id, type] = route.params;

@@ -1,10 +1,6 @@
 import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Icon from 'react-native-vector-icons/EvilIcons';
 import Loading from '../../components/Loading';
-import ModalAvaluate from '../../components/ModalAvaluate';
-import ButtonReturn from '../../components/ButtonReturn'
 import {
   getCredits,
   getDetails,
@@ -13,8 +9,8 @@ import {
 } from '../../service/api';
 import styles from './styles';
 import { AuthContext } from '../../context/auth';
-import HeaderMoviesOrSeriesDetails from '../../components/MoviesOrSeriesDetails'
-import { NavigationActions } from 'react-navigation';
+import HeaderMoviesOrSeriesDetails from '../../components/HeaderMoviesOrSeriesDetails'
+
 
 export default function Movies({ route, navigation }) {
   const [id, type] = route.params;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Image, Text, TouchableOpacity} from 'react-native';
 import styles from './styles'
-export default function nomeestranho() {
+export default function Nomeestranho() {
   return (
     <View style={styles.detailsMovies}>
       <View style={styles.containerMovieImg}>

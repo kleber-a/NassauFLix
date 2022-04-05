@@ -1,10 +1,9 @@
 import React from 'react';
-import TouchableOpacity from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import styles from './styles';
 
-export default function ButtonFavorite({ isFavorite, setDataFavorite, awaitFavoriteMovies,
-    id }) {
+export default function ButtonFavorite({ isFavorite, setDataFavorite, awaitFavoriteMovies, setIsFavorite, id }) {
 
     return (
 
@@ -26,4 +25,4 @@ export default function ButtonFavorite({ isFavorite, setDataFavorite, awaitFavor
             />
         </TouchableOpacity>
     )
-}
+};
