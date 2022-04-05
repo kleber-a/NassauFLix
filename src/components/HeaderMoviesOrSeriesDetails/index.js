@@ -3,9 +3,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import ModalAvaluate from '../ModalAvaluate';
 import ButtonReturn from '../ButtonReturn';
-import PosterImage from '../PosterImage'
-import ButtonRated from '../ButtonRated'
-import DescriptionTitle from '../DescriptionTitle'
+import PosterImage from '../PosterImage';
+import ButtonRated from '../ButtonRated';
+import DescriptionTitle from '../DescriptionTitle';
+import TextRated from '../TextRated';
 import {
     getCredits,
     getDetails,
@@ -141,31 +142,16 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
                         haveMinutes={true}
                     />
                 </View>
-                {/* >
-
-                    <Text style={styles.titleMovie}>{details.title}{' '}
-                        <Text style={styles.yearMovie}>{new Date(details.release_date).getFullYear()}
-                        </Text>{' '}
-                        <Text style={styles.timeMovie}>{details.runtime} min</Text>
-                    </Text>
-
-                    <View>
-                        <Text style={styles.textAutor}>
-                            {created} por{' '}
-                            <Text style={styles.autorMovie}>
-                                {crew &&
-                                    crew.find(profile => profile.job === 'Director').name}
-                            </Text>
-                        </Text>
-                    </View>
-                </View>
- */}
-
 
                 <View style={styles.datailRatedLiked}>
-                    <View style={styles.detailsRated}>
-                        <Text style={styles.ratedMovie}>{details.vote_average}/10</Text>
-                    </View>
+                    <TextRated
+                        detailsVoteAverage={details.vote_average}
+                    />
+
+
+
+
+
                     <View style={styles.datailsLiked}>
                         <View>
                             <AntDesign name="heart" size={20} style={styles.heartIcon} />
