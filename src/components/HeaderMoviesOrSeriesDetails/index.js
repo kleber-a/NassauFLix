@@ -4,6 +4,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import ModalAvaluate from '../ModalAvaluate';
 import ButtonReturn from '../ButtonReturn';
+import PosterImage from '../PosterImage'
 import Nomeestrannho from '../Nomeestranho'
 import {
     getCredits,
@@ -119,12 +120,11 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
 
             <View style={styles.detailsMovies}>
                 <View style={styles.containerMovieImg}>
-                    <Image
-                        style={styles.movieImg}
-                        source={{
-                            uri: `http://image.tmdb.org/t/p/w780/${details.poster_path}`,
-                        }}
+
+                    <PosterImage
+                        posterPath={details.poster_path}
                     />
+
                     {movieRated ? (
                         <View style={[styles.rating, { backgroundColor: '#8BE0EC' }]}>
                             <Text style={[styles.ratingText]}>
