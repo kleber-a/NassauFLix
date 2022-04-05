@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+
 import ModalAvaluate from '../ModalAvaluate';
 import ButtonReturn from '../ButtonReturn';
 import PosterImage from '../PosterImage';
@@ -10,6 +10,7 @@ import TextRated from '../TextRated';
 import Likeds from '../Likeds';
 import OverView from '../OverView'
 import BackDrop from '../BackDrop'
+import BoxCast from '../BoxCast'
 import {
     getCredits,
     getDetails,
@@ -94,8 +95,6 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
     }, [isRated]);
 
     return (
-
-
         <View style={styles.containerHeader}>
             <ModalAvaluate
                 type={type}
@@ -152,10 +151,7 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
                     detailsOverView={details.overview}
                 />
             </View>
-            <View style={styles.boxCast}>
-                <Text style={styles.cast}>Elenco</Text>
-                <View style={styles.line} />
-            </View>
+            <BoxCast />
         </View>
 
     )
