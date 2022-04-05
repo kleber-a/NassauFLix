@@ -44,11 +44,10 @@ const styles = StyleSheet.create({
   buttonStar: {
     color: 'red',
   },
-  detailsMovies: {
-    
+  containerDetails: {
     flexDirection: 'row',
     width: '100%',
-    paddingHorizontal: 20,
+    paddingHorizontal: '10%',
   },
 
   detaisMoviesTitle: {
@@ -125,10 +124,10 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   detailRatedLiked: {
-    
+
     marginVertical: 10,
     flexDirection: 'row',
-    alignItems:'center',
+    alignItems: 'center',
 
   },
   ratedMovie: {
@@ -155,18 +154,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Open Sans',
     fontSize: 10,
   },
-  detailsDescription: {
-    width: '100%',
-    marginTop: -10,
+  containerOverView: {
+    width: '90%',
+    marginVertical: 5,
     alignItems: 'center',
   },
-  descriptionMovie: {
-    textAlign: 'justify',
-    color: '#FFFFFF',
-    fontSize: 12,
-    width: '90%',
-    fontFamily: 'Open Sans',
-  },
+
   boxCast: {
     alignSelf: 'flex-start',
     alignItems: 'center',

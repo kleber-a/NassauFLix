@@ -8,6 +8,7 @@ import ButtonRated from '../ButtonRated';
 import DescriptionTitle from '../DescriptionTitle';
 import TextRated from '../TextRated';
 import Likeds from '../Likeds';
+import OverView from '../OverView'
 import {
     getCredits,
     getDetails,
@@ -17,6 +18,7 @@ import {
 import styles from './styles';
 import { AuthContext } from '../../context/auth';
 import ButtonFavorite from '../../components/ButtonFavorite';
+
 
 export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
     const [id, type] = route.params;
@@ -120,12 +122,11 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
                 isFavorite={isFavorite}
             />
 
-            <View style={styles.detailsMovies}>
+            <View style={styles.containerDetails}>
                 <View style={styles.containerMovieImg}>
                     <PosterImage
                         posterPath={details.poster_path}
                     />
-
                     <ButtonRated
                         movieRated={movieRated}
                         setModalVisible={setModalVisible}
@@ -142,8 +143,6 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
                         crew={crew}
                         haveMinutes={true}
                     />
-
-
                     <View style={styles.detailRatedLiked}>
                         <TextRated
                             detailsVoteAverage={details.vote_average}
@@ -153,16 +152,14 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
                             detailsPopularity={details.popularity}
                         />
                     </View>
-
                 </View>
-
-
-            </View>
-            <View style={styles.detailsDescription}>
-                <Text style={styles.descriptionMovie}>{details.overview}</Text>
             </View>
 
-
+            <View style={styles.containerOverView}>
+                <OverView
+                    detailsOverView={details.overview}
+                />
+            </View>
             <View style={styles.boxCast}>
                 <Text style={styles.cast}>Elenco</Text>
                 <View style={styles.line} />
