@@ -5,7 +5,8 @@ import Icon from 'react-native-vector-icons/EvilIcons';
 import ModalAvaluate from '../ModalAvaluate';
 import ButtonReturn from '../ButtonReturn';
 import PosterImage from '../PosterImage'
-import Nomeestrannho from '../Nomeestranho'
+import ButtonRated from '../ButtonRated'
+
 import {
     getCredits,
     getDetails,
@@ -119,50 +120,24 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
             />
 
             <View style={styles.detailsMovies}>
-                <View style={styles.containerMovieImg}>
 
+                <View style={styles.containerMovieImg}>
                     <PosterImage
                         posterPath={details.poster_path}
                     />
 
-                    {movieRated ? (
-                        <View style={[styles.rating, { backgroundColor: '#8BE0EC' }]}>
-                            <Text style={[styles.ratingText]}>
-                                Sua nota: {movieRated}/10
-                            </Text>
-                            <TouchableOpacity
-                                style={styles.ratingContainerIcon}
-                                onPress={() => {
-                                    setModalVisible(!modalVisible);
-                                }}>
-                                <Icon
-                                    style={styles.ratingIcon}
-                                    name="pencil"
-                                    size={10}
-                                    color="#000"
-                                />
-                            </TouchableOpacity>
-                        </View>
-                    ) : (
-                        <TouchableOpacity
-                            style={[styles.rating, { backgroundColor: '#E9A6A6' }]}
-                            onPress={() => {
-                                setModalVisible(!modalVisible);
-                            }}>
-                            <Text style={[styles.ratingText]}>AVALIE AGORA</Text>
-                        </TouchableOpacity>
-                    )}
+                    <ButtonRated
+                        movieRated={movieRated}
+                        setModalVisible={setModalVisible}
+                        modalVisible={modalVisible}
+                    />
                 </View>
 
-                <View style={styles.detaisMin}>
-                    <Text style={styles.timeMovie}>{details.runtime} min</Text>
-                </View>
                 <View style={styles.detaisMoviesTitle}>
-                    <Text style={styles.titleMovie}>
-                        {details.title}{' '}
-                        <Text style={styles.yearMovie}>
-                            {new Date(details.release_date).getFullYear()}
-                        </Text>{' '}
+
+                    <Text style={styles.titleMovie}>{details.title}{' '}<Text style={styles.yearMovie}>{new Date(details.release_date).getFullYear()}
+                    </Text>{' '}
+                        <Text style={styles.timeMovie}>{details.runtime} min</Text>
                     </Text>
                     <View>
                         <Text style={styles.textAutor}>
