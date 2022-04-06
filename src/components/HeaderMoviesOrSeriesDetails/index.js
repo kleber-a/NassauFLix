@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
-
 import ModalAvaluate from '../ModalAvaluate';
+import ModalFavoriteList from '../ModalFavoriteList'
 import ButtonReturn from '../ButtonReturn';
 import PosterImage from '../PosterImage';
 import ButtonRated from '../ButtonRated';
@@ -143,6 +143,10 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
                             detailsPopularity={details.popularity}
                         />
                     </View>
+
+                    <View style={styles.modal}>
+                        <ModalFavoriteList />
+                    </View>
                 </View>
             </View>
             <View style={styles.containerOverView}>
@@ -151,7 +155,7 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
                 />
             </View>
             <BoxCast />
-        </View>
+        </View >
 
     )
 };
