@@ -12,10 +12,11 @@ import {
 } from '../../service/api';
 import styles from './styles';
 import {AuthContext} from '../../context/auth';
+import FormatNumber from '../../components/FormatNumber';
 
 export default function Movies({route, navigation}) {
   const [id, type] = route.params;
-  const [details, setDetails] = useState([]);
+  const [details, setDetails] = useState(null);
   const [cast, setCast] = useState(null);
   const [crew, setCrew] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -213,13 +214,9 @@ export default function Movies({route, navigation}) {
                 <AntDesign name="heart" size={20} style={styles.heartIcon} />
               </View>
               <Text style={styles.liked}>
-                {cast && details.vote_count.toString().length > 3
-                  ? `${details.vote_count.toString()[0]}${
-                      details.vote_count.toString()[1] > 0
-                        ? `.${details.vote_count.toString()[1]}`
-                        : ''
-                    }K`
-                  : details.vote_count}
+                <FormatNumber format="0.0 a">
+                  {details.vote_count.toString()}
+                </FormatNumber>
               </Text>
             </View>
           </View>
@@ -236,7 +233,7 @@ export default function Movies({route, navigation}) {
   };
   return (
     <View style={styles.container}>
-      {cast ? (
+      {cast && details ? (
         <FlatList
           style={styles.viewFLatList}
           data={cast}

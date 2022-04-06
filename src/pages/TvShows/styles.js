@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Open Sans',
     fontSize: 10,
+    fontWeight: '700',
   },
   textDetailsTvDescription: {
     textAlign: 'justify',
