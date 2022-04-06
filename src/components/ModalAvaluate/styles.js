@@ -87,6 +87,21 @@ const styles = StyleSheet.create({
       fontWeight: '700',
     },
   },
+  buttonOkDisabled: {
+    height: 20,
+    backgroundColor: '#C4C4C4',
+    paddingHorizontal: 35,
+    paddingVertical: 2.5,
+    borderRadius: 5,
+    justifyContent: 'center',
+    text: {
+      fontSize: 10,
+      color: '#8E8E8E',
+      fontFamily: 'Source Sans Pro',
+      textTransform: 'uppercase',
+      fontWeight: '700',
+    },
+  },
   textErrorModal: {
     fontFamily: 'Open Sans',
     fontSize: 11,
