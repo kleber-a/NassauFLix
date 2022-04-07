@@ -2,12 +2,18 @@ import React, { useState } from "react";
 import { Modal, Text, TouchableOpacity, View, FlatList } from "react-native";
 import styles from './styles'
 import Icon from 'react-native-vector-icons/AntDesign'
+
 export default function ModalFavoriteList() {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [modalVisible2, setModalVisible2] = useState(false);
     const [buttonClickOn, setButtonClickOn] = useState(null)
-
+    const changeFalseModals = function () {
+        if (modalVisible && modalVisible2 === true) {
+            setModalVisible(false);
+            setModalVisible2(false);
+        }
+    };
     const data = [
         "felipe",
         "maicon",
@@ -18,12 +24,6 @@ export default function ModalFavoriteList() {
         "filmes que mudaram sua vida",
         "filmes que mudaram nossa vida",
     ]
-
-    function changeFalseModals() {
-        setModalVisible(false);
-        setModalVisible2(false);
-    }
-
     const renderItem = ({ item, index }) => {
         return (
             <View style={styles.containerRenderItem}>
@@ -40,39 +40,28 @@ export default function ModalFavoriteList() {
     };
     return (
         <View style={styles.centeredView}>
-
             <Modal
                 animationType="fade"
                 transparent={true}
                 visible={modalVisible2}
-                onRequestClose={() => {
-                    changeFalseModals();
-                }}
             >
                 <View style={styles.modal2background}>
-
                     <View style={styles.modal2}>
                         <Icon name='checkcircleo' size={25} color='#000000' />
                         <Text style={styles.textModal2}>Lista atualizada com sucesso!</Text>
                         <TouchableOpacity
                             style={styles.buttonModal2}
-                            onPress={() => setModalVisible2(!modalVisible2)}
+                            onPress={() => changeFalseModals()}
                         >
                             <Text style={styles.textStyleSave}>OK</Text>
                         </TouchableOpacity>
                     </View>
-
                 </View>
-
             </Modal >
-
             <Modal
                 animationType="fade"
                 transparent={true}
                 visible={modalVisible}
-                onRequestClose={() => {
-                    setModalVisible(!modalVisible);
-                }}
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
@@ -100,9 +89,6 @@ export default function ModalFavoriteList() {
                         </TouchableOpacity>
                     </View>
                 </View >
-
-
-
             </Modal>
             <TouchableOpacity
                 style={styles.containerOpenModal}
@@ -111,7 +97,6 @@ export default function ModalFavoriteList() {
                 <Icon style={styles.iconOpenModal} name='plus' size={25} />
                 <Text style={styles.textOpenModal}>Adicionar a uma lista</Text>
             </TouchableOpacity>
-
         </View >
     );
 };

@@ -40,12 +40,8 @@ const styles = StyleSheet.create({
   },
   modal: {
     alignItems: 'center',
-    width: '70%',
-
+    width: '45%',
   },
- 
-
-
 });
 
 export default styles;

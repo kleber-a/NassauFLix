@@ -65,8 +65,7 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase',
         lineHeight: 16,
         fontFamily: 'Open Sans',
-      
-    },
+          },
     line: {
         height: 1,
         width: '100%',
@@ -149,7 +148,5 @@ const styles = StyleSheet.create({
         height: 20.22,
         borderRadius: 5,
     },
-
-
 });
 export default styles;
