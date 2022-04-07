@@ -10,6 +10,7 @@ import {
   getFRMovies,
   getFRTvShow,
   getAllRatedEvaliation,
+  getList,
 } from '../../service/api';
 import MovieImage from '../../components/Movie/MovieImage';
 import MovieEvaluation from '../../components/Movie/MovieEvaluation';
@@ -37,6 +38,7 @@ export default function Profile({navigation}) {
   const [favoriteTvShow, setFavoriteTvShow] = useState(null);
   const [ratedTvShow, setRatedTvShow] = useState(null);
 
+  const [teste,setTeste] = useState()
   useEffect(() => {
     async function awaitData() {
       const favoriteMovies = await getFRMovies(
@@ -64,11 +66,13 @@ export default function Profile({navigation}) {
       setBtSeries(false);
       setListFavorites(favoriteMovies);
       setListRated(ratedMovies);
+
     }
     navigation.addListener('focus', () => {
       awaitData();
     });
   }, [account.id, sessionId, navigation]);
+
   function selectionButtonMovie() {
     setType('movies');
     setNameRated('Avaliações de filmes recentes');

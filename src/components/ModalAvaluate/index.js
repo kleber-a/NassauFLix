@@ -21,17 +21,19 @@ export default function ModalAvaluate({
   setIsRated,
 }) {
   const [avaluate, setAvaluate] = useState(null);
-  const [error, setError] = useState(false);
   const {sessionId} = useContext(AuthContext);
 
   function handleError(value) {
-    const regexModal =
-      /^(?:[1-9]|0[1-9]|10)$|^[1-9]?[/.|/,][0|5]|^[0-9]?[/.|/,][5]/;
+    const regexModal = new RegExp(
+      /^(?:[1-9]|0[1-9]|10)$|^[1-9]?\.[0|5]|^[0-9]?\.[5]/,
+    );
     return !regexModal.test(value);
   }
 
   async function changeAvaluate() {
-    await postRate(type, typeId, sessionId, avaluate);
+    await postRate(type, typeId, sessionId, {
+      value: avaluate,
+    });
     await awaitAvaluates();
     setIsRated(true);
   }
