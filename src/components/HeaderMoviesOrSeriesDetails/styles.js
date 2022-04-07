@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   containerDetails: {
- 
+
     flexDirection: 'row',
     width: '100%',
     paddingHorizontal: '5%',
@@ -42,8 +42,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '70%',
 
-  }
-
+  },
+ 
 
 
 });

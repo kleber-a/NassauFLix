@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Source Sans Pro',
         fontWeight: 'bold',
         color: '#000000',
+        lineHeight: 19,
     },
     buttonClick: {
         padding: 5,
@@ -47,8 +48,8 @@ const styles = StyleSheet.create({
         height: 25,
         borderRadius: 25,
         borderWidth: 2,
-        alignItems:'center',
-        justifyContent:'center',
+        alignItems: 'center',
+        justifyContent: 'center',
 
     },
     buttonClickOn: {
@@ -57,63 +58,98 @@ const styles = StyleSheet.create({
         height: 16,
         borderRadius: 30,
     },
-
-
-
     TextFlatList: {
         marginLeft: 12,
         fontSize: 12,
-        color: 'black',
-    },
-
-    iconClose: {
+        color: '#000000',
+        textTransform: 'uppercase',
+        lineHeight: 16,
+        fontFamily: 'Open Sans',
+      
     },
     line: {
         height: 1,
         width: '100%',
         backgroundColor: '#BEBEBE',
     },
-    button: {
-        borderRadius: 20,
-        padding: 1,
-
-    },
-    containerPressable: {
-        flexDirection: 'row',
+    buttonSave: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: "#C4C4C4",
-        borderRadius: 20,
-    },
-    buttonOpen: {
-        backgroundColor: "#C4C4C4",
-    },
-    buttonSave: {
         alignSelf: 'center',
-        backgroundColor: "black",
+        backgroundColor: "#000000",
         width: 83.22,
         height: 20.22,
         borderRadius: 5,
         marginVertical: 16,
     },
     textStyleSave: {
-        color: "white",
+        color: "#FFFFFF",
         fontWeight: "bold",
         textAlign: "center",
-        fontFamily: 'Open Sans'
+        fontFamily: 'Open Sans',
+        fontSize: 10,
     },
-    textStyle: {
-        color: "black",
+    iconClose: {
+        color: '#000000',
+        fontSize: 20,
+    },
+    containerOpenModal: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: "#C4C4C4",
+        borderRadius: 25,
+    },
+    textOpenModal: {
+        color: "#000000",
         fontWeight: "bold",
-        textAlign: "center",
-        fontFamily: 'Open Sans'
+        fontFamily: 'Open Sans',
+        fontSize: 8,
+        marginRight: 8,
+        marginLeft: 6,
     },
-    modalText: {
-        textAlign: "center"
-    },
-    icon: {
+    iconOpenModal: {
         backgroundColor: 'white',
-        borderRadius: 35,
+        borderRadius: 50,
+        color: 'black',
     },
+
+    modal2background: {
+        backgroundColor: 'rgba(0,0,0,0.4)',
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    modal2: {
+        width: 327,
+        height: 166,
+        borderRadius: 25,
+        backgroundColor: '#ffffff',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    textModal2: {
+        marginTop: 17,
+        marginBottom: 21,
+        fontFamily: 'Source Sans Pro',
+        fontWeight: 'bold',
+        fontSize: 14,
+        lineHeight: 21,
+        textAlign: 'center',
+        color: '#000000'
+    },
+    buttonModal2: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        backgroundColor: "#000000",
+        width: 83.22,
+        height: 20.22,
+        borderRadius: 5,
+    },
+
+
 });
 export default styles;
