@@ -21,15 +21,16 @@ export default function Profile({navigation}) {
   const [evaluation, setEvaluation] = useState(null);
   const [type, setType] = useState('movies');
 
+  //Button
+  const [btMovies, setBtMovies] = useState(true);
+  const [btSeries, setBtSeries] = useState(false);
+  const [verification, setVerification] = useState(false);
+
   //Lista Favoritos e Avaliados
   const [listFavorites, setListFavorites] = useState(null);
   const [listRated, setListRated] = useState(null);
   const [nameRated, setNameRated] = useState('Avaliações de filmes recentes');
   const [nameFavorite, setNameFavorite] = useState('Filmes favoritos');
-
-  //Botão Movie e Séries
-  const [btMovies, setBtMovies] = useState(false);
-  const [btSeries, setBtSeries] = useState(false);
 
   //Filmes e Séries Avaliados e Favoritos
   const [favoriteMovies, setFavoriteMovies] = useState(null);
@@ -59,16 +60,24 @@ export default function Profile({navigation}) {
       setEvaluation(evaluation);
 
       setRatedTvShow(ratedTvShow);
+    }
 
-      setBtMovies(true);
-      setBtSeries(false);
+    async function InitialList() {
+      const favoriteMovies = await getFRMovies(
+        account.id,
+        sessionId,
+        'favorite',
+      );
       setListFavorites(favoriteMovies);
+      const ratedMovies = await getFRMovies(account.id, sessionId, 'rated');
       setListRated(ratedMovies);
     }
+    InitialList();
     navigation.addListener('focus', () => {
       awaitData();
     });
   }, [account.id, sessionId, navigation]);
+
   function selectionButtonMovie() {
     setType('movies');
     setNameRated('Avaliações de filmes recentes');
@@ -220,7 +229,7 @@ export default function Profile({navigation}) {
                       pathImage={listRated.poster_path}
                       posterSize={'w92'}
                     />
-                    <MovieEvaluation votes={listRated.vote_average} />
+                    <MovieEvaluation votes={listRated.rating} />
                   </TouchableOpacity>
                 ) : null,
               )
