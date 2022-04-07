@@ -84,13 +84,14 @@ export default function ModalFavoriteList() {
                         <TouchableOpacity
                             style={styles.buttonSave}
                             onPress={() => setModalVisible2(!modalVisible2)}
+                            
                         >
                             <Text style={styles.textStyleSave}>Salvar</Text>
                         </TouchableOpacity>
                     </View>
                 </View >
             </Modal>
-            <TouchableOpacity
+            <TouchableOpacity 
                 style={styles.containerOpenModal}
                 onPress={() => setModalVisible(true)}
             >
