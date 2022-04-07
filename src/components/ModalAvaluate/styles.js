@@ -2,6 +2,9 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  containerModal: {
     top: 220,
     alignSelf: 'center',
     alignItems: 'center',
@@ -82,6 +85,21 @@ const styles = StyleSheet.create({
     text: {
       fontSize: 10,
       color: '#FFF',
+      fontFamily: 'Source Sans Pro',
+      textTransform: 'uppercase',
+      fontWeight: '700',
+    },
+  },
+  buttonOkDisabled: {
+    height: 20,
+    backgroundColor: '#C4C4C4',
+    paddingHorizontal: 35,
+    paddingVertical: 2.5,
+    borderRadius: 5,
+    justifyContent: 'center',
+    text: {
+      fontSize: 10,
+      color: '#8E8E8E',
       fontFamily: 'Source Sans Pro',
       textTransform: 'uppercase',
       fontWeight: '700',

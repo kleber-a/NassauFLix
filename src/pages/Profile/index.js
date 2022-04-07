@@ -10,6 +10,7 @@ import {
   getFRMovies,
   getFRTvShow,
   getAllRatedEvaliation,
+  getList,
 } from '../../service/api';
 import MovieImage from '../../components/Movie/MovieImage';
 import MovieEvaluation from '../../components/Movie/MovieEvaluation';
