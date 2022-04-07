@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/AntDesign'
 export default function ModalFavoriteList() {
 
     const [modalVisible, setModalVisible] = useState(false);
-    const [modalVisible2, setModalVisible2] = useState(true);
+    const [modalVisible2, setModalVisible2] = useState(false);
     const [buttonClickOn, setButtonClickOn] = useState(null)
 
     const data = [
@@ -18,6 +18,11 @@ export default function ModalFavoriteList() {
         "filmes que mudaram sua vida",
         "filmes que mudaram nossa vida",
     ]
+
+    function changeFalseModals() {
+        setModalVisible(false);
+        setModalVisible2(false);
+    }
 
     const renderItem = ({ item, index }) => {
         return (
@@ -35,12 +40,13 @@ export default function ModalFavoriteList() {
     };
     return (
         <View style={styles.centeredView}>
+
             <Modal
                 animationType="fade"
                 transparent={true}
                 visible={modalVisible2}
                 onRequestClose={() => {
-                    setModalVisible(!modalVisible2);
+                    changeFalseModals();
                 }}
             >
                 <View style={styles.modal2background}>
@@ -50,7 +56,7 @@ export default function ModalFavoriteList() {
                         <Text style={styles.textModal2}>Lista atualizada com sucesso!</Text>
                         <TouchableOpacity
                             style={styles.buttonModal2}
-                            onPress={() => setModalVisible(!modalVisible)}
+                            onPress={() => setModalVisible2(!modalVisible2)}
                         >
                             <Text style={styles.textStyleSave}>OK</Text>
                         </TouchableOpacity>
@@ -58,10 +64,7 @@ export default function ModalFavoriteList() {
 
                 </View>
 
-            </Modal>
-
-
-
+            </Modal >
 
             <Modal
                 animationType="fade"
@@ -91,7 +94,7 @@ export default function ModalFavoriteList() {
                         />
                         <TouchableOpacity
                             style={styles.buttonSave}
-                            onPress={() => setModalVisible(!modalVisible)}
+                            onPress={() => setModalVisible2(!modalVisible2)}
                         >
                             <Text style={styles.textStyleSave}>Salvar</Text>
                         </TouchableOpacity>
