@@ -279,4 +279,16 @@ export async function getAllRatedEvaliation(accountId, sessionId) {
     console.log(error);
   }
 }
+
+export async function getList(account_id,sessionId,page){
+  try{
+    const {data} = await api.get(`account/${account_id}/lists?api_key=${apiKey}&language=en-US&session_id=${sessionId}&page=${page}`)
+    console.warn(data)
+    return data
+
+  }
+  catch (error) {
+    console.warn(error)
+  }
+}
 export default api;
