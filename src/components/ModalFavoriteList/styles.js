@@ -4,7 +4,8 @@ import { StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
     centeredView: {
         flex: 1,
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        backgroundColor: 'rgba(0,0,0,0.4)'
     },
     modalView: {
         width: '100%',
@@ -12,22 +13,18 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         borderTopLeftRadius: 15,
         borderTopRightRadius: 12,
-
-
     },
     containerFlatList: {
         width: '100%',
         paddingHorizontal: 26,
         paddingVertical: 22,
     },
-
     containerRenderItem: {
         padding: 4,
         flexDirection: 'row',
         alignItems: 'center',
         width: '100%',
         justifyContent: 'flex-start',
-
     },
     headerHender: {
         alignItems: 'center',
@@ -37,7 +34,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 10,
     },
-
     textHeader: {
         fontSize: 13,
         textAlign: 'center',
@@ -45,52 +41,42 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#000000',
     },
-
-    buttonClickOff: {
-
-
+    buttonClick: {
+        padding: 5,
         width: 25,
         height: 25,
-        backgroundColor: 'green',
         borderRadius: 25,
         borderWidth: 2,
-
+        alignItems:'center',
+        justifyContent:'center',
 
     },
-
     buttonClickOn: {
-
-        width: 25,
-        height: 25,
-        backgroundColor: 'green',
-        borderRadius: 25,
-        borderWidth: 2,
-
+        backgroundColor: 'black',
+        width: 16,
+        height: 16,
+        borderRadius: 30,
     },
+
+
+
     TextFlatList: {
         marginLeft: 12,
         fontSize: 12,
         color: 'black',
-
-
     },
 
     iconClose: {
-
-
     },
     line: {
         height: 1,
         width: '100%',
         backgroundColor: '#BEBEBE',
     },
-
-
-
     button: {
         borderRadius: 20,
         padding: 1,
-        elevation: 2
+
     },
     containerPressable: {
         flexDirection: 'row',
@@ -102,14 +88,13 @@ const styles = StyleSheet.create({
     buttonOpen: {
         backgroundColor: "#C4C4C4",
     },
-
-
     buttonSave: {
         alignSelf: 'center',
         backgroundColor: "black",
         width: 83.22,
         height: 20.22,
         borderRadius: 5,
+        marginVertical: 16,
     },
     textStyleSave: {
         color: "white",
@@ -117,9 +102,6 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontFamily: 'Open Sans'
     },
-
-
-
     textStyle: {
         color: "black",
         fontWeight: "bold",
@@ -130,10 +112,8 @@ const styles = StyleSheet.create({
         textAlign: "center"
     },
     icon: {
-
         backgroundColor: 'white',
         borderRadius: 35,
-
     },
 });
 export default styles;
