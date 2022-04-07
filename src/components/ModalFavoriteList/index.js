@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal, Text, TouchableOpacity, View, FlatList } from "react-native";
 import styles from './styles'
 import Icon from 'react-native-vector-icons/AntDesign'
+import ButtonFilmList from "../ButtonFilmList";
 
 export default function ModalFavoriteList() {
 
@@ -40,6 +41,10 @@ export default function ModalFavoriteList() {
     };
     return (
         <View style={styles.centeredView}>
+
+
+
+
             <Modal
                 animationType="fade"
                 transparent={true}
@@ -84,14 +89,15 @@ export default function ModalFavoriteList() {
                         <TouchableOpacity
                             style={styles.buttonSave}
                             onPress={() => setModalVisible2(!modalVisible2)}
-                            
+
                         >
                             <Text style={styles.textStyleSave}>Salvar</Text>
                         </TouchableOpacity>
                     </View>
                 </View >
             </Modal>
-            <TouchableOpacity 
+            <ButtonFilmList />
+            <TouchableOpacity
                 style={styles.containerOpenModal}
                 onPress={() => setModalVisible(true)}
             >
