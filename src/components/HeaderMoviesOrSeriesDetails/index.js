@@ -25,7 +25,6 @@ import ButtonFavorite from '../../components/ButtonFavorite';
 export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
     const [id, type] = route.params;
     const [details, setDetails] = useState([]);
-    const [cast, setCast] = useState(null);
     const [crew, setCrew] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
     const [isRated, setIsRated] = useState(false);
@@ -72,7 +71,6 @@ export default function HeaderMoviesOrSeriesDetails({ route, navigation }) {
         async function awaitGetCredits() {
             try {
                 const dataCredits = await getCredits(id);
-                setCast(dataCredits.cast);
                 setCrew(dataCredits.crew);
             } catch (error) {
                 console.warn(error);
