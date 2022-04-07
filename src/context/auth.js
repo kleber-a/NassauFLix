@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   getAccountDetails,
   getIdAccessToken,
@@ -13,6 +13,9 @@ export const AuthContext = React.createContext();
 export default function Auth({children}) {
   const [account, setAccount] = useState(null);
   const [sessionId, setSessionId] = useState(null);
+ 
+
+  
   const navigation = useNavigation();
 
   async function getUser(token) {

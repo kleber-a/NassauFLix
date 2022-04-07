@@ -10,6 +10,7 @@ import {
   getFRMovies,
   getFRTvShow,
   getAllRatedEvaliation,
+  getList,
 } from '../../service/api';
 import MovieImage from '../../components/Movie/MovieImage';
 import MovieEvaluation from '../../components/Movie/MovieEvaluation';
@@ -21,14 +22,12 @@ export default function Profile({navigation}) {
   const [evaluation, setEvaluation] = useState(null);
   const [type, setType] = useState('movies');
 
-  //Lista Favoritos e Avaliados
-  const [listFavorites, setListFavorites] = useState(null);
-  const [listRated, setListRated] = useState(null);
+  //Nomes Favoritos e Avaliados
   const [nameRated, setNameRated] = useState('Avaliações de filmes recentes');
   const [nameFavorite, setNameFavorite] = useState('Filmes favoritos');
 
   //Botão Movie e Séries
-  const [btMovies, setBtMovies] = useState(false);
+  const [btMovies, setBtMovies] = useState(true);
   const [btSeries, setBtSeries] = useState(false);
 
   //Filmes e Séries Avaliados e Favoritos
@@ -37,55 +36,49 @@ export default function Profile({navigation}) {
   const [favoriteTvShow, setFavoriteTvShow] = useState(null);
   const [ratedTvShow, setRatedTvShow] = useState(null);
 
+  async function awaitDataMovies() {
+    const favoriteMoviesData = await getFRMovies(
+      account.id,
+      sessionId,
+      'favorite',
+    );
+    setFavoriteMovies(favoriteMoviesData);
+    const ratedMoviesData = await getFRMovies(account.id, sessionId, 'rated');
+    setRatedMovies(ratedMoviesData);
+    const evaluationData = await getAllRatedEvaliation(account.id, sessionId);
+    setEvaluation(evaluationData);
+  }
+
+  async function awaitDataTvShow() {
+    const favoriteTvShowData = await getFRTvShow(
+      account.id,
+      sessionId,
+      'favorite',
+    );
+    setFavoriteTvShow(favoriteTvShowData);
+    const ratedTvShowData = await getFRTvShow(account.id, sessionId, 'rated');
+    setRatedTvShow(ratedTvShowData);
+    const evaluationData = await getAllRatedEvaliation(account.id, sessionId);
+    setEvaluation(evaluationData);
+  }
+
   useEffect(() => {
-    async function awaitData() {
-      const favoriteMovies = await getFRMovies(
-        account.id,
-        sessionId,
-        'favorite',
-      );
-      setFavoriteMovies(favoriteMovies);
-      const ratedMovies = await getFRMovies(account.id, sessionId, 'rated');
-      setRatedMovies(ratedMovies);
-      const favoriteTvShow = await getFRTvShow(
-        account.id,
-        sessionId,
-        'favorite',
-      );
-      setFavoriteTvShow(favoriteTvShow);
-      const ratedTvShow = await getFRTvShow(account.id, sessionId, 'rated');
-
-      const evaluation = await getAllRatedEvaliation(account.id, sessionId);
-      setEvaluation(evaluation);
-
-      setRatedTvShow(ratedTvShow);
-
-      setBtMovies(true);
-      setBtSeries(false);
-      setListFavorites(favoriteMovies);
-      setListRated(ratedMovies);
-    }
     navigation.addListener('focus', () => {
-      awaitData();
+      awaitDataMovies();
+      awaitDataTvShow();
     });
-  }, [account.id, sessionId, navigation]);
+  }, [navigation]);
+
   function selectionButtonMovie() {
     setType('movies');
     setNameRated('Avaliações de filmes recentes');
     setNameFavorite('Filmes favoritos');
-    setBtMovies(true);
-    setBtSeries(false);
-    setListFavorites(favoriteMovies);
-    setListRated(ratedMovies);
   }
+
   function selectionButtonSeries() {
     setType('tv');
     setNameRated('Avaliações de série recentes');
     setNameFavorite('Séries favoritas');
-    setBtSeries(true);
-    setBtMovies(false);
-    setListFavorites(favoriteTvShow);
-    setListRated(ratedTvShow);
   }
 
   const showAlert = () => {
@@ -137,13 +130,21 @@ export default function Profile({navigation}) {
       <View style={styles.containerButton}>
         <TouchableOpacity
           style={styles.buttonMovieContainer}
-          onPress={() => selectionButtonMovie()}>
+          onPress={() => {
+            selectionButtonMovie();
+            setBtMovies(true);
+            setBtSeries(false);
+          }}>
           <ButtonMovie loading={btMovies} />
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.buttonTvShowContainer}
-          onPress={() => selectionButtonSeries()}>
+          onPress={() => {
+            selectionButtonSeries();
+            setBtSeries(true);
+            setBtMovies(false);
+          }}>
           <ButtonSeries loading1={btSeries} />
         </TouchableOpacity>
       </View>
@@ -167,21 +168,22 @@ export default function Profile({navigation}) {
             </TouchableOpacity>
           </View>
           <View style={styles.listFavorites}>
-            {listFavorites ? (
-              listFavorites.map((listFavorites, index) =>
-                index <= 3 ? (
-                  <TouchableOpacity
-                    key={listFavorites.id}
-                    style={styles.buttonListFavorites}
-                    onPress={() => {
-                      navigation.navigate(type, [listFavorites.id, type]);
-                    }}>
-                    <MovieImage
-                      pathImage={listFavorites.poster_path}
-                      posterSize={'w92'}
-                    />
-                  </TouchableOpacity>
-                ) : null,
+            {favoriteMovies && favoriteTvShow ? (
+              (btMovies ? favoriteMovies : favoriteTvShow).map(
+                (favorites, index) =>
+                  index <= 3 ? (
+                    <TouchableOpacity
+                      key={favorites.id}
+                      style={styles.buttonListFavorites}
+                      onPress={() => {
+                        navigation.navigate(type, [favorites.id, type]);
+                      }}>
+                      <MovieImage
+                        pathImage={favorites.poster_path}
+                        posterSize={'w92'}
+                      />
+                    </TouchableOpacity>
+                  ) : null,
               )
             ) : (
               <Loading size={'large'} color={'#E9A6A6'} />
@@ -207,20 +209,20 @@ export default function Profile({navigation}) {
             </TouchableOpacity>
           </View>
           <View style={styles.listRated}>
-            {listRated ? (
-              listRated.map((listRated, index) =>
+            {ratedMovies && ratedTvShow ? (
+              (btMovies ? ratedMovies : ratedTvShow).map((rateds, index) =>
                 index <= 4 ? (
                   <TouchableOpacity
-                    key={listRated.id}
+                    key={rateds.id}
                     style={styles.buttonListTvShow}
                     onPress={() => {
-                      navigation.navigate(type, [listRated.id, type]);
+                      navigation.navigate(type, [rateds.id, type]);
                     }}>
                     <MovieImage
-                      pathImage={listRated.poster_path}
+                      pathImage={rateds.poster_path}
                       posterSize={'w92'}
                     />
-                    <MovieEvaluation votes={listRated.vote_average} />
+                    <MovieEvaluation votes={rateds.vote_average} />
                   </TouchableOpacity>
                 ) : null,
               )
