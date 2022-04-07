@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -160,6 +160,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Open Sans',
     fontSize: 10,
+    fontWeight: '700',
   },
   detailsDescription: {
     width: '100%',
@@ -237,7 +238,6 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     marginHorizontal: 20,
   },
-
 });
 
 export default styles;
