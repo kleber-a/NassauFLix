@@ -14,17 +14,19 @@ export default function ModalAvaluate({
   setIsRated,
 }) {
   const [avaluate, setAvaluate] = useState(null);
-  const [error, setError] = useState(false);
   const {sessionId} = useContext(AuthContext);
 
   function handleError(value) {
-    const regexModal =
-      /^(?:[1-9]|0[1-9]|10)$|^[1-9]?[/.|/,][0|5]|^[0-9]?[/.|/,][5]/;
+    const regexModal = new RegExp(
+      /^(?:[1-9]|0[1-9]|10)$|^[1-9]?\.[0|5]|^[0-9]?\.[5]/,
+    );
     return !regexModal.test(value);
   }
 
   async function changeAvaluate() {
-    await postRate(type, typeId, sessionId, avaluate);
+    await postRate(type, typeId, sessionId, {
+      value: avaluate,
+    });
     await awaitAvaluates();
     setIsRated(true);
   }
@@ -52,17 +54,15 @@ export default function ModalAvaluate({
               style={styles.input}
               maxLength={3}
               onChangeText={value => {
-                setAvaluate({
-                  value: parseFloat(value),
-                });
+                setAvaluate(value);
               }}
             />
           </View>
           <Text style={styles.inputText}> / 10</Text>
         </View>
-        {handleError(avaluate && avaluate.value) && (
+        {handleError(avaluate && avaluate) && (
           <Text style={styles.textErrorModal}>
-            A nota deve ser entre 0,5 a 10
+            A nota deve ser entre 0.5 a 10
           </Text>
         )}
         <View style={styles.buttons}>
@@ -74,20 +74,20 @@ export default function ModalAvaluate({
             <Text style={styles.buttonCancel.text}>cancelar</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            disabled={handleError(avaluate && avaluate.value)}
+            disabled={handleError(avaluate && avaluate)}
             style={
-              handleError(avaluate && avaluate.value)
+              handleError(avaluate && avaluate)
                 ? styles.buttonOkDisabled
                 : styles.buttonOk
             }
             onPress={() => {
-              handleError(avaluate && avaluate.value)
-                ? setError(true)
-                : changeAvaluate() && setModalVisible(!modalIsVisible);
+              handleError(avaluate && avaluate) &&
+                changeAvaluate() &&
+                setModalVisible(!modalIsVisible);
             }}>
             <Text
               style={
-                handleError(avaluate && avaluate.value)
+                handleError(avaluate && avaluate)
                   ? styles.buttonOkDisabled.text
                   : styles.buttonOk.text
               }>
