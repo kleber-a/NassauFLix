@@ -96,7 +96,7 @@ export default function ModalFavoriteList() {
                     </View>
                 </View >
             </Modal>
-            <ButtonFilmList />
+
             <TouchableOpacity
                 style={styles.containerOpenModal}
                 onPress={() => setModalVisible(true)}
