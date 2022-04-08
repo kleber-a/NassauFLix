@@ -119,7 +119,13 @@ export default function Profile({navigation}) {
         </Text>
         {evaluation ? (
           <>
-            <Text style={styles.valuePerfil}>{evaluation}</Text>
+            <Text
+              style={styles.valuePerfil}
+              onPress={() => {
+                navigation.navigate('ListMovies');
+              }}>
+              {evaluation}
+            </Text>
             <Text style={styles.evaluationPerfil}>Avaliações</Text>
           </>
         ) : (

@@ -280,15 +280,26 @@ export async function getAllRatedEvaliation(accountId, sessionId) {
   }
 }
 
-export async function getList(account_id,sessionId,page){
-  try{
-    const {data} = await api.get(`account/${account_id}/lists?api_key=${apiKey}&language=en-US&session_id=${sessionId}&page=${page}`)
-    console.warn(data)
-    return data
-
+export async function getList(account_id, sessionId, page) {
+  try {
+    const {data} = await api.get(
+      `account/${account_id}/lists?api_key=${apiKey}&language=en-US&session_id=${sessionId}&page=${page}`,
+    );
+    console.warn(data);
+    return data;
+  } catch (error) {
+    console.warn(error);
   }
-  catch (error) {
-    console.warn(error)
+}
+
+export async function getDetailsList(listId) {
+  try {
+    const {data} = await api.get(
+      `list/${listId}?api_key=${apiKey}&language=pt-BR`,
+    );
+    return data;
+  } catch (error) {
+    console.warn(error);
   }
 }
 export default api;
