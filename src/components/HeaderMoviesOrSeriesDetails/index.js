@@ -1,7 +1,7 @@
 import {View} from 'react-native';
 import React, {useState, useEffect, useContext} from 'react';
-
 import ModalAvaluate from '../ModalAvaluate';
+import ModalFavoriteList from '../ModalFavoriteList';
 import ButtonReturn from '../ButtonReturn';
 import PosterImage from '../PosterImage';
 import ButtonRated from '../ButtonRated';
@@ -117,6 +117,10 @@ export default function HeaderMoviesOrSeriesDetails({
           <View style={styles.detailRatedLiked}>
             <TextRated detailsVoteAverage={details.vote_average} />
             <Likeds detailsVoteCount={details.vote_count} />
+          </View>
+
+          <View style={styles.modal}>
+            <ModalFavoriteList />
           </View>
         </View>
       </View>
