@@ -5,41 +5,64 @@ import Icon from 'react-native-vector-icons/AntDesign'
 import ButtonFilmList from "../ButtonFilmList";
 
 export default function ModalFavoriteList() {
-
-    const [modalVisible, setModalVisible] = useState(false);
-    const [modalVisible2, setModalVisible2] = useState(false);
-    const [buttonClickOn, setButtonClickOn] = useState(null)
-    const changeFalseModals = function () {
-        if (modalVisible && modalVisible2 === true) {
-            setModalVisible(false);
-            setModalVisible2(false);
-        }
-    };
-    const data = [
-        "felipe",
-        "maicon",
-        "luiza ",
-        "kleber",
-        "feliciano",
-        "filmes que mudaram minha vida",
-        "filmes que mudaram sua vida",
-        "filmes que mudaram nossa vida",
-    ]
-    const renderItem = ({ item, index }) => {
-        return (
-            <View style={styles.containerRenderItem}>
-                <TouchableOpacity
-                    activeOpacity={1}
-                    onPress={() => setButtonClickOn(index)}
-                    style={styles.buttonClick}
-                >
-                    <View style={buttonClickOn === index && styles.buttonClickOn} />
-                </TouchableOpacity>
-                <Text style={styles.TextFlatList}>{item}</Text>
-            </View>
-        )
-    };
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisibleSucess, setModalVisibleSucess] = useState(false);
+  const [buttonClickOn, setButtonClickOn] = useState(null);
+  const data = [
+    'felipe',
+    'maicon',
+    'luiza ',
+    'kleber',
+    'feliciano',
+    'filmes que mudaram minha vida',
+    'filmes que mudaram sua vida',
+    'filmes que mudaram nossa vida',
+  ];
+  const renderItem = ({item, index}) => {
     return (
+      <View style={styles.containerRenderItem}>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => {
+            setButtonClickOn(index);
+          }}
+          style={styles.buttonClick}>
+          <View style={buttonClickOn === index && styles.buttonClickOn} />
+        </TouchableOpacity>
+        <Text style={styles.TextFlatList}>{item}</Text>
+      </View>
+    );
+  };
+  return (
+    <View style={styles.centeredView}>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisibleSucess}
+        onRequestClose={() => {
+          setModalVisibleSucess(!modalVisibleSucess);
+        }}>
+        <View style={styles.modalSucessBackground}>
+          <View style={styles.modalSucess}>
+            <Icon name="checkcircleo" size={25} color="#000000" />
+            <Text style={styles.textModalSucess}>
+              Lista atualizada com sucesso!
+            </Text>
+            <TouchableOpacity
+              style={styles.buttonModalSucess}
+              onPress={() => setModalVisibleSucess(!modalVisibleSucess)}>
+              <Text style={styles.textStyleSave}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
         <View style={styles.centeredView}>
 
 
@@ -98,12 +121,38 @@ export default function ModalFavoriteList() {
             </Modal>
 
             <TouchableOpacity
-                style={styles.containerOpenModal}
-                onPress={() => setModalVisible(true)}
-            >
-                <Icon style={styles.iconOpenModal} name='plus' size={25} />
-                <Text style={styles.textOpenModal}>Adicionar a uma lista</Text>
+              style={
+                typeof buttonClickOn === 'number'
+                  ? styles.buttonSave
+                  : [styles.buttonSave, {backgroundColor: '#C4C4C4'}]
+              }
+              onPress={() => {
+                typeof buttonClickOn === 'number' &&
+                  setModalVisibleSucess(!modalVisibleSucess);
+                typeof buttonClickOn === 'number' &&
+                  setModalVisible(!modalVisible);
+              }}>
+              <Text
+                style={
+                  typeof buttonClickOn === 'number'
+                    ? styles.textStyleSave
+                    : [styles.textStyleSave, {color: '#8E8E8E'}]
+                }>
+                Salvar
+              </Text>
             </TouchableOpacity>
-        </View >
-    );
-};
+          </View>
+        </View>
+      </Modal>
+      <TouchableOpacity
+        style={styles.containerOpenModal}
+        onPress={() => {
+          setModalVisible(true);
+          setButtonClickOn(null);
+        }}>
+        <Icon style={styles.iconOpenModal} name="plus" size={25} />
+        <Text style={styles.textOpenModal}>Adicionar a uma lista</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}

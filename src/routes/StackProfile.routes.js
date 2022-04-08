@@ -1,7 +1,9 @@
 import React from 'react';
-import Favorites from '../pages/Favorites';
-import Rateds from '../pages/Rateds';
+import InterationList from '../pages/InterationList';
+import ListMovies from '../pages/ListMovies';
 import Profile from '../pages/Profile';
+import Movies from '../pages/Movies';
+import TvShows from '../pages/TvShows';
 
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -14,8 +16,10 @@ function StackProfile() {
         headerShown: false,
       }}>
       <Stack.Screen name="Profile" component={Profile} />
-      <Stack.Screen name="Rateds" component={Rateds} />
-      <Stack.Screen name="Favorites" component={Favorites} />
+      <Stack.Screen name="InterationList" component={InterationList} />
+      <Stack.Screen name="ListMovies" component={ListMovies} />
+      <Stack.Screen name="movies" component={Movies} />
+      <Stack.Screen name="tv" component={TvShows} />
     </Stack.Navigator>
   );
 }

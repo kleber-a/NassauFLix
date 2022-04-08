@@ -1,4 +1,5 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
+import {HeaderHeightContext} from 'react-navigation-stack';
 
 const styles = StyleSheet.create({
   containerHeader: {
@@ -6,20 +7,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   containerDetails: {
-
     flexDirection: 'row',
     width: '100%',
     paddingHorizontal: '5%',
   },
 
   containerMovieImg: {
-    paddingHorizontal: 10,
     position: 'relative',
     top: -60,
   },
 
   detaisMoviesTitle: {
-    width: '75%',
+    width: '72%',
     padding: 16,
     alignItems: 'flex-start',
   },
@@ -28,7 +27,6 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     flexDirection: 'row',
     alignItems: 'center',
-
   },
   containerOverView: {
     width: '90%',
@@ -36,9 +34,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modal: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '45%',
+    alignItems: 'flex-start',
+    width: '100%',
   },
 });
 

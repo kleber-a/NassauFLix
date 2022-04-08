@@ -20,8 +20,8 @@ export default function Home({navigate, type}) {
     setLoading(true);
     try {
       const results = await getMoviesOrTv(Object.keys(type)[0], page);
-      setData([...data, ...results]);
       setPage(page + 1);
+      setData([...data, ...results]);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -36,7 +36,7 @@ export default function Home({navigate, type}) {
     return (
       <View style={styles.boxHeader}>
         <PopularDescription type={Object.values(type)[0]} />
-        <UserImage size={50} />
+        <UserImage navigation={navigate} size={50} />
       </View>
     );
   };
@@ -80,7 +80,7 @@ export default function Home({navigate, type}) {
           renderItem={renderItem}
         />
       ) : (
-        <Loading />
+        <Loading size={77} color={'#ffffff'} />
       )}
     </View>
   );

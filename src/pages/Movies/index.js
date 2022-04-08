@@ -1,50 +1,26 @@
-import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
-import React, { useState, useEffect, useContext } from 'react';
+import {View, Text, Image, FlatList} from 'react-native';
+import React, {useState, useEffect} from 'react';
 import Loading from '../../components/Loading';
-import {
-  getCredits,
-  getDetails,
-  getState,
-  postFavorite,
-} from '../../service/api';
+import {getCredits, getDetails} from '../../service/api';
 import styles from './styles';
-import { AuthContext } from '../../context/auth';
-import HeaderMoviesOrSeriesDetails from '../../components/HeaderMoviesOrSeriesDetails'
+import HeaderMoviesOrSeriesDetails from '../../components/HeaderMoviesOrSeriesDetails';
 
-
-export default function Movies({ route, navigation }) {
-  const [id, type] = route.params;
-  const [details, setDetails] = useState([]);
+export default function Movies({route, navigation}) {
+  const [id] = route.params;
   const [cast, setCast] = useState(null);
-  const [crew, setCrew] = useState(null);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [isRated, setIsRated] = useState(false);
-  const [movieRated, setMovieRated] = useState(null);
-
-  const [isFavorite, setIsFavorite] = useState(null);
-  const [dataFavorite, setDataFavorite] = useState({
-    media_type: 'movie',
-    media_id: id,
-    favorite: false,
-  });
-  const { sessionId, account } = useContext(AuthContext);
-
-  async function awaitFavoriteMovies() {
-    try {
-      await postFavorite(account.id, sessionId, dataFavorite);
-    } catch (error) {
-      console.warn(error);
-    }
-  }
+  const [details, setDetails] = useState(null);
 
   useEffect(() => {
-    async function awaitIsFavorite(bodyfavorite) {
-      const { favorite } = await getState('movie', id, sessionId);
-      setIsFavorite(favorite);
-      setDataFavorite(prevState => ({ ...prevState, favorite: !favorite }));
+    async function awaitGetCredits() {
+      try {
+        const dataCredits = await getCredits(id);
+        setCast(dataCredits.cast);
+      } catch (error) {
+        console.warn(error);
+      }
     }
-    awaitIsFavorite();
-  }, [id, sessionId]);
+    awaitGetCredits();
+  }, [id]);
 
   useEffect(() => {
     async function awaitGetDetails() {
@@ -58,34 +34,7 @@ export default function Movies({ route, navigation }) {
     awaitGetDetails();
   }, [id]);
 
-  useEffect(() => {
-    async function awaitGetCredits() {
-      try {
-        const dataCredits = await getCredits(id);
-        setCast(dataCredits.cast);
-        setCrew(dataCredits.crew);
-      } catch (error) {
-        console.warn(error);
-      }
-    }
-    awaitGetCredits();
-  }, [id]);
-
-  async function awaitAvaluates() {
-    try {
-      const stateMovie = await getState(type, id, sessionId);
-      setMovieRated(stateMovie.rated.value);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  useEffect(() => {
-    awaitAvaluates();
-  }, [isRated]);
-
-
-  const renderItem = ({ item }) => {
+  const renderItem = ({item}) => {
     return (
       <View style={styles.containerCast}>
         <View style={styles.containerProfileImg}>
@@ -107,16 +56,21 @@ export default function Movies({ route, navigation }) {
       </View>
     );
   };
-
   return (
     <View style={styles.container}>
-      {cast ? (
+      {cast && details ? (
         <FlatList
           style={styles.viewFLatList}
           data={cast}
           keyExtractor={(item, index) => index}
           renderItem={renderItem}
-          ListHeaderComponent={<HeaderMoviesOrSeriesDetails route={route} navigation={navigation} />}
+          ListHeaderComponent={
+            <HeaderMoviesOrSeriesDetails
+              details={details}
+              route={route}
+              navigation={navigation}
+            />
+          }
         />
       ) : (
         <Loading />

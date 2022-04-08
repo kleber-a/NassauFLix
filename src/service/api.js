@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {Alert} from 'react-native';
 
 const apiKey = 'c3dc5cb91b1c309207a60a76c5742842';
 
@@ -19,23 +18,18 @@ export async function postFavorite(accountId, sessionId, body) {
   }
 }
 
-export async function getFavorites(type, accountId, sessionId) {
+export async function getInterations(
+  interation,
+  type,
+  accountId,
+  sessionId,
+  page,
+) {
   try {
     const {data} = await api.get(
-      `account/${accountId}/favorite/${type}?api_key=${apiKey}&session_id=${sessionId}`,
+      `account/${accountId}/${interation}/${type}?api_key=${apiKey}&session_id=${sessionId}&page=${page}`,
     );
-    return data.results;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export async function getRateds(type, accountId, sessionId) {
-  try {
-    const {data} = await api.get(
-      `account/${accountId}/rated/${type}?api_key=${apiKey}&session_id=${sessionId}`,
-    );
-    return data.results;
+    return data;
   } catch (error) {
     console.log(error);
   }
@@ -52,6 +46,16 @@ export async function getMovie(page) {
   }
 }
 
+export async function getPopularTvShows(page) {
+  try {
+    const {data} = await api.get(
+      `tv/popular?api_key=${apiKey}&language=pt-BR&page=${page}`,
+    );
+    return data.results;
+  } catch (error) {
+    console.log(error);
+  }
+}
 export async function getDetails(id) {
   try {
     const {data} = await api.get(
@@ -108,11 +112,6 @@ export async function validateToken(body) {
     );
     return data.success;
   } catch (error) {
-    if (error.response.data.status_message.includes('You must provide')) {
-      Alert.alert('Usuário inválido', 'Campo não preenchido.');
-    } else {
-      Alert.alert('Usuário inválido', 'Nome ou senha inválidos.');
-    }
     return error.response.data.success;
   }
 }
@@ -156,6 +155,14 @@ export async function getChangeMovies(dateStart) {
   }
 }
 
+export async function getTvShow(id) {
+  try {
+    const {data} = await api.get(`tv/${id}?api_key=${apiKey}&language=pt-BR`);
+    return data;
+  } catch (error) {
+    console.warn(error);
+  }
+}
 export async function getMoviesOrTv(type, page) {
   try {
     const {data} = await api.get(
@@ -163,7 +170,27 @@ export async function getMoviesOrTv(type, page) {
     );
     return data.results;
   } catch (error) {
-    console.log(error);
+    console.warn(error);
+  }
+}
+export async function getTvShowSeason(id, numberOfSeason) {
+  try {
+    const {data} = await api.get(
+      `/tv/${id}/season/${numberOfSeason}?api_key=${apiKey}&language=pt-BR`,
+    );
+    return data;
+  } catch (error) {
+    console.warn(error);
+  }
+}
+export async function getTvShowsRate(id) {
+  try {
+    const {data} = await api.get(
+      `/tv/${id}/rating?api_key=${apiKey}&session_id=${sessionId}`,
+    );
+    return data;
+  } catch (error) {
+    console.warn(error);
   }
 }
 
@@ -233,6 +260,46 @@ export async function getState(type, movieId, sessionId) {
     return data;
   } catch (error) {
     console.log(error);
+  }
+}
+
+export async function getAllRatedEvaliation(accountId, sessionId) {
+  try {
+    const {data} = await api.get(
+      `/account/${accountId}/rated/movies?api_key=${apiKey}&session_id=${sessionId}`,
+    );
+    const response = await api.get(
+      `/account/${accountId}/rated/tv?api_key=${apiKey}&session_id=${sessionId}`,
+    );
+
+    const total = data.total_results + response.data.total_results;
+
+    return total;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getList(account_id, sessionId, page) {
+  try {
+    const {data} = await api.get(
+      `account/${account_id}/lists?api_key=${apiKey}&language=en-US&session_id=${sessionId}&page=${page}`,
+    );
+    console.warn(data);
+    return data;
+  } catch (error) {
+    console.warn(error);
+  }
+}
+
+export async function getDetailsList(listId) {
+  try {
+    const {data} = await api.get(
+      `list/${listId}?api_key=${apiKey}&language=pt-BR`,
+    );
+    return data;
+  } catch (error) {
+    console.warn(error);
   }
 }
 export default api;
