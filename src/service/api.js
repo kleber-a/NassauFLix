@@ -285,10 +285,19 @@ export async function getList(account_id,sessionId,page){
     const {data} = await api.get(`account/${account_id}/lists?api_key=${apiKey}&language=en-US&session_id=${sessionId}&page=${page}`)
     console.warn(data)
     return data
-
   }
   catch (error) {
     console.warn(error)
+  }
+}
+export async function deletList(id) {
+  try {
+    const {data} = await api.delete(
+      `https://api.themoviedb.org/3/list/${id}?api_key=${apiKey}&session_id=${sessionId}`,
+    );
+    return data;
+  } catch (error) {
+    console.warn(error);
   }
 }
 export default api;

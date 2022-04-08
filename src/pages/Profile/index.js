@@ -17,6 +17,7 @@ import MovieEvaluation from '../../components/Movie/MovieEvaluation';
 import VerifyName from '../../components/User/VerifyName';
 import Loading from '../../components/Loading';
 
+
 export default function Profile({navigation}) {
   const {account, sessionId, logout} = useContext(AuthContext);
   const [evaluation, setEvaluation] = useState(null);
