@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   fullscreen: {
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   //Box Perfil
   Perfil: {
     width: '100%',
-    height: '36%',
+    height: '38%',
     alignItems: 'center',
   },
 
@@ -48,12 +48,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     color: 'white',
+    marginBottom: 10,
   },
 
   valuePerfil: {
+    marginTop: 5,
     fontSize: 24,
     fontWeight: '700',
-    marginTop: 20,
     color: '#9C4A8B',
     fontFamily: 'open sans',
   },
@@ -62,13 +63,14 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '400',
     color: 'white',
+    marginBottom: 22,
   },
   //Fim Box Perfil
 
   //Box Button
   containerButton: {
     width: '100%',
-    height: '10%',
+    height: '9%',
     backgroundColor: 'black',
     flexDirection: 'row',
   },
@@ -100,7 +102,7 @@ const styles = StyleSheet.create({
 
   //Container List
   containerList: {
-    height: '54%',
+    height: '53%',
     width: '100%',
   },
 
