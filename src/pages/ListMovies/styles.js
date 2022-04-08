@@ -49,5 +49,16 @@ const styles = StyleSheet.create({
     height: 95,
     width: 76,
   },
+  boxDelete: {
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    right: -5,
+    top: -5,
+    height: 18,
+    width: 18,
+    backgroundColor: 'white',
+  },
 });
 export default styles;

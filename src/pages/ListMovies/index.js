@@ -5,9 +5,11 @@ import Loading from '../../components/Loading';
 import {getDetailsList} from '../../service/api';
 import MovieImage from '../../components/Movie/MovieImage';
 import ButtonReturn from '../../components/ButtonReturn';
+import Icon from 'react-native-vector-icons/Octicons';
 
 export default function ListMovies({navigation}) {
   const [detailsList, setDetailsList] = useState(null);
+  const [deleteActive, setDeleteActive] = useState(true);
 
   async function awaitDetailsList() {
     const dataDetailsList = await getDetailsList(8197836);
@@ -18,6 +20,9 @@ export default function ListMovies({navigation}) {
     navigation.addListener('focus', () => {
       awaitDetailsList();
     });
+    return () => {
+      setDetailsList(null);
+    };
   }, [navigation]);
 
   const renderHeader = () => {
@@ -38,6 +43,11 @@ export default function ListMovies({navigation}) {
         }}
         style={styles.boxImage}>
         <MovieImage pathImage={item.poster_path} posterSize={'w92'} />
+        {deleteActive && (
+          <TouchableOpacity style={styles.boxDelete}>
+            <Icon name={'horizontal-rule'} size={6} color={'red'} />
+          </TouchableOpacity>
+        )}
       </TouchableOpacity>
     );
   };
