@@ -81,7 +81,8 @@ export default function Teste() {
               />
               <TextInput
                 style={styles.descriptionList}
-                
+                textAlignVertical={top}
+                multiline={true}
                 placeholder={'Descrição'}
                 value={description}
                 onChangeText={text => setDescription(text)}
