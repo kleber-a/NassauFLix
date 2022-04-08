@@ -21,6 +21,7 @@ export default function ModalAvaluate({
   setIsRated,
 }) {
   const [avaluate, setAvaluate] = useState(null);
+  const [error, setError] = useState(true);
   const {sessionId} = useContext(AuthContext);
 
   function handleError(value) {
@@ -49,7 +50,7 @@ export default function ModalAvaluate({
       <TouchableWithoutFeedback
         style={styles.container}
         onPress={() => {
-          true && setModalVisible(!modalIsVisible);
+          setModalVisible(!modalIsVisible);
         }}>
         <View style={styles.container}>
           <TouchableWithoutFeedback>

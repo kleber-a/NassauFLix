@@ -206,9 +206,7 @@ export default function TvShows({route, navigation}) {
             </View>
           </View>
         </View>
-        <Text style={styles.textDetailsTvDescription}>
-          {tvShow && tvShow.overview}
-        </Text>
+        <Text style={styles.textDetailsTvDescription}>{tvShow.overview}</Text>
       </View>
     );
   };

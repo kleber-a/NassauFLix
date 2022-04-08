@@ -1,7 +1,6 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-
   titleMovie: {
     color: '#FFFFFF',
     fontSize: 20,
@@ -22,7 +21,6 @@ const styles = StyleSheet.create({
   },
 
   textAutor: {
-
     color: 'white',
     fontSize: 8,
     fontFamily: 'Open Sans',
@@ -34,7 +32,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFFFFF',
   },
-
 });
 
 export default styles;
