@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
-import {Modal, Text, TouchableOpacity, View, FlatList} from 'react-native';
-import styles from './styles';
-import Icon from 'react-native-vector-icons/AntDesign';
+import React, { useState } from "react";
+import { Modal, Text, TouchableOpacity, View, FlatList } from "react-native";
+import styles from './styles'
+import Icon from 'react-native-vector-icons/AntDesign'
+import ButtonFilmList from "../ButtonFilmList";
 
 export default function ModalFavoriteList() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -63,19 +64,62 @@ export default function ModalFavoriteList() {
           setModalVisible(!modalVisible);
         }}>
         <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <View style={styles.headerHender}>
-              <Text style={styles.textHeader}>Salvar filme em....</Text>
-              <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                <Icon style={styles.iconClose} name="close" solid />
-              </TouchableOpacity>
-            </View>
-            <FlatList
-              data={data}
-              keyExtractor={(item, index) => index}
-              renderItem={renderItem}
-              contentContainerStyle={styles.containerFlatList}
-            />
+
+
+
+
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible2}
+            >
+                <View style={styles.modal2background}>
+                    <View style={styles.modal2}>
+                        <Icon name='checkcircleo' size={25} color='#000000' />
+                        <Text style={styles.textModal2}>Lista atualizada com sucesso!</Text>
+                        <TouchableOpacity
+                            style={styles.buttonModal2}
+                            onPress={() => changeFalseModals()}
+                        >
+                            <Text style={styles.textStyleSave}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal >
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <View style={styles.headerHender}>
+                            <Text style={styles.textHeader}>Salvar filme em....</Text>
+                            <TouchableOpacity
+                                onPress={() => setModalVisible(!modalVisible)}
+                            >
+                                <Icon style={styles.iconClose} name='close' solid />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.line} />
+                        <FlatList
+                            data={data}
+                            keyExtractor={(item, index) => index}
+                            renderItem={renderItem}
+                            contentContainerStyle={styles.containerFlatList}
+
+                        />
+                        <TouchableOpacity
+                            style={styles.buttonSave}
+                            onPress={() => setModalVisible2(!modalVisible2)}
+
+                        >
+                            <Text style={styles.textStyleSave}>Salvar</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View >
+            </Modal>
+
             <TouchableOpacity
               style={
                 typeof buttonClickOn === 'number'
