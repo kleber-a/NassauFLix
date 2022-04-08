@@ -41,12 +41,14 @@ export default function ModalFavoriteList() {
         onRequestClose={() => {
           setModalVisibleSucess(!modalVisibleSucess);
         }}>
-        <View style={styles.modal2background}>
-          <View style={styles.modal2}>
+        <View style={styles.modalSucessBackground}>
+          <View style={styles.modalSucess}>
             <Icon name="checkcircleo" size={25} color="#000000" />
-            <Text style={styles.textModal2}>Lista atualizada com sucesso!</Text>
+            <Text style={styles.textModalSucess}>
+              Lista atualizada com sucesso!
+            </Text>
             <TouchableOpacity
-              style={styles.buttonModal2}
+              style={styles.buttonModalSucess}
               onPress={() => setModalVisibleSucess(!modalVisibleSucess)}>
               <Text style={styles.textStyleSave}>OK</Text>
             </TouchableOpacity>

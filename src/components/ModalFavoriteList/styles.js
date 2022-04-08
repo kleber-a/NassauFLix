@@ -108,15 +108,14 @@ const styles = StyleSheet.create({
     color: 'black',
   },
 
-  modal2background: {
+  modalSucessBackground: {
     backgroundColor: 'rgba(0,0,0,0.4)',
     width: '100%',
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
-
-  modal2: {
+  modalSucess: {
     width: 327,
     height: 166,
     borderRadius: 25,
@@ -124,7 +123,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  textModal2: {
+  textModalSucess: {
     marginTop: 17,
     marginBottom: 21,
     fontFamily: 'Source Sans Pro',
@@ -134,7 +133,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#000000',
   },
-  buttonModal2: {
+  buttonModalSucess: {
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
