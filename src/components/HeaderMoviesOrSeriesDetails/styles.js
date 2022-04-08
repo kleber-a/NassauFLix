@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modal: {
-    alignItems: 'center',
-    width: '45%',
+    alignItems: 'flex-start',
+    width: '100%',
   },
 });
 
