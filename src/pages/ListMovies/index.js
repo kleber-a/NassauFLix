@@ -43,17 +43,20 @@ export default function ListMovies({navigation}) {
   };
 
   return detailsList ? (
-    <FlatList
-      data={detailsList.items}
-      contentContainerStyle={styles.container}
-      ListHeaderComponentStyle={styles.containerHeaderFlatList}
-      keyExtractor={(item, index) => index}
-      ListHeaderComponent={renderHeader}
-      renderItem={renderItem}
-      onEndReachedThreshold={0.3}
-      numColumns={4}
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={detailsList.items}
+        ListHeaderComponentStyle={styles.containerHeaderFlatList}
+        ListHeaderComponent={renderHeader}
+        columnWrapperStyle={styles.wrapperColumn}
+        keyExtractor={item => item.id}
+        renderItem={renderItem}
+        numColumns={4}
+      />
+    </View>
   ) : (
-    <Loading />
+    <View style={styles.containerLoading}>
+      <Loading />
+    </View>
   );
 }

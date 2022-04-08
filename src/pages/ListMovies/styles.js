@@ -4,7 +4,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'black',
-    alignItems: 'center',
   },
   containerHeaderFlatList: {
     alignContent: 'center',
@@ -14,8 +13,19 @@ const styles = StyleSheet.create({
   containerHeader: {
     alignItems: 'center',
     paddingTop: 80,
-    paddingBottom: 20,
+    paddingBottom: 18,
     paddingHorizontal: 15,
+  },
+  containerLoading: {
+    flex: 1,
+    backgroundColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  wrapperColumn: {
+    paddingHorizontal: 22,
+    marginBottom: '4%',
+    justifyContent: 'space-between',
   },
   nameList: {
     width: 215,
@@ -36,8 +46,6 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   boxImage: {
-    marginHorizontal: 7,
-    marginVertical: 7,
     height: 95,
     width: 76,
   },
