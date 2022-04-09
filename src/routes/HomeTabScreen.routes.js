@@ -6,6 +6,7 @@ import ButtonUser from '../components/TabButtons/ButtonUser';
 import StackMovies from './StackMovies.routes';
 import StackTvShows from './StackTvShos.routes';
 import StackProfile from './StackProfile.routes';
+import PageTest from '../pages/PageTest';
 const Tab = createBottomTabNavigator();
 
 function HomeTabScreen() {
@@ -42,6 +43,16 @@ function HomeTabScreen() {
       <Tab.Screen
         name="StackProfile"
         component={StackProfile}
+        options={{
+          tabBarIcon: ({color, focused}) => (
+            <ButtonUser focused={focused} color={color} name="User" />
+          ),
+        }}
+      />
+
+<Tab.Screen
+        name="PageTest"
+        component={PageTest}
         options={{
           tabBarIcon: ({color, focused}) => (
             <ButtonUser focused={focused} color={color} name="User" />
