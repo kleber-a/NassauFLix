@@ -34,7 +34,7 @@ function HomeTabScreen() {
       />
       <Tab.Screen
         name="StackMovies"
-        component={MyLists}
+        component={StackMovies}
         options={{
           tabBarIcon: ({color, focused}) => (
             <ButtonHome focused={focused} color={color} name="StackMovies" />

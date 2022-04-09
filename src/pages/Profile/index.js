@@ -121,7 +121,7 @@ export default function Profile({ navigation }) {
         </Text>
         <ButtonFilmList
           navigation={navigation}
-          navigate={'ListMovies'}
+          navigate={'MyLists'}
 
         />
         {evaluation ? (

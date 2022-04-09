@@ -27,15 +27,29 @@ const styles = StyleSheet.create({
     height: 80,
     marginTop: 15,
     borderRadius: 10,
-    marginLeft: 20,
+    alignSelf:'center',
+    justifyContent:'space-between',
+    flexDirection:'row'
+  },
+  boxDescription:{
+    width:200,
+    height:'100%',
+    paddingHorizontal:40,
+    justifyContent:'space-around',
+    borderRadius:10
   },
   numberMovies: {
-    top: 20,
-    marginLeft: 10,
+    color:'white',
+    fontSize:12,
+    fontWeight:'400'
   },
   nameList: {
-    marginLeft: 10,
-    marginTop: 10,
+    width:160,
+    marginTop: 2,
+    color:'white',
+    fontSize:12,
+    fontWeight:'400'
+
   },
 
   del: {
@@ -43,12 +57,10 @@ const styles = StyleSheet.create({
     width: 30,
     height: 80,
     alignSelf: 'flex-end',
-    bottom: 48,
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomRightRadius:10,
-    borderTopRightRadius:10
-
+    borderBottomRightRadius: 10,
+    borderTopRightRadius: 10,
   },
   viewplus: {
     width: '100%',
@@ -79,7 +91,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     borderRadius: 30,
-    marginVertical:'50%'
+    marginVertical: '50%',
   },
   boxTextModal: {
     //Inicio Box Text
@@ -107,47 +119,79 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 10,
     paddingHorizontal: 20,
-    fontSize:12
+    fontSize: 12,
   },
   descriptionListModal: {
     backgroundColor: '#C4C4C4',
     width: '80%',
     height: 60,
     marginTop: 9,
-    borderRadius:10,
+    borderRadius: 10,
     paddingHorizontal: 20,
-    fontSize:12
-
+    fontSize: 12,
   },
   //Fim Box Input
   boxButtonModal: {
     flexDirection: 'row',
     width: '100%',
     height: '30%',
-    alignItems:'center',
-    justifyContent:'space-evenly',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
   },
-  buttonCancelModal:{
-    width:105,
-    height:28,
-    backgroundColor:'white',
-    borderRadius:7,
-    borderWidth:2,
-    alignItems:'center',
-    justifyContent:'center'
+  buttonCancelModal: {
+    width: 105,
+    height: 28,
+    backgroundColor: 'white',
+    borderRadius: 7,
+    borderWidth: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  buttonSaveModal:{
-    width:105,
-    height:28,
-    borderRadius:7,
-    alignItems:'center',
-    justifyContent:'center'
+  buttonSaveModal: {
+    width: 105,
+    height: 28,
+    borderRadius: 7,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  textButtonModal:{
-      fontSize:12,
-      fontWeight:'700'
-  }
+  textButtonModal: {
+    fontSize: 12,
+    fontWeight: '700',
+  },
   //Fim Modal
+  backgroundModalModal2: {
+    backgroundColor: 'rgba(0,0,0,0.0)',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  containerModal2: {
+    width: '40%',
+    height: 80,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    borderRadius: 20,
+    marginVertical: '50%',
+    alignItems:'center',
+    justifyContent:'center'
+  },
+  buttonModal2:{
+    alignSelf:'flex-end',
+    bottom:"70%",
+    right:'5%',
+    position:'absolute'
+  }, 
+  boxModal2:{ 
+    width:'100%',
+    height:20,
+    flexDirection:'row',
+    justifyContent:'space-evenly'
+  },
+  Icon:{
+    backgroundColor:'#00FF00',
+    borderRadius:30
+  }
 });
 
 export default styles;
