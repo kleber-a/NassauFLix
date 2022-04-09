@@ -21,6 +21,7 @@ import Icon from 'react-native-vector-icons/EvilIcons';
 import ButtonReturn from '../../components/ButtonReturn';
 import {AuthContext} from '../../context/auth';
 import ModalAvaluate from '../../components/ModalAvaluate';
+import FormatNumber from '../../components/FormatNumber';
 
 export default function TvShows({route, navigation}) {
   const [id, type] = route.params;
@@ -197,17 +198,15 @@ export default function TvShows({route, navigation}) {
               <View style={styles.detailsLiked}>
                 <AntDesign name="heart" size={20} style={styles.heartIcon} />
                 <Text style={styles.liked}>
-                  {tvShow.length > 0 && tvShow.vote_count.toString().length > 3
-                    ? `${(tvShow.vote_count / 1000).toFixed(1)}K`
-                    : tvShow.vote_count}
+                  <FormatNumber format="0.0a">
+                    {tvShow.vote_count.toString()}
+                  </FormatNumber>
                 </Text>
               </View>
             </View>
           </View>
         </View>
-        <Text style={styles.textDetailsTvDescription}>
-          {tvShow && tvShow.overview}
-        </Text>
+        <Text style={styles.textDetailsTvDescription}>{tvShow.overview}</Text>
       </View>
     );
   };

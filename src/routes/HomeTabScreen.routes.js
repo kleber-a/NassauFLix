@@ -7,6 +7,7 @@ import StackMovies from './StackMovies.routes';
 import StackTvShows from './StackTvShos.routes';
 import StackProfile from './StackProfile.routes';
 import Teste from '../pages/Teste';
+import MyLists from '../pages/MyLists';
 const Tab = createBottomTabNavigator();
 
 function HomeTabScreen() {
@@ -33,7 +34,7 @@ function HomeTabScreen() {
       />
       <Tab.Screen
         name="StackMovies"
-        component={Teste}
+        component={MyLists}
         options={{
           tabBarIcon: ({color, focused}) => (
             <ButtonHome focused={focused} color={color} name="StackMovies" />

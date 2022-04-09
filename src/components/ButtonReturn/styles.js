@@ -3,9 +3,9 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   return: {
     backgroundColor: '#ffffff',
-    borderRadius: 15,
-    width: 30,
-    height: 30,
+    borderRadius: 18,
+    width: 33,
+    height: 33,
     alignItems: 'center',
     justifyContent: 'center',
     top: 20,

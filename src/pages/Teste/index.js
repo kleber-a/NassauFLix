@@ -8,6 +8,7 @@ import {
   Modal,
   StyleSheet,
   TouchableOpacity,
+  KeyboardAvoidingView
 } from 'react-native';
 import {AuthContext} from '../../context/auth';
 
@@ -44,6 +45,7 @@ export default function Teste() {
   }
 
   return (
+    
     <View
       style={{
         width: '100%',
@@ -57,7 +59,7 @@ export default function Teste() {
         title="Modal"
         color={'pink'}
       />
-      <Modal
+      {/* <Modal
         style={{alignItems: 'center', justifyContent: 'center'}}
         animationType="slide"
         transparent={true}
@@ -66,6 +68,7 @@ export default function Teste() {
           Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}>
+          <KeyboardAvoidingView behavior="position">
         <View style={styles.backgroundModal}>
           <View style={styles.containerModal}>
             <View style={styles.boxText}>
@@ -81,8 +84,7 @@ export default function Teste() {
               />
               <TextInput
                 style={styles.descriptionList}
-                textAlignVertical={top}
-                multiline={true}
+                
                 placeholder={'Descrição'}
                 value={description}
                 onChangeText={text => setDescription(text)}
@@ -99,8 +101,10 @@ export default function Teste() {
             </View>
           </View>
         </View>
-      </Modal>
+          </KeyboardAvoidingView>
+      </Modal> */}
     </View>
+ 
   );
 }
 //addList(lista, sessionId)
