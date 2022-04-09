@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { cloneElement } from 'react/cjs/react.production.min';
 
 const apiKey = 'c3dc5cb91b1c309207a60a76c5742842';
 
@@ -8,7 +9,7 @@ const api = axios.create({
 
 export async function postFavorite(accountId, sessionId, body) {
   try {
-    const {data} = await api.post(
+    const { data } = await api.post(
       `account/${accountId}/favorite?api_key=${apiKey}&session_id=${sessionId}`,
       body,
     );
@@ -26,7 +27,7 @@ export async function getInterations(
   page,
 ) {
   try {
-    const {data} = await api.get(
+    const { data } = await api.get(
       `account/${accountId}/${interation}/${type}?api_key=${apiKey}&session_id=${sessionId}&page=${page}`,
     );
     return data;
@@ -37,7 +38,7 @@ export async function getInterations(
 
 export async function getMovie(page) {
   try {
-    const {data} = await api.get(
+    const { data } = await api.get(
       `movie/popular?api_key=${apiKey}&language=pt-BR&page=${page}`,
     );
     return data.results;
@@ -48,7 +49,7 @@ export async function getMovie(page) {
 
 export async function getPopularTvShows(page) {
   try {
-    const {data} = await api.get(
+    const { data } = await api.get(
       `tv/popular?api_key=${apiKey}&language=pt-BR&page=${page}`,
     );
     return data.results;
@@ -58,7 +59,7 @@ export async function getPopularTvShows(page) {
 }
 export async function getDetails(id) {
   try {
-    const {data} = await api.get(
+    const { data } = await api.get(
       `movie/${id}?api_key=${apiKey}&language=pt-BR`,
     );
     return data;
@@ -69,7 +70,7 @@ export async function getDetails(id) {
 
 export async function getCredits(id) {
   try {
-    const {data} = await api.get(
+    const { data } = await api.get(
       `movie/${id}/credits?api_key=${apiKey}&language=pt-BR`,
     );
     return data;
@@ -80,7 +81,7 @@ export async function getCredits(id) {
 
 export async function getRequestToken() {
   try {
-    const {data} = await api.get(`authentication/token/new?api_key=${apiKey}`);
+    const { data } = await api.get(`authentication/token/new?api_key=${apiKey}`);
     return data.request_token;
   } catch (error) {
     console.log('getRequestToken');
@@ -89,7 +90,7 @@ export async function getRequestToken() {
 
 export async function approveRequestToken(tolken) {
   try {
-    const {data} = await axios.get(
+    const { data } = await axios.get(
       `https://www.themoviedb.org/authenticate/${tolken}`,
     );
     return data;
@@ -100,7 +101,7 @@ export async function approveRequestToken(tolken) {
 
 export async function validateToken(body) {
   try {
-    const {data} = await api.post(
+    const { data } = await api.post(
       `authentication/token/validate_with_login?api_key=${apiKey}`,
       body,
       {
@@ -118,7 +119,7 @@ export async function validateToken(body) {
 
 export async function getIdAccessToken(token) {
   try {
-    const {data} = await api.post(
+    const { data } = await api.post(
       `authentication/session/new?api_key=${apiKey}`,
       token,
       {
@@ -135,7 +136,7 @@ export async function getIdAccessToken(token) {
 
 export async function getAccountDetails(sessionId) {
   try {
-    const {data} = await api.get(
+    const { data } = await api.get(
       `account?api_key=${apiKey}&session_id=${sessionId}`,
     );
     return data;
@@ -146,7 +147,7 @@ export async function getAccountDetails(sessionId) {
 
 export async function getChangeMovies(dateStart) {
   try {
-    const {data} = await api.get(
+    const { data } = await api.get(
       `movie/changes?api_key=${apiKey}&start_date=${dateStart}&page=1`,
     );
     return data;
@@ -157,7 +158,7 @@ export async function getChangeMovies(dateStart) {
 
 export async function getTvShow(id) {
   try {
-    const {data} = await api.get(`tv/${id}?api_key=${apiKey}&language=pt-BR`);
+    const { data } = await api.get(`tv/${id}?api_key=${apiKey}&language=pt-BR`);
     return data;
   } catch (error) {
     console.warn(error);
@@ -165,7 +166,7 @@ export async function getTvShow(id) {
 }
 export async function getMoviesOrTv(type, page) {
   try {
-    const {data} = await api.get(
+    const { data } = await api.get(
       `${type}/popular?api_key=c3dc5cb91b1c309207a60a76c5742842&language=pt-BR&page=${page}`,
     );
     return data.results;
@@ -175,7 +176,7 @@ export async function getMoviesOrTv(type, page) {
 }
 export async function getTvShowSeason(id, numberOfSeason) {
   try {
-    const {data} = await api.get(
+    const { data } = await api.get(
       `/tv/${id}/season/${numberOfSeason}?api_key=${apiKey}&language=pt-BR`,
     );
     return data;
@@ -185,7 +186,7 @@ export async function getTvShowSeason(id, numberOfSeason) {
 }
 export async function getTvShowsRate(id) {
   try {
-    const {data} = await api.get(
+    const { data } = await api.get(
       `/tv/${id}/rating?api_key=${apiKey}&session_id=${sessionId}`,
     );
     return data;
@@ -196,7 +197,7 @@ export async function getTvShowsRate(id) {
 
 export async function getFavoritesTvShows(accountId, sessionId) {
   try {
-    const {data} = await api.get(
+    const { data } = await api.get(
       `/account/${accountId}/favorite/tv?api_key=${apiKey}&session_id=${sessionId}`,
     );
   } catch (error) {
@@ -218,10 +219,28 @@ export async function postRate(type, typeId, sessionId, body) {
     console.log(error.response.data);
   }
 }
+export async function postMovieFavoriteList(listId, sessionId, body) {
+  try {
+    const { data } = await api.post(
+      `list/${listId}/add_item?api_key=${apiKey}&session_id=${sessionId}`, body,
+      {
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+      },
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
+
 
 export async function getRate(accountId, sessionId) {
   try {
-    const {data} = await api.get(
+    const { data } = await api.get(
       `account/${accountId}/rated/movies?api_key=${apiKey}&session_id=${sessionId}`,
     );
     return data;
@@ -232,7 +251,7 @@ export async function getRate(accountId, sessionId) {
 
 export async function getFRTvShow(accountId, sessionId, name) {
   try {
-    const {data} = await api.get(
+    const { data } = await api.get(
       `/account/${accountId}/${name}/tv?api_key=${apiKey}&session_id=${sessionId}`,
     );
     return data.results;
@@ -243,7 +262,7 @@ export async function getFRTvShow(accountId, sessionId, name) {
 
 export async function getFRMovies(accountId, sessionId, name) {
   try {
-    const {data} = await api.get(
+    const { data } = await api.get(
       `/account/${accountId}/${name}/movies?api_key=${apiKey}&session_id=${sessionId}`,
     );
     return data.results;
@@ -254,7 +273,7 @@ export async function getFRMovies(accountId, sessionId, name) {
 
 export async function getState(type, movieId, sessionId) {
   try {
-    const {data} = await api.get(
+    const { data } = await api.get(
       `${type}/${movieId}/account_states?api_key=${apiKey}&session_id=${sessionId}`,
     );
     return data;
@@ -265,7 +284,7 @@ export async function getState(type, movieId, sessionId) {
 
 export async function getAllRatedEvaliation(accountId, sessionId) {
   try {
-    const {data} = await api.get(
+    const { data } = await api.get(
       `/account/${accountId}/rated/movies?api_key=${apiKey}&session_id=${sessionId}`,
     );
     const response = await api.get(
@@ -281,20 +300,19 @@ export async function getAllRatedEvaliation(accountId, sessionId) {
 }
 
 export async function getList(account_id, sessionId, page) {
-  try {
-    const {data} = await api.get(
-      `account/${account_id}/lists?api_key=${apiKey}&language=en-US&session_id=${sessionId}&page=${page}`,
+  try { 
+    const { data } = await api.get(                           
+      `account/${account_id}/lists?api_key=${apiKey}&language=pt-BR&session_id=${sessionId}&page=${page}`,
     );
-    console.warn(data);
     return data;
   } catch (error) {
-    console.warn(error);
+    console.log(error);
   }
 }
 
 export async function getDetailsList(listId) {
   try {
-    const {data} = await api.get(
+    const { data } = await api.get(
       `list/${listId}?api_key=${apiKey}&language=pt-BR`,
     );
     return data;

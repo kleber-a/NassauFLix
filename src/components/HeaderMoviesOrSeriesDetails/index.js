@@ -1,5 +1,5 @@
-import {View} from 'react-native';
-import React, {useState, useEffect, useContext} from 'react';
+import { View } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
 import ModalAvaluate from '../ModalAvaluate';
 import ModalFavoriteList from '../ModalFavoriteList';
 import ButtonReturn from '../ButtonReturn';
@@ -11,9 +11,9 @@ import Likeds from '../Likeds';
 import OverView from '../OverView';
 import BackDrop from '../BackDrop';
 import BoxCast from '../BoxCast';
-import {getCredits, getState, postFavorite} from '../../service/api';
+import { getCredits, getState, postFavorite } from '../../service/api';
 import styles from './styles';
-import {AuthContext} from '../../context/auth';
+import { AuthContext } from '../../context/auth';
 import ButtonFavorite from '../../components/ButtonFavorite';
 
 export default function HeaderMoviesOrSeriesDetails({
@@ -33,7 +33,7 @@ export default function HeaderMoviesOrSeriesDetails({
     media_id: id,
     favorite: false,
   });
-  const {sessionId, account} = useContext(AuthContext);
+  const { sessionId, account } = useContext(AuthContext);
 
   async function awaitFavoriteMovies() {
     try {
@@ -45,9 +45,9 @@ export default function HeaderMoviesOrSeriesDetails({
 
   useEffect(() => {
     async function awaitIsFavorite(bodyfavorite) {
-      const {favorite} = await getState('movie', id, sessionId);
+      const { favorite } = await getState('movie', id, sessionId);
       setIsFavorite(favorite);
-      setDataFavorite(prevState => ({...prevState, favorite: !favorite}));
+      setDataFavorite(prevState => ({ ...prevState, favorite: !favorite }));
     }
     awaitIsFavorite();
   }, [id, sessionId]);
@@ -120,7 +120,9 @@ export default function HeaderMoviesOrSeriesDetails({
           </View>
 
           <View style={styles.modal}>
-            <ModalFavoriteList />
+            <ModalFavoriteList
+              navigation={navigation}
+              movieId={id} />
           </View>
         </View>
       </View>
