@@ -16,7 +16,7 @@ export default function Movies({route, navigation}) {
         const dataCredits = await getCredits(id);
         setCast(dataCredits.cast);
       } catch (error) {
-        console.warn(error);
+        console.log(error);
       }
     }
     awaitGetCredits();
@@ -28,7 +28,7 @@ export default function Movies({route, navigation}) {
         const dataDetails = await getDetails(id);
         setDetails(dataDetails);
       } catch (error) {
-        console.warn(error);
+        console.log(error);
       }
     }
     awaitGetDetails();
