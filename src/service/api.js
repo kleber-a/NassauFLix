@@ -327,4 +327,20 @@ export async function deletList(id, sessionId) {
     console.log(error);
   }
 }
+
+async function removeMovieList(listId, media_id) {
+  try {
+    const {data} = await api.post(
+      `list/listId/remove_item?api_key=${apiKey}&session_id=${sessionId}`,
+      media_id
+    );
+
+    console.warn(data);
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export default api;
