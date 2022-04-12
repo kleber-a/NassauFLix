@@ -6,7 +6,7 @@ import {
   Image,
   FlatList,
 } from 'react-native';
-import React, {useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   getState,
   getTvShow,
@@ -19,11 +19,13 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import IconTvShow from '../../components/IconTvShow';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import ButtonReturn from '../../components/ButtonReturn';
-import {AuthContext} from '../../context/auth';
+import { AuthContext } from '../../context/auth';
 import ModalAvaluate from '../../components/ModalAvaluate';
 import FormatNumber from '../../components/FormatNumber';
+import BackDrop from '../../components/BackDrop';
+import ButtonFavorite from '../../components/ButtonFavorite';
 
-export default function TvShows({route, navigation}) {
+export default function TvShows({ route, navigation }) {
   const [id, type] = route.params;
   const [currentIndex, setCurrentIndex] = useState();
   const [modalVisible, setModalVisible] = useState(false);
@@ -38,14 +40,13 @@ export default function TvShows({route, navigation}) {
     toValue: 0,
     useNativeDriver: false,
   }).start();
-
   const [isFavorite, setIsFavorite] = useState(null);
   const [dataFavorite, setDataFavorite] = useState({
     media_type: 'tv',
     media_id: id,
     favorite: false,
   });
-  const {sessionId, account} = useContext(AuthContext);
+  const { sessionId, account } = useContext(AuthContext);
   useEffect(() => {
     async function awaitGetTvShow() {
       try {
@@ -68,9 +69,9 @@ export default function TvShows({route, navigation}) {
 
   useEffect(() => {
     async function awaitIsFavorite(bodyfavorite) {
-      const {favorite} = await getState('tv', id, sessionId);
+      const { favorite } = await getState('tv', id, sessionId);
       setIsFavorite(favorite);
-      setDataFavorite(prevState => ({...prevState, favorite: !favorite}));
+      setDataFavorite(prevState => ({ ...prevState, favorite: !favorite }));
     }
     awaitIsFavorite();
   }, [id, sessionId]);
@@ -108,15 +109,23 @@ export default function TvShows({route, navigation}) {
           awaitAvaluates={awaitAvaluates}
           setIsRated={setIsRated}
         />
-        <Image
+        <BackDrop
           style={styles.backGroundHeader}
-          source={{
-            uri: `http://image.tmdb.org/t/p/w780/${tvShow.backdrop_path}`,
-          }}
+          BackDrop={tvShow.backdrop_path}
         />
         <ButtonReturn navigation={navigation} />
-        <TouchableOpacity
-          style={styles.containerButtonStar}
+
+        <ButtonFavorite
+          isFavorite={isFavorite}
+          setIsFavorite={setIsFavorite}
+          awaitFavoriteTvShow={awaitFavoriteTvShow}
+          setDataFavorite={setDataFavorite}
+          id={id}
+          mediaType={'tv'}
+          awaitFavorite={awaitFavoriteTvShow}
+        />
+        {/* <TouchableOpacity
+        style={styles.containerButtonStar}
           onPress={() => {
             setIsFavorite(!isFavorite);
             setDataFavorite({
@@ -131,7 +140,7 @@ export default function TvShows({route, navigation}) {
             size={24}
             style={isFavorite && styles.buttonStar}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <View style={styles.detailsTvShow}>
           <View style={styles.containerMovieImg}>
             <Image
@@ -141,7 +150,7 @@ export default function TvShows({route, navigation}) {
               }}
             />
             {tvShowRated ? (
-              <View style={[styles.rating, {backgroundColor: '#8BE0EC'}]}>
+              <View style={[styles.rating, { backgroundColor: '#8BE0EC' }]}>
                 <Text style={[styles.ratingText]}>
                   Sua nota: {tvShowRated}/10
                 </Text>
@@ -160,7 +169,7 @@ export default function TvShows({route, navigation}) {
               </View>
             ) : (
               <TouchableOpacity
-                style={[styles.rating, {backgroundColor: '#E9A6A6'}]}
+                style={[styles.rating, { backgroundColor: '#E9A6A6' }]}
                 onPress={() => {
                   setModalVisible(!modalVisible);
                 }}>
@@ -211,14 +220,14 @@ export default function TvShows({route, navigation}) {
     );
   };
 
-  const renderItem = ({item, index}) => {
+  const renderItem = ({ item, index }) => {
     return (
       <View>
         <TouchableOpacity
           style={[
             styles.buttonSeason,
             selection &&
-              index === currentIndex && {borderBottomColor: '#E9A6A6'},
+            index === currentIndex && { borderBottomColor: '#E9A6A6' },
           ]}
           onPress={() => {
             awaitGetSeasonTvShow(item.season_number);
@@ -230,9 +239,9 @@ export default function TvShows({route, navigation}) {
             <IconTvShow loading={selection && index === currentIndex} />
           </View>
         </TouchableOpacity>
-        <View style={{overflow: 'hidden'}}>
+        <View style={{ overflow: 'hidden' }}>
           {selection ? (
-            <Animated.View style={{top: bodyHeight}}>
+            <Animated.View style={{ top: bodyHeight }}>
               {season &&
                 season.season_number === item.season_number &&
                 season.episodes.map((episode, index) => {
