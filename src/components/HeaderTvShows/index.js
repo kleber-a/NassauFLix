@@ -1,70 +1,40 @@
 import {
     View,
     Text,
-    Animated,
 } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
-import ModalAvaluate from '../ModalAvaluate';
-import ModalFavoriteList from '../ModalFavoriteList';
+import {
+    getState,
+    postFavorite,
+} from '../../service/api';
+import styles from './styles';
 import ButtonReturn from '../ButtonReturn';
+import { AuthContext } from '../../context/auth';
+import ModalAvaluate from '../ModalAvaluate';
+import BackDrop from '../BackDrop';
+import ButtonFavorite from '../ButtonFavorite';
 import PosterImage from '../PosterImage';
-import ButtonRated from '../ButtonRated';
-import DescriptionTitle from '../DescriptionTitle';
 import TextRated from '../TextRated';
 import Likeds from '../Likeds';
 import OverView from '../OverView';
-import BackDrop from '../BackDrop';
-import BoxCast from '../BoxCast';
-import { getCredits, getState, postFavorite } from '../../service/api';
-import styles from './styles';
-import { AuthContext } from '../../context/auth';
-import ButtonFavorite from '../../components/ButtonFavorite';
+import ButtonRated from '../ButtonRated';
 
-export default function HeaderTvShows({ route, navigation }) {
-
-    const [id, type] = route.params;
-    const [currentIndex, setCurrentIndex] = useState();
+export default function HeaderTvShows({
+    id,
+    type,
+    navigate,
+    tvShow,
+}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [isRated, setIsRated] = useState(false);
     const [tvShowRated, setTvShowRated] = useState(null);
-    const [tvShow, setTvShow] = useState(null);
-    const [season, setSeason] = useState(null);
-    const [selection, setSelection] = useState(false);
-    const [bodyHeight, setBodyHeight] = useState(new Animated.Value(-500));
-    Animated.timing(bodyHeight, {
-        duration: 1000,
-        toValue: 0,
-        useNativeDriver: false,
-    }).start();
-
     const [isFavorite, setIsFavorite] = useState(null);
+    const { sessionId, account } = useContext(AuthContext);
     const [dataFavorite, setDataFavorite] = useState({
         media_type: 'tv',
         media_id: id,
         favorite: false,
     });
-    const { sessionId, account } = useContext(AuthContext);
-
-    useEffect(() => {
-        async function awaitGetTvShow() {
-            try {
-                const dataTvShow = await getTvShow(id);
-                setTvShow(dataTvShow);
-            } catch (error) {
-                console.warn(error);
-            }
-        }
-        awaitGetTvShow();
-    }, [id]);
-
-    async function awaitFavoriteTvShow() {
-        try {
-            await postFavorite(account.id, sessionId, dataFavorite);
-        } catch (error) {
-            console.warn(error);
-        }
-    };
-
     useEffect(() => {
         async function awaitIsFavorite(bodyfavorite) {
             const { favorite } = await getState('tv', id, sessionId);
@@ -73,6 +43,14 @@ export default function HeaderTvShows({ route, navigation }) {
         }
         awaitIsFavorite();
     }, [id, sessionId]);
+
+    async function awaitFavoriteTvShow() {
+        try {
+            await postFavorite(account.id, sessionId, dataFavorite);
+        } catch (error) {
+            console.warn(error);
+        }
+    };
 
     async function awaitAvaluates() {
         try {
@@ -86,18 +64,8 @@ export default function HeaderTvShows({ route, navigation }) {
         awaitAvaluates();
     }, [isRated]);
 
-    async function awaitGetSeasonTvShow(seasonId) {
-        setSelection(!selection);
-        try {
-            const dataSeason = await getTvShowSeason(id, seasonId);
-            setSeason(dataSeason);
-        } catch (error) {
-            console.warn(error);
-        }
-    };
-
     return (
-        <View style={styles.containerRenderHeader}>
+        <View>
             <ModalAvaluate
                 type={type}
                 typeId={id}
@@ -109,7 +77,7 @@ export default function HeaderTvShows({ route, navigation }) {
             <BackDrop
                 BackDrop={tvShow.backdrop_path}
             />
-            <ButtonReturn navigation={navigation} />
+            <ButtonReturn navigation={navigate} />
             <ButtonFavorite
                 isFavorite={isFavorite}
                 setIsFavorite={setIsFavorite}
@@ -129,24 +97,9 @@ export default function HeaderTvShows({ route, navigation }) {
                         modalVisible={modalVisible}
                     />
                 </View>
+
                 <View style={styles.detaisMoviesTitle}>
-                    <DescriptionTitle
-                        detailsTitle={tvShow.name}
-                        created={tvShow.first_air_date}
-                        detailsReleaseDate
-                        detailsRunTime
-                        haveMinutes
-                        crew
-
-                    />
-                    <View style={styles.boxDetailsIcons}>
-                        <TextRated detailsVoteAverage={tvShow.vote_average} />
-                        <Likeds detailsVoteCount={tvShow.vote_count.toString()} />
-                    </View>
-                </View>
-
-                <View style={styles.containerDetails}>
-                    <View style={styles.boxDetailsText}>
+                    <View>
                         <Text style={styles.detailsTvShowTitle}>
                             {tvShow.name + ' '}
                             <Text style={styles.detailsTvShowAge}>
@@ -154,20 +107,25 @@ export default function HeaderTvShows({ route, navigation }) {
                             </Text>
                         </Text>
 
-                        {tvShow && tvShow.created_by.length > 0 ? (
+                        {tvShow.created_by.length > 0 ? (
                             <Text style={styles.criatedText}>
                                 Criado por{' '}
-                                {tvShow &&
-                                    tvShow.created_by.map((item, index) => {
-                                        return (
-                                            <Text key={index} style={styles.criatedName}>
-                                                {index > 1 && ', '}
-                                                {item.name}
-                                            </Text>
-                                        );
-                                    })}{' '}
+                                {tvShow.created_by.map((item, index) => {
+                                    return (
+                                        <Text key={index} style={styles.criatedName}>
+                                            {index > 1 && ', '}
+                                            {item.name}
+                                        </Text>
+                                    );
+                                })}{' '}
                             </Text>
                         ) : null}
+                    </View>
+
+
+                    <View style={styles.boxDetailsIcons}>
+                        <TextRated detailsVoteAverage={tvShow.vote_average} />
+                        <Likeds detailsVoteCount={tvShow.vote_count.toString()} />
                     </View>
                 </View>
             </View>

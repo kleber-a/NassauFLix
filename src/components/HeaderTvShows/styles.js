@@ -1,41 +1,58 @@
-import {StyleSheet} from 'react-native';
-import {HeaderHeightContext} from 'react-navigation-stack';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  containerHeader: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
   containerDetails: {
     flexDirection: 'row',
     width: '100%',
     paddingHorizontal: '5%',
-  },
 
-  containerMovieImg: {
-    position: 'relative',
-    top: -60,
   },
-
   detaisMoviesTitle: {
     width: '72%',
     padding: 16,
     alignItems: 'flex-start',
   },
-
-  detailRatedLiked: {
-    marginVertical: 10,
+  detailsTvShow: {
+    backgroundColor: 'pink',
     flexDirection: 'row',
+    width: '100%',
+    height: 128,
+    paddingHorizontal: 20,
+  },
+  containerMovieImg: {
+    position: 'relative',
+    top: -60,
+    marginBottom: -60,
+  },
+  detailsTvShowTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: 'white',
+  },
+  detailsTvShowAge: {
+    fontSize: 10,
+    color: 'white',
+  },
+  criatedText: {
+    fontSize: 10,
+    color: 'white',
+  },
+  criatedName: {
+    fontWeight: '700',
+  },
+  boxDetailsIcons: {
+    marginVertical: 10,
     alignItems: 'center',
+    flexDirection: 'row',
   },
   containerOverView: {
-    width: '90%',
-    marginVertical: 10,
-    alignItems: 'center',
-  },
-  modal: {
-    alignItems: 'flex-start',
+    alignSelf: 'center',
+    paddingVertical: 20,
     width: '100%',
+    alignItems: 'center',
+    paddingHorizontal: '5%',
+
   },
 });
 

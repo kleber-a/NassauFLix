@@ -24,14 +24,12 @@ const styles = StyleSheet.create({
   },
 
   containerDetails: {
-    backgroundColor: 'red',
     flexDirection: 'row',
     width: '100%',
     paddingHorizontal: '5%',
   },
-
   boxDetailsText: {
-    backgroundColor: 'green',
+
 
 
   },
@@ -116,7 +114,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   boxDetailsIcons: {
-    backgroundColor: 'green',
+
     marginVertical: 10,
     alignItems: 'center',
     flexDirection: 'row',
@@ -158,7 +156,7 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   containerRenderHeader: {
-    backgroundColor: 'blue',
+
 
 
 
@@ -167,7 +165,6 @@ const styles = StyleSheet.create({
   containerOverView: {
     alignSelf: 'center',
     width: '100%',
-    marginVertical: 10,
     alignItems: 'center',
     paddingHorizontal: '5%',
 
