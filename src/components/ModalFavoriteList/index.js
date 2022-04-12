@@ -1,22 +1,36 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Modal, Text, TouchableOpacity, View, FlatList} from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {getList, postMovieFavoriteList} from '../../service/api';
+import {AuthContext} from '../../context/auth';
 
-export default function ModalFavoriteList() {
+export default function ModalFavoriteList({navigation, movieId}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisibleSucess, setModalVisibleSucess] = useState(false);
   const [buttonClickOn, setButtonClickOn] = useState(null);
-  const data = [
-    'felipe',
-    'maicon',
-    'luiza ',
-    'kleber',
-    'feliciano',
-    'filmes que mudaram minha vida',
-    'filmes que mudaram sua vida',
-    'filmes que mudaram nossa vida',
-  ];
+  const {account, sessionId} = useContext(AuthContext);
+  const [dataList, setDataList] = useState(null);
+  const [listId, setListId] = useState(null);
+
+  async function awaitGetList() {
+    const list = await getList(account.id, sessionId, '1');
+    setDataList(list.results);
+  }
+
+  useEffect(() => {
+    awaitGetList();
+  }, []);
+
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      awaitGetList();
+    });
+    return () => {
+      setDataList(null);
+    };
+  }, [navigation]);
+
   const renderItem = ({item, index}) => {
     return (
       <View style={styles.containerRenderItem}>
@@ -24,11 +38,12 @@ export default function ModalFavoriteList() {
           activeOpacity={1}
           onPress={() => {
             setButtonClickOn(index);
+            setListId(item.id);
           }}
           style={styles.buttonClick}>
           <View style={buttonClickOn === index && styles.buttonClickOn} />
         </TouchableOpacity>
-        <Text style={styles.TextFlatList}>{item}</Text>
+        <Text style={styles.TextFlatList}>{item.name}</Text>
       </View>
     );
   };
@@ -71,7 +86,7 @@ export default function ModalFavoriteList() {
               </TouchableOpacity>
             </View>
             <FlatList
-              data={data}
+              data={dataList && dataList}
               keyExtractor={(item, index) => index}
               renderItem={renderItem}
               contentContainerStyle={styles.containerFlatList}
@@ -83,6 +98,9 @@ export default function ModalFavoriteList() {
                   : [styles.buttonSave, {backgroundColor: '#C4C4C4'}]
               }
               onPress={() => {
+                listId &&
+                  listId &&
+                  postMovieFavoriteList(listId, sessionId, {media_id: movieId});
                 typeof buttonClickOn === 'number' &&
                   setModalVisibleSucess(!modalVisibleSucess);
                 typeof buttonClickOn === 'number' &&

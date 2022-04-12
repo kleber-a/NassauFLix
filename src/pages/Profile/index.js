@@ -1,17 +1,15 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import React, {useState, useEffect, useContext} from 'react';
+import {View, Text, TouchableOpacity, Alert} from 'react-native';
 import styles from './styles';
 import ButtonMovie from '../../components/ButtonMovie';
 import ButtonSeries from '../../components/ButtonSeries';
 import Exit from 'react-native-vector-icons/Ionicons';
 import UserImg from '../../components/User/UserImg';
-import { AuthContext } from '../../context/auth';
-
+import {AuthContext} from '../../context/auth';
 import {
   getFRMovies,
   getFRTvShow,
   getAllRatedEvaliation,
-  getList,
 } from '../../service/api';
 import MovieImage from '../../components/Movie/MovieImage';
 import MovieEvaluation from '../../components/Movie/MovieEvaluation';
@@ -19,14 +17,19 @@ import VerifyName from '../../components/User/VerifyName';
 import Loading from '../../components/Loading';
 import ButtonFilmList from '../../components/ButtonFilmList';
 
-export default function Profile({ navigation }) {
-  const { account, sessionId, logout } = useContext(AuthContext);
+export default function Profile({navigation}) {
+  const {account, sessionId, logout} = useContext(AuthContext);
   const [evaluation, setEvaluation] = useState(null);
-  const [type, setType] = useState('movies');
+  const [type, setType] = useState({
+    nameApi: 'movies',
+    name: 'movie',
+    nameRated: 'Avaliações de filmes recentes',
+    nameFavorite: 'Filmes favoritos',
+  });
 
-  //Nomes Favoritos e Avaliados
-  const [nameRated, setNameRated] = useState('Avaliações de filmes recentes');
-  const [nameFavorite, setNameFavorite] = useState('Filmes favoritos');
+  // //Nomes Favoritos e Avaliados
+  // const [nameRated, setNameRated] = useState('Avaliações de filmes recentes');
+  // const [nameFavorite, setNameFavorite] = useState('Filmes favoritos');
 
   //Botão Movie e Séries
   const [btMovies, setBtMovies] = useState(true);
@@ -72,15 +75,21 @@ export default function Profile({ navigation }) {
   }, [navigation]);
 
   function selectionButtonMovie() {
-    setType('movies');
-    setNameRated('Avaliações de filmes recentes');
-    setNameFavorite('Filmes favoritos');
+    setType({
+      nameApi: 'movies',
+      name: 'movie',
+      nameRated: 'Avaliações de filmes recentes',
+      nameFavorite: 'Filmes favoritos',
+    });
   }
 
   function selectionButtonSeries() {
-    setType('tv');
-    setNameRated('Avaliações de série recentes');
-    setNameFavorite('Séries favoritas');
+    setType({
+      nameApi: 'tv',
+      name: 'tv',
+      nameRated: 'Avaliações de série recentes',
+      nameFavorite: 'Séries favoritas',
+    });
   }
 
   const showAlert = () => {
@@ -97,7 +106,7 @@ export default function Profile({ navigation }) {
           onPress: () => logout(),
         },
       ],
-      { cancelable: true },
+      {cancelable: true},
     );
   };
 
@@ -126,11 +135,7 @@ export default function Profile({ navigation }) {
         />
         {evaluation ? (
           <>
-            <Text
-              style={styles.valuePerfil}
-            >
-              {evaluation}
-            </Text>
+            <Text style={styles.valuePerfil}>{evaluation}</Text>
             <Text style={styles.evaluationPerfil}>Avaliações</Text>
           </>
         ) : (
@@ -164,15 +169,15 @@ export default function Profile({ navigation }) {
         <View style={styles.boxListMovie}>
           <View style={styles.description}>
             <Text style={styles.textDescription}>
-              {nameFavorite} de <VerifyName />
+              {type.nameFavorite} de <VerifyName />
             </Text>
             <TouchableOpacity
               style={styles.buttonDescription}
               onPress={() => {
                 navigation.navigate('InterationList', [
                   'favorite',
-                  type,
-                  nameFavorite,
+                  type.nameApi,
+                  type.nameFavorite,
                 ]);
               }}>
               <Text style={styles.textButtonDescription}>Ver tudo</Text>
@@ -187,7 +192,10 @@ export default function Profile({ navigation }) {
                       key={favorites.id}
                       style={styles.buttonListFavorites}
                       onPress={() => {
-                        navigation.navigate(type, [favorites.id, type]);
+                        navigation.navigate(type.name, [
+                          favorites.id,
+                          type.name,
+                        ]);
                       }}>
                       <MovieImage
                         pathImage={favorites.poster_path}
@@ -205,15 +213,15 @@ export default function Profile({ navigation }) {
         <View style={styles.boxListTvShow}>
           <View style={styles.description}>
             <Text style={styles.textDescription}>
-              {nameRated} <VerifyName />
+              {type.nameRated} <VerifyName />
             </Text>
             <TouchableOpacity
               style={styles.buttonDescription}
               onPress={() => {
                 navigation.navigate('InterationList', [
                   'rated',
-                  type,
-                  nameRated,
+                  type.nameApi,
+                  type.nameRated,
                 ]);
               }}>
               <Text style={styles.textButtonDescription}>Ver tudo</Text>
@@ -227,7 +235,7 @@ export default function Profile({ navigation }) {
                     key={rateds.id}
                     style={styles.buttonListTvShow}
                     onPress={() => {
-                      navigation.navigate(type, [rateds.id, type]);
+                      navigation.navigate(type.name, [rateds.id, type.name]);
                     }}>
                     <MovieImage
                       pathImage={rateds.poster_path}

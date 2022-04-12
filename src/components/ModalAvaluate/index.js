@@ -6,7 +6,7 @@ import {
   TouchableWithoutFeedback,
   Modal,
 } from 'react-native';
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import {AuthContext} from '../../context/auth';
@@ -21,13 +21,18 @@ export default function ModalAvaluate({
   setIsRated,
 }) {
   const [avaluate, setAvaluate] = useState(null);
-  const [error, setError] = useState(true);
+  const [error, setError] = useState(false);
   const {sessionId} = useContext(AuthContext);
+
+  useEffect(() => {
+    setError(false);
+  }, [modalIsVisible]);
 
   function handleError(value) {
     const regexModal = new RegExp(
       /^(?:[1-9]|0[1-9]|10)$|^[1-9]?\.[0|5]|^[0-9]?\.[5]/,
     );
+    setError(!regexModal.test(value));
     return !regexModal.test(value);
   }
 
@@ -68,10 +73,13 @@ export default function ModalAvaluate({
                     keyboardType={'numeric'}
                     style={styles.input}
                     maxLength={3}
+                    onFocus={value => {
+                      setAvaluate(value);
+                      handleError(value);
+                    }}
                     onChangeText={value => {
-                      setAvaluate({
-                        value: parseFloat(value),
-                      });
+                      setAvaluate(value);
+                      handleError(value);
                     }}
                   />
                 </View>
@@ -79,7 +87,7 @@ export default function ModalAvaluate({
               </View>
               {error && (
                 <Text style={styles.textErrorModal}>
-                  A nota deve ser entre 0,5 a 10
+                  A nota deve ser entre 0.5 a 10
                 </Text>
               )}
               <View style={styles.buttons}>
@@ -93,7 +101,7 @@ export default function ModalAvaluate({
                 <TouchableOpacity
                   style={styles.buttonOk}
                   onPress={() => {
-                    handleError(avaluate && avaluate.value)
+                    handleError(avaluate && avaluate)
                       ? setError(true)
                       : changeAvaluate() && setModalVisible(!modalIsVisible);
                   }}>

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, FlatList, TouchableOpacity} from 'react-native';
-import {getMovie, getMoviesOrTv, getTvShows} from '../../service/api';
+import {getMoviesOrTv} from '../../service/api';
 import styles from './styles';
 import Loading from '../Loading';
 import UserImage from '../User/UserImage';

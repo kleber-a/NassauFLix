@@ -8,9 +8,10 @@ import StackTvShows from './StackTvShos.routes';
 import StackProfile from './StackProfile.routes';
 import Teste from '../pages/Teste';
 import MyLists from '../pages/MyLists';
-const Tab = createBottomTabNavigator();
+
 
 function HomeTabScreen() {
+  const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator
       initialRouteName="StackMovies"
