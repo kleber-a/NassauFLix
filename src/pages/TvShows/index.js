@@ -5,54 +5,29 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  getState,
   getTvShow,
   getTvShowSeason,
-  postFavorite,
 } from '../../service/api';
 import styles from './styles';
 import Loading from '../../components/Loading';
 import IconTvShow from '../../components/IconTvShow';
-import ButtonReturn from '../../components/ButtonReturn';
-import { AuthContext } from '../../context/auth';
-import ModalAvaluate from '../../components/ModalAvaluate';
-import BackDrop from '../../components/BackDrop';
-import ButtonFavorite from '../../components/ButtonFavorite';
-import PosterImage from '../../components/PosterImage';
-import TextRated from '../../components/TextRated';
-import Likeds from '../../components/Likeds';
-import OverView from '../../components/OverView';
-import ButtonRated from '../../components/ButtonRated';
 import HeaderTvShows from '../../components/HeaderTvShows';
-
 
 export default function TvShows({ route, navigation }) {
 
   const [id, type] = route.params;
   const [currentIndex, setCurrentIndex] = useState();
-  const [modalVisible, setModalVisible] = useState(false);
-  const [isRated, setIsRated] = useState(false);
-  const [tvShowRated, setTvShowRated] = useState(null);
   const [tvShow, setTvShow] = useState(null);
   const [season, setSeason] = useState(null);
   const [selection, setSelection] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(null);
-  const { sessionId, account } = useContext(AuthContext);
-
   const [bodyHeight, setBodyHeight] = useState(new Animated.Value(-500));
   Animated.timing(bodyHeight, {
     duration: 1000,
     toValue: 0,
     useNativeDriver: false,
   }).start();
-
-  const [dataFavorite, setDataFavorite] = useState({
-    media_type: 'tv',
-    media_id: id,
-    favorite: false,
-  });
 
   useEffect(() => {
     async function awaitGetTvShow() {
@@ -65,27 +40,6 @@ export default function TvShows({ route, navigation }) {
     }
     awaitGetTvShow();
   }, [id]);
-
-  async function awaitFavoriteTvShow() {
-    try {
-      await postFavorite(account.id, sessionId, dataFavorite);
-    } catch (error) {
-      console.warn(error);
-    }
-  };
-
-
-  async function awaitAvaluates() {
-    try {
-      const stateMovie = await getState(type, id, sessionId);
-      setTvShowRated(stateMovie.rated.value);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    awaitAvaluates();
-  }, [isRated]);
 
   async function awaitGetSeasonTvShow(seasonId) {
     setSelection(!selection);
