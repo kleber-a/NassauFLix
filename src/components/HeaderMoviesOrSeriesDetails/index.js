@@ -90,6 +90,7 @@ export default function HeaderMoviesOrSeriesDetails({
       <BackDrop BackDrop={details.backdrop_path} />
       <ButtonReturn navigation={navigation} />
       <ButtonFavorite
+        mediaType={'movie'}
         setIsFavorite={setIsFavorite}
         setDataFavorite={setDataFavorite}
         awaitFavorite={awaitFavoriteMovies}
@@ -114,6 +115,7 @@ export default function HeaderMoviesOrSeriesDetails({
             crew={crew}
             haveMinutes={true}
           />
+
           <View style={styles.detailRatedLiked}>
             <TextRated detailsVoteAverage={details.vote_average} />
             <Likeds detailsVoteCount={details.vote_count} />

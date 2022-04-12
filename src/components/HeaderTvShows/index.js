@@ -1,4 +1,8 @@
-import { View } from 'react-native';
+import {
+    View,
+    Text,
+    Animated,
+} from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
 import ModalAvaluate from '../ModalAvaluate';
 import ModalFavoriteList from '../ModalFavoriteList';
@@ -16,68 +20,9 @@ import styles from './styles';
 import { AuthContext } from '../../context/auth';
 import ButtonFavorite from '../../components/ButtonFavorite';
 
-export default function HeaderMoviesOrSeriesDetails({
-    route,
-    navigation,
-    details,
-}) {
+export default function HeaderTvShows({ route, navigation }) {
+
     const [id, type] = route.params;
-
-    const [modalVisible, setModalVisible] = useState(false);
-    const [isRated, setIsRated] = useState(false);
-    const [movieRated, setMovieRated] = useState(null);
-    const [isFavorite, setIsFavorite] = useState(null);
-    const [dataFavorite, setDataFavorite] = useState({
-        media_type: 'movie',
-        media_id: id,
-        favorite: false,
-    });
-    const { sessionId, account } = useContext(AuthContext);
-
-    async function awaitFavoriteMovies() {
-        try {
-            await postFavorite(account.id, sessionId, dataFavorite);
-        } catch (error) {
-            console.warn(error);
-        }
-    }
-    useEffect(() => {
-        async function awaitIsFavorite(bodyfavorite) {
-            const { favorite } = await getState('movie', id, sessionId);
-            setIsFavorite(favorite);
-            setDataFavorite(prevState => ({ ...prevState, favorite: !favorite }));
-        }
-        awaitIsFavorite();
-    }, [id, sessionId]);
-
-    useEffect(() => {
-        async function awaitGetCredits() {
-            try {
-                const dataCredits = await getCredits(id);
-                setCrew(dataCredits.crew);
-            } catch (error) {
-                console.warn(error);
-            }
-        }
-        awaitGetCredits();
-    }, [id]);
-
-    async function awaitAvaluates() {
-        try {
-            const stateMovie = await getState(type, id, sessionId);
-            setMovieRated(stateMovie.rated.value);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    useEffect(() => {
-        awaitAvaluates();
-    }, [isRated]);
-
-
-
-
     const [currentIndex, setCurrentIndex] = useState();
     const [modalVisible, setModalVisible] = useState(false);
     const [isRated, setIsRated] = useState(false);
@@ -91,6 +36,7 @@ export default function HeaderMoviesOrSeriesDetails({
         toValue: 0,
         useNativeDriver: false,
     }).start();
+
     const [isFavorite, setIsFavorite] = useState(null);
     const [dataFavorite, setDataFavorite] = useState({
         media_type: 'tv',
@@ -98,6 +44,7 @@ export default function HeaderMoviesOrSeriesDetails({
         favorite: false,
     });
     const { sessionId, account } = useContext(AuthContext);
+
     useEffect(() => {
         async function awaitGetTvShow() {
             try {
@@ -116,7 +63,7 @@ export default function HeaderMoviesOrSeriesDetails({
         } catch (error) {
             console.warn(error);
         }
-    }
+    };
 
     useEffect(() => {
         async function awaitIsFavorite(bodyfavorite) {
@@ -134,8 +81,7 @@ export default function HeaderMoviesOrSeriesDetails({
         } catch (error) {
             console.log(error);
         }
-    }
-
+    };
     useEffect(() => {
         awaitAvaluates();
     }, [isRated]);
@@ -148,11 +94,11 @@ export default function HeaderMoviesOrSeriesDetails({
         } catch (error) {
             console.warn(error);
         }
-    }
+    };
 
     return (
-        <View style={styles.containerHeader}>
-            < ModalAvaluate
+        <View style={styles.containerRenderHeader}>
+            <ModalAvaluate
                 type={type}
                 typeId={id}
                 modalIsVisible={modalVisible}
@@ -160,48 +106,77 @@ export default function HeaderMoviesOrSeriesDetails({
                 awaitAvaluates={awaitAvaluates}
                 setIsRated={setIsRated}
             />
-            <BackDrop BackDrop={details.backdrop_path} />
+            <BackDrop
+                BackDrop={tvShow.backdrop_path}
+            />
             <ButtonReturn navigation={navigation} />
             <ButtonFavorite
-                type={'movie'}
-                setIsFavorite={setIsFavorite}
-                setDataFavorite={setDataFavorite}
-                awaitFavorite={awaitFavoriteMovies}
-                id={id}
                 isFavorite={isFavorite}
+                setIsFavorite={setIsFavorite}
+                awaitFavoriteTvShow={awaitFavoriteTvShow}
+                setDataFavorite={setDataFavorite}
+                id={id}
+                mediaType={'tv'}
+                awaitFavorite={awaitFavoriteTvShow}
             />
             <View style={styles.containerDetails}>
                 <View style={styles.containerMovieImg}>
-                    <PosterImage posterPath={details.poster_path} />
+                    <PosterImage
+                        posterPath={tvShow.poster_path} />
                     <ButtonRated
-                        movieRated={movieRated}
+                        movieRated={tvShowRated} // Precisa de atenção mudar parametro de envio
                         setModalVisible={setModalVisible}
                         modalVisible={modalVisible}
                     />
                 </View>
                 <View style={styles.detaisMoviesTitle}>
                     <DescriptionTitle
-                        detailsTitle={details.title}
-                        detailsReleaseDate={details.release_date}
-                        detailsRunTime={details.runtime}
-                        created={'Direção'}
-                        crew={crew}
-                        haveMinutes={true}
-                    />
-                    <View style={styles.detailRatedLiked}>
-                        <TextRated detailsVoteAverage={details.vote_average} />
-                        <Likeds detailsVoteCount={details.vote_count} />
-                    </View>
+                        detailsTitle={tvShow.name}
+                        created={tvShow.first_air_date}
+                        detailsReleaseDate
+                        detailsRunTime
+                        haveMinutes
+                        crew
 
-                    <View style={styles.modal}>
-                        <ModalFavoriteList navigation={navigation} movieId={id} />
+                    />
+                    <View style={styles.boxDetailsIcons}>
+                        <TextRated detailsVoteAverage={tvShow.vote_average} />
+                        <Likeds detailsVoteCount={tvShow.vote_count.toString()} />
+                    </View>
+                </View>
+
+                <View style={styles.containerDetails}>
+                    <View style={styles.boxDetailsText}>
+                        <Text style={styles.detailsTvShowTitle}>
+                            {tvShow.name + ' '}
+                            <Text style={styles.detailsTvShowAge}>
+                                {new Date(tvShow.first_air_date).getFullYear()}
+                            </Text>
+                        </Text>
+
+                        {tvShow && tvShow.created_by.length > 0 ? (
+                            <Text style={styles.criatedText}>
+                                Criado por{' '}
+                                {tvShow &&
+                                    tvShow.created_by.map((item, index) => {
+                                        return (
+                                            <Text key={index} style={styles.criatedName}>
+                                                {index > 1 && ', '}
+                                                {item.name}
+                                            </Text>
+                                        );
+                                    })}{' '}
+                            </Text>
+                        ) : null}
                     </View>
                 </View>
             </View>
+
             <View style={styles.containerOverView}>
-                <OverView detailsOverView={details.overview} />
+                <OverView
+                    detailsOverView={tvShow.overview}
+                />
             </View>
-            <BoxCast />
         </View>
-    )
+    );
 };

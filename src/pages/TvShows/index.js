@@ -24,8 +24,16 @@ import ModalAvaluate from '../../components/ModalAvaluate';
 import FormatNumber from '../../components/FormatNumber';
 import BackDrop from '../../components/BackDrop';
 import ButtonFavorite from '../../components/ButtonFavorite';
+import PosterImage from '../../components/PosterImage';
+import TextRated from '../../components/TextRated';
+import Likeds from '../../components/Likeds';
+import OverView from '../../components/OverView';
+import ButtonRated from '../../components/ButtonRated';
+import DescriptionTitle from '../../components/DescriptionTitle';
+import HeaderTvShows from '../../components/HeaderTvShows';
 
 export default function TvShows({ route, navigation }) {
+
   const [id, type] = route.params;
   const [currentIndex, setCurrentIndex] = useState();
   const [modalVisible, setModalVisible] = useState(false);
@@ -40,6 +48,7 @@ export default function TvShows({ route, navigation }) {
     toValue: 0,
     useNativeDriver: false,
   }).start();
+
   const [isFavorite, setIsFavorite] = useState(null);
   const [dataFavorite, setDataFavorite] = useState({
     media_type: 'tv',
@@ -47,6 +56,7 @@ export default function TvShows({ route, navigation }) {
     favorite: false,
   });
   const { sessionId, account } = useContext(AuthContext);
+
   useEffect(() => {
     async function awaitGetTvShow() {
       try {
@@ -65,7 +75,7 @@ export default function TvShows({ route, navigation }) {
     } catch (error) {
       console.warn(error);
     }
-  }
+  };
 
   useEffect(() => {
     async function awaitIsFavorite(bodyfavorite) {
@@ -83,8 +93,7 @@ export default function TvShows({ route, navigation }) {
     } catch (error) {
       console.log(error);
     }
-  }
-
+  };
   useEffect(() => {
     awaitAvaluates();
   }, [isRated]);
@@ -97,10 +106,11 @@ export default function TvShows({ route, navigation }) {
     } catch (error) {
       console.warn(error);
     }
-  }
+  };
+
   const renderHeader = () => {
     return (
-      <View style={styles.containerRenderHeader}>
+      <View style={styles.containerRenderHeader}>                    
         <ModalAvaluate
           type={type}
           typeId={id}
@@ -110,11 +120,9 @@ export default function TvShows({ route, navigation }) {
           setIsRated={setIsRated}
         />
         <BackDrop
-          style={styles.backGroundHeader}
           BackDrop={tvShow.backdrop_path}
         />
         <ButtonReturn navigation={navigation} />
-
         <ButtonFavorite
           isFavorite={isFavorite}
           setIsFavorite={setIsFavorite}
@@ -124,60 +132,18 @@ export default function TvShows({ route, navigation }) {
           mediaType={'tv'}
           awaitFavorite={awaitFavoriteTvShow}
         />
-        {/* <TouchableOpacity
-        style={styles.containerButtonStar}
-          onPress={() => {
-            setIsFavorite(!isFavorite);
-            setDataFavorite({
-              media_type: 'tv',
-              media_id: id,
-              favorite: isFavorite,
-            });
-            awaitFavoriteTvShow();
-          }}>
-          <AntDesign
-            name="star"
-            size={24}
-            style={isFavorite && styles.buttonStar}
-          />
-        </TouchableOpacity> */}
-        <View style={styles.detailsTvShow}>
+        <View style={styles.containerDetails}>
           <View style={styles.containerMovieImg}>
-            <Image
-              style={styles.movieImg}
-              source={{
-                uri: `http://image.tmdb.org/t/p/w780/${tvShow.poster_path}`,
-              }}
+            <PosterImage
+              posterPath={tvShow.poster_path} />
+            <ButtonRated
+              movieRated={tvShowRated} // Precisa de atenção mudar parametro de envio
+              setModalVisible={setModalVisible}
+              modalVisible={modalVisible}
             />
-            {tvShowRated ? (
-              <View style={[styles.rating, { backgroundColor: '#8BE0EC' }]}>
-                <Text style={[styles.ratingText]}>
-                  Sua nota: {tvShowRated}/10
-                </Text>
-                <TouchableOpacity
-                  style={styles.ratingContainerIcon}
-                  onPress={() => {
-                    setModalVisible(!modalVisible);
-                  }}>
-                  <Icon
-                    style={styles.ratingIcon}
-                    name="pencil"
-                    size={10}
-                    color="#000"
-                  />
-                </TouchableOpacity>
-              </View>
-            ) : (
-              <TouchableOpacity
-                style={[styles.rating, { backgroundColor: '#E9A6A6' }]}
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                }}>
-                <Text style={[styles.ratingText]}>AVALIE AGORA</Text>
-              </TouchableOpacity>
-            )}
           </View>
-          <View style={styles.containerDetails}>
+
+          <View style={styles.detaisMoviesTitle}>
             <View style={styles.boxDetailsText}>
               <Text style={styles.detailsTvShowTitle}>
                 {tvShow.name + ' '}
@@ -201,21 +167,19 @@ export default function TvShows({ route, navigation }) {
                 </Text>
               ) : null}
             </View>
-            <View style={styles.boxDetailsIcons}>
-              <Text style={styles.tvShowsRate}>{tvShow.vote_average}/10</Text>
 
-              <View style={styles.detailsLiked}>
-                <AntDesign name="heart" size={20} style={styles.heartIcon} />
-                <Text style={styles.liked}>
-                  <FormatNumber format="0.0a">
-                    {tvShow.vote_count.toString()}
-                  </FormatNumber>
-                </Text>
-              </View>
+
+            <View style={styles.boxDetailsIcons}>
+              <TextRated detailsVoteAverage={tvShow.vote_average} />
+              <Likeds detailsVoteCount={tvShow.vote_count.toString()} />
             </View>
           </View>
         </View>
-        <Text style={styles.textDetailsTvDescription}>{tvShow.overview}</Text>
+        <View style={styles.containerOverView}>
+          <OverView
+            detailsOverView={tvShow.overview}
+          />
+        </View>
       </View>
     );
   };
@@ -279,7 +243,8 @@ export default function TvShows({ route, navigation }) {
           data={tvShow.seasons}
           keyExtractor={(item, index) => index}
           renderItem={renderItem}
-          ListHeaderComponent={renderHeader}
+          ListHeaderComponent={renderHeader
+          }
         />
       ) : (
         <Loading />

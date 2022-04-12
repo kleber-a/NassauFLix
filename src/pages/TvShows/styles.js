@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,7 +22,28 @@ const styles = StyleSheet.create({
     height: 30,
     backgroundColor: 'white',
   },
+
+  containerDetails: {
+    backgroundColor: 'red',
+    flexDirection: 'row',
+    width: '100%',
+    paddingHorizontal: '5%',
+  },
+
+  boxDetailsText: {
+    backgroundColor: 'green',
+
+
+  },
+
+  detaisMoviesTitle: {
+    width: '72%',
+    padding: 16,
+    alignItems: 'flex-start',
+  },
+
   detailsTvShow: {
+    backgroundColor: 'pink',
     flexDirection: 'row',
     width: '100%',
     height: 128,
@@ -35,10 +56,15 @@ const styles = StyleSheet.create({
     height: 188,
     borderRadius: 8,
   },
+
+  containerHeader: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   containerMovieImg: {
     position: 'relative',
     top: -60,
-    marginLeft: 20,
+    paddingHorizontal: 10,
   },
   movieImg: {
     width: 116,
@@ -73,12 +99,6 @@ const styles = StyleSheet.create({
     width: 9,
     height: 9,
   },
-  containerDetails: {
-    width: '65%',
-    paddingHorizontal: 14,
-    justifyContent: 'space-between',
-    paddingTop: 10,
-  },
   detailsTvShowTitle: {
     fontSize: 20,
     fontWeight: '700',
@@ -96,6 +116,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   boxDetailsIcons: {
+    backgroundColor: 'green',
+    marginVertical: 10,
     alignItems: 'center',
     flexDirection: 'row',
   },
@@ -134,6 +156,21 @@ const styles = StyleSheet.create({
   },
   buttonStar: {
     color: 'red',
+  },
+  containerRenderHeader: {
+    backgroundColor: 'blue',
+
+
+
+  },
+
+  containerOverView: {
+    alignSelf: 'center',
+    width: '100%',
+    marginVertical: 10,
+    alignItems: 'center',
+    paddingHorizontal: '5%',
+
   },
   //End Header FaltList
 
