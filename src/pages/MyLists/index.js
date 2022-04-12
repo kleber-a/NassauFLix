@@ -97,9 +97,9 @@ export default function MyLists({navigation}) {
               dataList.map(item => (
                 <TouchableOpacity style={styles.boxLista}>
                   <View style={styles.boxDescription}>
-                    <Text style={styles.nameList}>{item.name}</Text>
+                    <Text style={styles.nameList}>{item.name.toUpperCase()}</Text>
                     <Text style={styles.numberMovies}>
-                      {item.item_count} Filmes
+                      {item.item_count} FILMES
                     </Text>
                   </View>
                   <TouchableOpacity style={styles.del}>
