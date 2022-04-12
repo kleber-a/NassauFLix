@@ -27,29 +27,28 @@ const styles = StyleSheet.create({
     height: 80,
     marginTop: 15,
     borderRadius: 10,
-    alignSelf:'center',
-    justifyContent:'space-between',
-    flexDirection:'row'
+    alignSelf: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
   },
-  boxDescription:{
-    width:200,
-    height:'100%',
-    paddingHorizontal:40,
-    justifyContent:'space-around',
-    borderRadius:10
+  boxDescription: {
+    width: 200,
+    height: '100%',
+    paddingHorizontal: 40,
+    justifyContent: 'space-around',
+    borderRadius: 10,
   },
   numberMovies: {
-    color:'white',
-    fontSize:12,
-    fontWeight:'400'
+    color: 'white',
+    fontSize: 12,
+    fontWeight: '400',
   },
   nameList: {
-    width:160,
+    width: 160,
     marginTop: 2,
-    color:'white',
-    fontSize:12,
-    fontWeight:'400'
-
+    color: 'white',
+    fontSize: 12,
+    fontWeight: '400',
   },
 
   del: {
@@ -65,9 +64,10 @@ const styles = StyleSheet.create({
   viewplus: {
     width: '100%',
     height: 60,
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
+    zIndex:0
   },
   add: {
     backgroundColor: '#E9A6A6',
@@ -75,7 +75,9 @@ const styles = StyleSheet.create({
     width: 51,
     height: 51,
     alignItems: 'center',
+    alignSelf:'flex-end',
     justifyContent: 'center',
+    zIndex:2
   },
   //Início Modal
   backgroundModal: {
@@ -159,39 +161,43 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   //Fim Modal
-  backgroundModalModal2: {
-    backgroundColor: 'rgba(0,0,0,0.0)',
+
+
+  containerAnimated: {
     width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: 40,
+    backgroundColor: '#1ed92b',
+    borderRadius:10,
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center',
+    marginBottom:0,
+    position:'absolute',
   },
-  containerModal2: {
-    width: '40%',
-    height: 80,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    borderRadius: 20,
-    marginVertical: '50%',
+  boxAnimated:{
+    flexDirection:'row',
+    marginLeft:'30%',
+    
+  },
+
+  textAnimated: {
+    color: 'black',
+    fontSize: 17,
+    fontWeight: '900',
+  },
+  Icon: {
+    backgroundColor: '#00FF00',
+    borderRadius: 30,
+    
+  },
+  
+  buttonx:{
+    width:40,
+    height:40,
+  
     alignItems:'center',
     justifyContent:'center'
   },
-  buttonModal2:{
-    alignSelf:'flex-end',
-    bottom:"70%",
-    right:'5%',
-    position:'absolute'
-  }, 
-  boxModal2:{ 
-    width:'100%',
-    height:20,
-    flexDirection:'row',
-    justifyContent:'space-evenly'
-  },
-  Icon:{
-    backgroundColor:'#00FF00',
-    borderRadius:30
-  }
 });
 
 export default styles;

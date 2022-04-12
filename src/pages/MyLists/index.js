@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState, useRef} from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,8 @@ import {
   Modal,
   TextInput,
   Alert,
+  Animated,
+  Dimensions,
 } from 'react-native';
 import styles from './styles';
 import ButtonReturn from '../../components/ButtonReturn';
@@ -16,6 +18,9 @@ import {AuthContext} from '../../context/auth';
 import api, {addList, getList} from '../../service/api';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Loading from '../../components/Loading';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export default function MyLists({navigation}) {
   const lista1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -53,11 +58,31 @@ export default function MyLists({navigation}) {
       setName('');
       setDescription('');
       setModalVisible(false);
-      setModalVisible2(true);
+      abrir()
     } else {
       Alert.alert('Algo deu errado', 'Tente Novamente');
     }
   }
+  const [zindex, setZindex] = useState(0);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  const abrir = () => {
+    setZindex(2);
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 4000,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const fechar = () => {
+    setZindex(0);
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 4000,
+      useNativeDriver: true,
+    }).start();
+  };
 
   return (
     <View style={styles.container}>
@@ -88,9 +113,7 @@ export default function MyLists({navigation}) {
         )}
       </View>
       <View style={styles.viewplus}>
-        <TouchableOpacity
-          style={styles.add}
-          onPress={() => setModalVisible(true)}>
+        <TouchableOpacity style={styles.add} onPress={() => setModalVisible(true)}>
           <Entypo name="plus" color="#000" size={38} />
         </TouchableOpacity>
         <Modal
@@ -135,7 +158,7 @@ export default function MyLists({navigation}) {
                     CANCELAR
                   </Text>
                 </TouchableOpacity>
-                {name !== '' && description !== '' ? (
+                {name !== '' ? (
                   <TouchableOpacity
                     style={[styles.buttonSaveModal, {backgroundColor: 'black'}]}
                     onPress={() => postList(list, sessionId)}>
@@ -158,34 +181,27 @@ export default function MyLists({navigation}) {
             </View>
           </View>
         </Modal>
-        <Modal
-          style={{alignItems: 'center', justifyContent: 'center'}}
-          animationType="fade"
-          transparent={true}
-          visible={modalVisible2}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-            setModalVisible(!modalVisible2);
-          }}>
-          <View style={styles.backgroundModalModal2}>
-            <View style={styles.containerModal2}>
-              <TouchableOpacity
-                onPress={() => setModalVisible2(false)}
-                style={styles.buttonModal2}>
-                <MaterialIcons size={20} name="clear" />
-              </TouchableOpacity>
-              <View style={styles.boxModal2}>
-                <Text style={styles.textModal}>Lista Criada</Text>
-                <MaterialIcons
-                  style={styles.Icon}
-                  name="done"
-                  size={20}
-                  color={'white'}
-                />
-              </View>
-            </View>
+
+        <Animated.View
+          style={[styles.containerAnimated, {opacity: fadeAnim, zIndex: zindex}]}>
+          <View style={styles.boxAnimated}>
+            <MaterialIcons
+              style={styles.Icon}
+              name="done"
+              size={20}
+              color={'white'}
+            />
+            <Text style={styles.textAnimated}>Lista criada</Text>
           </View>
-        </Modal>
+
+          <TouchableOpacity
+            style={styles.buttonx}
+            onPress={() => {
+              fechar();
+            }}>
+            <Text>X</Text>
+          </TouchableOpacity>
+        </Animated.View>
       </View>
     </View>
   );
