@@ -92,7 +92,7 @@ export default function HeaderTvShows({
                     <PosterImage
                         posterPath={tvShow.poster_path} />
                     <ButtonRated
-                        movieRated={tvShowRated} // Precisa de atenção mudar parametro de envio
+                        rated={tvShowRated} // Precisa de atenção mudar parametro de envio
                         setModalVisible={setModalVisible}
                         modalVisible={modalVisible}
                     />

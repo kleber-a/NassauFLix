@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { HeaderHeightContext } from 'react-navigation-stack';
+
 
 const styles = StyleSheet.create({
   containerHeader: {

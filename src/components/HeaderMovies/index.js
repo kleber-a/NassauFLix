@@ -16,7 +16,7 @@ import styles from './styles';
 import { AuthContext } from '../../context/auth';
 import ButtonFavorite from '../../components/ButtonFavorite';
 
-export default function HeaderMoviesOrSeriesDetails({
+export default function HeaderMovies({
   route,
   navigation,
   details,
@@ -101,7 +101,7 @@ export default function HeaderMoviesOrSeriesDetails({
         <View style={styles.containerMovieImg}>
           <PosterImage posterPath={details.poster_path} />
           <ButtonRated
-            movieRated={movieRated}
+            rated={movieRated}
             setModalVisible={setModalVisible}
             modalVisible={modalVisible}
           />
