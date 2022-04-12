@@ -15,15 +15,17 @@ export default function PopularDescription({type}) {
     }
   }, [account]);
 
+
   return (
     <>
       <Text style={styles.greetingText}>
         Olá, <Text style={styles.greetingText__username}>{name && name}</Text>
       </Text>
       <Text style={styles.textDescription}>
-        Reveja ou acompanhe os filmes que você assistiu...
+        Reveja ou acompanhe {type === 'Séries' ?'as ' + type: 'os ' + type} que você assistiu...
       </Text>
       <Text style={styles.textPopularMovies}>{type} populares este mês</Text>
     </>
+    
   );
 }

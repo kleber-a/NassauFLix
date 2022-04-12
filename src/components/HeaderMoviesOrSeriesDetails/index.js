@@ -26,10 +26,9 @@ export default function HeaderMoviesOrSeriesDetails({
   const [modalVisible, setModalVisible] = useState(false);
   const [isRated, setIsRated] = useState(false);
   const [movieRated, setMovieRated] = useState(null);
-
   const [isFavorite, setIsFavorite] = useState(null);
   const [dataFavorite, setDataFavorite] = useState({
-    media_type: 'movie',
+    media_type: type,
     media_id: id,
     favorite: false,
   });
@@ -120,7 +119,7 @@ export default function HeaderMoviesOrSeriesDetails({
           </View>
 
           <View style={styles.modal}>
-            <ModalFavoriteList />
+            <ModalFavoriteList navigation={navigation} movieId={id} />
           </View>
         </View>
       </View>
