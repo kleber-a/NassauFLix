@@ -328,10 +328,10 @@ export async function deletList(id, sessionId) {
   }
 }
 
-async function removeMovieList(listId, media_id) {
+async function removeMovieList(listId, media_id, sessionId) {
   try {
     const {data} = await api.post(
-      `list/listId/remove_item?api_key=${apiKey}&session_id=${sessionId}`,
+      `list/${listId}/remove_item?api_key=${apiKey}&session_id=${sessionId}`,
       media_id
     );
 
