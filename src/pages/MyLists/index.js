@@ -6,11 +6,12 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const lista = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const [deleteActive, setDeleteActive] = useState(true);
 
 export default function MyLists({navigation}) {
-  return (
+  return ( 
     <View style={styles.container}>
-      <ButtonReturn navigation={navigation} />
+       <ButtonReturn navigation={navigation} />
       <View style={styles.boxText}>
         <Text style={styles.text}>Minhas listas</Text>
       </View>
@@ -33,9 +34,8 @@ export default function MyLists({navigation}) {
         <TouchableOpacity
           style={styles.add}
           onPress={() => navigation.goBack()}>
-          <Entypo name="plus" color="#000" size={38} />
         </TouchableOpacity>
       </View>
-    </View>
+    </View> 
   );
 }
