@@ -128,7 +128,11 @@ export default function Profile({navigation}) {
         <Text style={styles.namePerfil}>
           <VerifyName />
         </Text>
-        <ButtonFilmList navigation={navigation} navigate={'ListMovies'} />
+        <ButtonFilmList
+          navigation={navigation}
+          navigate={'MyLists'}
+
+        />
         {evaluation ? (
           <>
             <Text style={styles.valuePerfil}>{evaluation}</Text>

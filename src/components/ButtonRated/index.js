@@ -3,13 +3,13 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import styles from './styles'
 
-export default function ButtonRated({ movieRated, setModalVisible, modalVisible }) {
+export default function ButtonRated({ rated, setModalVisible, modalVisible }) {
     return (
 
-        movieRated ? (
+        rated ? (
             <View style={[styles.rating, { backgroundColor: '#8BE0EC' }]} >
                 <Text style={[styles.ratingText]}>
-                    Sua nota: {movieRated}/10
+                    Sua nota: {rated}/10
                 </Text>
                 <TouchableOpacity
                     style={styles.ratingContainerIcon}

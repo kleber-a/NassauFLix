@@ -317,6 +317,19 @@ export async function getDetailsList(listId) {
     console.log(error);
   }
 }
+
+export async function addList(lista, sessionId) {
+  try {
+    const {data} = await api.post(
+      `list?api_key=${apiKey}&session_id=${sessionId}`,
+      lista,
+       );
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function deletList(id, sessionId) {
   try {
     const {data} = await api.delete(

@@ -1,5 +1,5 @@
-import {View} from 'react-native';
-import React, {useState, useEffect, useContext} from 'react';
+import { View } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
 import ModalAvaluate from '../ModalAvaluate';
 import ModalFavoriteList from '../ModalFavoriteList';
 import ButtonReturn from '../ButtonReturn';
@@ -11,12 +11,12 @@ import Likeds from '../Likeds';
 import OverView from '../OverView';
 import BackDrop from '../BackDrop';
 import BoxCast from '../BoxCast';
-import {getCredits, getState, postFavorite} from '../../service/api';
+import { getCredits, getState, postFavorite } from '../../service/api';
 import styles from './styles';
-import {AuthContext} from '../../context/auth';
+import { AuthContext } from '../../context/auth';
 import ButtonFavorite from '../../components/ButtonFavorite';
 
-export default function HeaderMoviesOrSeriesDetails({
+export default function HeaderMovies({
   route,
   navigation,
   details,
@@ -32,7 +32,7 @@ export default function HeaderMoviesOrSeriesDetails({
     media_id: id,
     favorite: false,
   });
-  const {sessionId, account} = useContext(AuthContext);
+  const { sessionId, account } = useContext(AuthContext);
 
   async function awaitFavoriteMovies() {
     try {
@@ -44,9 +44,9 @@ export default function HeaderMoviesOrSeriesDetails({
 
   useEffect(() => {
     async function awaitIsFavorite(bodyfavorite) {
-      const {favorite} = await getState('movie', id, sessionId);
+      const { favorite } = await getState('movie', id, sessionId);
       setIsFavorite(favorite);
-      setDataFavorite(prevState => ({...prevState, favorite: !favorite}));
+      setDataFavorite(prevState => ({ ...prevState, favorite: !favorite }));
     }
     awaitIsFavorite();
   }, [id, sessionId]);
@@ -89,9 +89,10 @@ export default function HeaderMoviesOrSeriesDetails({
       <BackDrop BackDrop={details.backdrop_path} />
       <ButtonReturn navigation={navigation} />
       <ButtonFavorite
+        mediaType={'movie'}
         setIsFavorite={setIsFavorite}
         setDataFavorite={setDataFavorite}
-        awaitFavoriteMovies={awaitFavoriteMovies}
+        awaitFavorite={awaitFavoriteMovies}
         id={id}
         isFavorite={isFavorite}
       />
@@ -99,7 +100,7 @@ export default function HeaderMoviesOrSeriesDetails({
         <View style={styles.containerMovieImg}>
           <PosterImage posterPath={details.poster_path} />
           <ButtonRated
-            movieRated={movieRated}
+            rated={movieRated}
             setModalVisible={setModalVisible}
             modalVisible={modalVisible}
           />
@@ -113,6 +114,7 @@ export default function HeaderMoviesOrSeriesDetails({
             crew={crew}
             haveMinutes={true}
           />
+
           <View style={styles.detailRatedLiked}>
             <TextRated detailsVoteAverage={details.vote_average} />
             <Likeds detailsVoteCount={details.vote_count} />
