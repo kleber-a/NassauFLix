@@ -1,19 +1,19 @@
-import React, {useState, useEffect, useContext} from 'react';
-import {View, FlatList, TouchableOpacity} from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { View, FlatList, TouchableOpacity } from 'react-native';
 import Loading from '../../components/Loading';
-import {getInterations} from '../../service/api';
+import { getInterations } from '../../service/api';
 import MovieImage from '../../components/Movie/MovieImage';
 import styles from './styles';
-import {AuthContext} from '../../context/auth';
+import { AuthContext } from '../../context/auth';
 import ButtonReturn from '../../components/ButtonReturn';
 import InterationDescription from '../../components/InterationDescription';
 
-export default function InterationList({navigation, route}) {
+export default function InterationList({ navigation, route }) {
   const [interation, type, nameInteration] = route.params;
   const [interations, setInterations] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const {account, sessionId} = useContext(AuthContext);
+  const { account, sessionId } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   async function awaitInteration() {
     if (loading) {
@@ -65,7 +65,7 @@ export default function InterationList({navigation, route}) {
     );
   };
 
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
     return (
       <TouchableOpacity
         onPress={() => {
@@ -81,6 +81,7 @@ export default function InterationList({navigation, route}) {
     <View style={styles.container}>
       {interations.length > 0 ? (
         <FlatList
+          columnWrapperStyle={styles.wrapper}
           data={interations}
           keyExtractor={(item, index) => index}
           ListHeaderComponent={renderHeader}
