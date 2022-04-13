@@ -51,7 +51,9 @@ export default function TvShows({route, navigation}) {
           ]}
           onPress={() => {
             awaitGetSeasonTvShow(item.season_number);
-            index !== currentIndex ? setSelection(true) : setSelection(false);
+            index !== currentIndex
+              ? setSelection(true)
+              : setSelection(!selection);
             setBodyHeight(new Animated.Value(-1000));
             setCurrentIndex(index);
           }}>
