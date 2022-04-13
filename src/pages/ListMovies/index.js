@@ -15,8 +15,9 @@ export default function ListMovies({navigation}) {
   const [detailsList, setDetailsList] = useState(null);
   const [isEnable, setIsEnable] = useState(false);
   const {account, sessionId} = useContext(AuthContext);
+  const [movieId, SetMovieId] = useState(null);
   async function awaitDetailsList() {
-    const dataDetailsList = await getDetailsList(8197836);
+    const dataDetailsList = await getDetailsList(8198000);
     setDetailsList(dataDetailsList);
   }
   useEffect(() => {
@@ -29,10 +30,12 @@ export default function ListMovies({navigation}) {
   }, [navigation]);
 
   async function deleteMovies(movieId) {
-    
-    const del = await removeMovieList(detailsList.id, movieId, sessionId)
-    
+    await removeMovieList(detailsList.id, movieId, sessionId);
+    awaitDetailsList();
   }
+  useEffect(() => {
+    deleteMovies(movieId)
+  },[movieId])
 
   const renderHeader = () => {
     return (
@@ -47,7 +50,6 @@ export default function ListMovies({navigation}) {
           trackBarStyle={styles.trackBarStyle}
           trackBar={styles.trackBar}
           thumbButton={styles.thumbButton}
-
           animationDuration={250}
           leftComponent={
             <Eye name={'eye'} size={14} color={isEnable ? '#000' : '#fff'} />
@@ -75,7 +77,9 @@ export default function ListMovies({navigation}) {
         style={styles.boxImage}>
         <MovieImage pathImage={item.poster_path} posterSize={'w92'} />
         {isEnable && (
-          <TouchableOpacity style={styles.boxDelete} onPress={() => deleteMovies({media_id: item.id})} >
+          <TouchableOpacity
+            style={styles.boxDelete}
+            onPress={() => SetMovieId({media_id: item.id})}>
             <Icon name={'horizontal-rule'} size={6} color={'red'} />
           </TouchableOpacity>
         )}
