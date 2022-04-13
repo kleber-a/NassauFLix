@@ -86,7 +86,7 @@ export default function MyLists({navigation}) {
 
   return (
     <View style={styles.container}>
-      <ButtonReturn navigation={navigation} />
+       <ButtonReturn navigation={navigation} />
       <View style={styles.boxText}>
         <Text style={styles.text}>Minhas listas</Text>
       </View>
@@ -203,6 +203,6 @@ export default function MyLists({navigation}) {
           </TouchableOpacity>
         </Animated.View>
       </View>
-    </View>
+    </View> 
   );
 }
