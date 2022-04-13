@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {HeaderHeightContext} from 'react-navigation-stack';
+import { StyleSheet } from 'react-native';
+
 
 const styles = StyleSheet.create({
   containerHeader: {
@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
   containerMovieImg: {
     position: 'relative',
     top: -60,
+    marginBottom: -60,
   },
 
   detaisMoviesTitle: {

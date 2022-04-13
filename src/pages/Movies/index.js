@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import Loading from '../../components/Loading';
 import {getCredits, getDetails} from '../../service/api';
 import styles from './styles';
-import HeaderMoviesOrSeriesDetails from '../../components/HeaderMoviesOrSeriesDetails';
+import HeaderMovies from '../../components/HeaderMovies';
 
 export default function Movies({route, navigation}) {
   const [id] = route.params;
@@ -65,7 +65,7 @@ export default function Movies({route, navigation}) {
           keyExtractor={(item, index) => index}
           renderItem={renderItem}
           ListHeaderComponent={
-            <HeaderMoviesOrSeriesDetails
+            <HeaderMovies
               details={details}
               route={route}
               navigation={navigation}
