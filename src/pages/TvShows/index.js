@@ -8,7 +8,7 @@ import HeaderTvShows from '../../components/HeaderTvShows';
 
 export default function TvShows({route, navigation}) {
   const [id, type] = route.params;
-  const [currentIndex, setCurrentIndex] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState();
   const [tvShow, setTvShow] = useState(null);
   const [season, setSeason] = useState(null);
   const [selection, setSelection] = useState(false);
