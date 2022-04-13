@@ -11,13 +11,14 @@ import Pencil from 'react-native-vector-icons/EvilIcons';
 import Eye from 'react-native-vector-icons/Ionicons';
 import {AuthContext} from '../../context/auth';
 
-export default function ListMovies({navigation}) {
+export default function ListMovies({navigation,route}) {
+  const [idList] = route.params
   const [detailsList, setDetailsList] = useState(null);
   const [isEnable, setIsEnable] = useState(false);
   const {account, sessionId} = useContext(AuthContext);
   const [movieId, SetMovieId] = useState(null);
   async function awaitDetailsList() {
-    const dataDetailsList = await getDetailsList(8198000);
+    const dataDetailsList = await getDetailsList(idList);
     setDetailsList(dataDetailsList);
   }
   useEffect(() => {
