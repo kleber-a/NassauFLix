@@ -130,7 +130,7 @@ export default function Profile({navigation}) {
         </Text>
         <ButtonFilmList
           navigation={navigation}
-          navigate={'MyLists'}
+          navigate={'ListMovies'}
 
         />
         {evaluation ? (
