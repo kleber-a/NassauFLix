@@ -1,22 +1,12 @@
-import {
-  View,
-  Text,
-  Animated,
-  TouchableOpacity,
-  FlatList,
-} from 'react-native';
-import React, { useState, useEffect } from 'react';
-import {
-  getTvShow,
-  getTvShowSeason,
-} from '../../service/api';
+import {View, Text, Animated, TouchableOpacity, FlatList} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {getTvShow, getTvShowSeason} from '../../service/api';
 import styles from './styles';
 import Loading from '../../components/Loading';
 import IconTvShow from '../../components/IconTvShow';
 import HeaderTvShows from '../../components/HeaderTvShows';
 
-export default function TvShows({ route, navigation }) {
-
+export default function TvShows({route, navigation}) {
   const [id, type] = route.params;
   const [currentIndex, setCurrentIndex] = useState();
   const [tvShow, setTvShow] = useState(null);
@@ -42,26 +32,28 @@ export default function TvShows({ route, navigation }) {
   }, [id]);
 
   async function awaitGetSeasonTvShow(seasonId) {
-    setSelection(!selection);
     try {
       const dataSeason = await getTvShowSeason(id, seasonId);
       setSeason(dataSeason);
     } catch (error) {
       console.warn(error);
     }
-  };
+  }
 
-  const renderItem = ({ item, index }) => {
+  const renderItem = ({item, index}) => {
     return (
       <View>
         <TouchableOpacity
           style={[
             styles.buttonSeason,
             selection &&
-            index === currentIndex && { borderBottomColor: '#E9A6A6' },
+              index === currentIndex && {borderBottomColor: '#E9A6A6'},
           ]}
           onPress={() => {
             awaitGetSeasonTvShow(item.season_number);
+            index !== currentIndex
+              ? setSelection(true)
+              : setSelection(!selection);
             setBodyHeight(new Animated.Value(-1000));
             setCurrentIndex(index);
           }}>
@@ -70,9 +62,9 @@ export default function TvShows({ route, navigation }) {
             <IconTvShow loading={selection && index === currentIndex} />
           </View>
         </TouchableOpacity>
-        <View style={{ overflow: 'hidden' }}>
+        <View style={{overflow: 'hidden'}}>
           {selection ? (
-            <Animated.View style={{ top: bodyHeight }}>
+            <Animated.View style={{top: bodyHeight}}>
               {season &&
                 season.season_number === item.season_number &&
                 season.episodes.map((episode, index) => {

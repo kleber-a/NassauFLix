@@ -6,10 +6,13 @@ import {getDetailsList} from '../../service/api';
 import MovieImage from '../../components/Movie/MovieImage';
 import ButtonReturn from '../../components/ButtonReturn';
 import Icon from 'react-native-vector-icons/Octicons';
+import Toggle from 'react-native-toggle-element';
+import Pencil from 'react-native-vector-icons/EvilIcons';
+import Eye from 'react-native-vector-icons/Ionicons';
 
 export default function ListMovies({navigation}) {
   const [detailsList, setDetailsList] = useState(null);
-  const [deleteActive, setDeleteActive] = useState(true);
+  const [isEnable, setIsEnable] = useState(false);
 
   async function awaitDetailsList() {
     const dataDetailsList = await getDetailsList(8197836);
@@ -29,6 +32,28 @@ export default function ListMovies({navigation}) {
     return (
       <View style={styles.containerHeader}>
         <ButtonReturn navigation={navigation} />
+        <Toggle
+          value={isEnable}
+          onPress={newState => {
+            setIsEnable(newState);
+          }}
+          containerStyle={styles.containerSwitch}
+          trackBarStyle={styles.trackBarStyle}
+          trackBar={styles.trackBar}
+          thumbButton={styles.thumbButton}
+
+          animationDuration={250}
+          leftComponent={
+            <Eye name={'eye'} size={14} color={isEnable ? '#000' : '#fff'} />
+          }
+          rightComponent={
+            <Pencil
+              name={'pencil'}
+              size={18}
+              color={isEnable ? '#fff' : '#000'}
+            />
+          }
+        />
         <Text style={styles.nameList}>{detailsList.name}</Text>
         <Text style={styles.descriptionList}>{detailsList.description}</Text>
       </View>
@@ -43,7 +68,7 @@ export default function ListMovies({navigation}) {
         }}
         style={styles.boxImage}>
         <MovieImage pathImage={item.poster_path} posterSize={'w92'} />
-        {deleteActive && (
+        {isEnable && (
           <TouchableOpacity style={styles.boxDelete}>
             <Icon name={'horizontal-rule'} size={6} color={'red'} />
           </TouchableOpacity>

@@ -60,5 +60,27 @@ const styles = StyleSheet.create({
     width: 18,
     backgroundColor: 'white',
   },
+  containerSwitch:{
+    width: 76,
+    position: 'absolute',
+    height: 25,
+    top: 25,
+    right: 20,
+  },
+  trackBarStyle:{
+    borderColor: '#E9A6A6',
+    borderWidth: 1,
+    backgroundColor: '#fff',
+},
+trackBar:{
+  width: 76,
+  height: 25,
+},
+thumbButton:{
+  activeBackgroundColor: '#E9A6A6',
+  inActiveBackgroundColor: '#E9A6A6',
+  width: 37,
+  height: 25,
+},
 });
 export default styles;
