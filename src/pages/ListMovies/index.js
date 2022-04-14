@@ -1,24 +1,26 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import styles from './styles';
 import {Text, View, FlatList, TouchableOpacity} from 'react-native';
 import Loading from '../../components/Loading';
-import {getDetailsList} from '../../service/api';
+import {getDetailsList, removeMovieList} from '../../service/api';
 import MovieImage from '../../components/Movie/MovieImage';
 import ButtonReturn from '../../components/ButtonReturn';
 import Icon from 'react-native-vector-icons/Octicons';
 import Toggle from 'react-native-toggle-element';
 import Pencil from 'react-native-vector-icons/EvilIcons';
 import Eye from 'react-native-vector-icons/Ionicons';
+import {AuthContext} from '../../context/auth';
 
-export default function ListMovies({navigation}) {
+export default function ListMovies({navigation,route}) {
+  const [idList] = route.params
   const [detailsList, setDetailsList] = useState(null);
   const [isEnable, setIsEnable] = useState(false);
-
+  const {account, sessionId} = useContext(AuthContext);
+  const [movieId, SetMovieId] = useState(null);
   async function awaitDetailsList() {
-    const dataDetailsList = await getDetailsList(8197836);
+    const dataDetailsList = await getDetailsList(idList);
     setDetailsList(dataDetailsList);
   }
-
   useEffect(() => {
     navigation.addListener('focus', () => {
       awaitDetailsList();
@@ -27,6 +29,14 @@ export default function ListMovies({navigation}) {
       setDetailsList(null);
     };
   }, [navigation]);
+
+  async function deleteMovies(movieId) {
+    await removeMovieList(detailsList.id, movieId, sessionId);
+    awaitDetailsList();
+  }
+  useEffect(() => {
+    deleteMovies(movieId)
+  },[movieId])
 
   const renderHeader = () => {
     return (
@@ -41,7 +51,6 @@ export default function ListMovies({navigation}) {
           trackBarStyle={styles.trackBarStyle}
           trackBar={styles.trackBar}
           thumbButton={styles.thumbButton}
-
           animationDuration={250}
           leftComponent={
             <Eye name={'eye'} size={14} color={isEnable ? '#000' : '#fff'} />
@@ -69,7 +78,9 @@ export default function ListMovies({navigation}) {
         style={styles.boxImage}>
         <MovieImage pathImage={item.poster_path} posterSize={'w92'} />
         {isEnable && (
-          <TouchableOpacity style={styles.boxDelete}>
+          <TouchableOpacity
+            style={styles.boxDelete}
+            onPress={() => SetMovieId({media_id: item.id})}>
             <Icon name={'horizontal-rule'} size={6} color={'red'} />
           </TouchableOpacity>
         )}

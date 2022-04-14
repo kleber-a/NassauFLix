@@ -95,25 +95,25 @@ export default function TvShows({route, navigation}) {
     );
   };
 
-  return (
-    <View style={styles.container}>
-      {tvShow ? (
-        <FlatList
-          data={tvShow.seasons}
-          keyExtractor={(item, index) => index}
-          renderItem={renderItem}
-          ListHeaderComponent={
-            <HeaderTvShows
-              navigate={navigation}
-              type={type}
-              id={id}
-              tvShow={tvShow && tvShow}
-            />
-          }
-        />
-      ) : (
-        <Loading />
-      )}
+  return tvShow ? (
+    <View style={styles.container} >
+      <FlatList
+        data={tvShow.seasons}
+        keyExtractor={(item, index) => index}
+        renderItem={renderItem}
+        ListHeaderComponent={<HeaderTvShows
+          navigate={navigation}
+          type={type}
+          id={id}
+          tvShow={tvShow && tvShow}
+        />}
+      />
     </View>
-  );
+  ) : (
+    <View style={styles.containerLoading}>
+      <Loading />
+    </View>
+  )
 }
+
+

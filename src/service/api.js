@@ -323,7 +323,7 @@ export async function addList(lista, sessionId) {
     const {data} = await api.post(
       `list?api_key=${apiKey}&session_id=${sessionId}`,
       lista,
-       );
+    );
     return data;
   } catch (error) {
     console.log(error);
@@ -341,16 +341,19 @@ export async function deletList(id, sessionId) {
   }
 }
 
-async function removeMovieList(listId, media_id, sessionId) {
+export async function removeMovieList(listId, media_id, sessionId) {
   try {
-    const {data} = await api.post(
+    await api.post(
       `list/${listId}/remove_item?api_key=${apiKey}&session_id=${sessionId}`,
-      media_id
+      media_id,
+      {
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+      },
     );
 
-    console.warn(data);
-
-    return data;
+    console.log(data);
   } catch (error) {
     console.log(error);
   }
