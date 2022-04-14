@@ -70,21 +70,15 @@ export default function InterationList({navigation, route}) {
 
   const renderItem = ({item}) => {
     if (item.empty === true) {
-      return (
-        <View style={styles.containerImage}>
-          <View style={[styles.boxImage, styles.itemInvisible]} />
-        </View>
-      );
+      return <View style={[styles.boxImage, styles.itemInvisible]} />;
     }
     return (
       <TouchableOpacity
-        style={styles.containerImage}
+        style={styles.boxImage}
         onPress={() => {
           navigation.navigate(type, [item.id, type]);
         }}>
-        <View style={styles.boxImage}>
-          <MovieImage pathImage={item.poster_path} posterSize={'w92'} />
-        </View>
+        <MovieImage pathImage={item.poster_path} posterSize={'w92'} />
       </TouchableOpacity>
     );
   };
