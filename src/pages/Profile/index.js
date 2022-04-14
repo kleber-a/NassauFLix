@@ -241,7 +241,7 @@ export default function Profile({navigation}) {
                       pathImage={rateds.poster_path}
                       posterSize={'w92'}
                     />
-                    <MovieEvaluation votes={rateds.vote_average} />
+                    <MovieEvaluation votes={rateds.rating} />
                   </TouchableOpacity>
                 ) : null,
               )

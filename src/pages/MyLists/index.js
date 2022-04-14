@@ -15,7 +15,7 @@ import ButtonReturn from '../../components/ButtonReturn';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {AuthContext} from '../../context/auth';
-import api, {addList, getList} from '../../service/api';
+import {addList, getList} from '../../service/api';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Loading from '../../components/Loading';
 
@@ -31,6 +31,13 @@ export default function MyLists({navigation}) {
   const [modalVisible2, setModalVisible2] = useState(false);
   const [page, setPage] = useState('1');
   const [dataList, setDataList] = useState();
+  const [listSucess, setListSucess] = useState(false);
+
+  if (listSucess) {
+    setTimeout(() => {
+      setListSucess(false);
+    }, 3000);
+  }
 
   const [onButton, setOnButton] = useState(false);
   const [list, setList] = useState({
@@ -58,52 +65,48 @@ export default function MyLists({navigation}) {
       setName('');
       setDescription('');
       setModalVisible(false);
-      abrir()
     } else {
       Alert.alert('Algo deu errado', 'Tente Novamente');
     }
   }
-  const [zindex, setZindex] = useState(0);
-  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  async function deleteList(id){
+    const awaitDelete = await deleteList(id,sessionId);
+    console.warn(awaitDelete)
+  }
+
+  const fadeAnim = useRef(new Animated.Value(-windowWidth)).current;
 
   const abrir = () => {
-    setZindex(2);
     Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 4000,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const fechar = () => {
-    setZindex(0);
-    Animated.timing(fadeAnim, {
-      toValue: 0,
-      duration: 4000,
-      useNativeDriver: true,
+      toValue: 20,
+      duration: 1000,
+      useNativeDriver: false,
     }).start();
   };
 
   return (
     <View style={styles.container}>
-       <ButtonReturn navigation={navigation} />
+      <ButtonReturn navigation={navigation} />
       <View style={styles.boxText}>
         <Text style={styles.text}>Minhas listas</Text>
       </View>
       <View style={styles.containerLista}>
         {dataList ? (
-          <ScrollView>
+          <ScrollView contentContainerStyle={{paddingBottom: 200}}>
             {dataList &&
               dataList.map(item => (
-                <TouchableOpacity style={styles.boxLista} onPress={() => navigation.navigate("ListMovies", [item.id])}>
+                <TouchableOpacity onPress={()=> navigation.navigate('ListMovies',[item.id])} key={item.id} style={styles.boxLista}>
                   <View style={styles.boxDescription}>
-                    <Text style={styles.nameList}>{item.name.toUpperCase()}</Text>
+                    <Text style={styles.nameList}>
+                      {item.name.toUpperCase()}
+                    </Text>
                     <Text style={styles.numberMovies}>
                       {item.item_count} FILMES
                     </Text>
                   </View>
-                  <TouchableOpacity style={styles.del}>
-                    <AntDesign name="delete" color="#EC2626" size={25} />
+                  <TouchableOpacity onPress={()=>{deleteList(item.id)}} style={styles.del}>
+                    <AntDesign name="delete" color="#EC2626" size={14} />
                   </TouchableOpacity>
                 </TouchableOpacity>
               ))}
@@ -111,14 +114,29 @@ export default function MyLists({navigation}) {
         ) : (
           <Loading />
         )}
+        {listSucess && (
+          <Animated.View style={[styles.containerAnimated, {left: fadeAnim}]}>
+            <View style={styles.boxAnimated}>
+              <MaterialIcons
+                style={styles.Icon}
+                name="done"
+                size={20}
+                color={'#1ed92b'}
+              />
+              <Text style={styles.textAnimated}>Lista criada</Text>
+            </View>
+          </Animated.View>
+        )}
       </View>
+      <TouchableOpacity
+        style={styles.add}
+        onPress={() => setModalVisible(true)}>
+        <Entypo name="plus" color="#000" size={38} />
+      </TouchableOpacity>
       <View style={styles.viewplus}>
-        <TouchableOpacity style={styles.add} onPress={() => setModalVisible(true)}>
-          <Entypo name="plus" color="#000" size={38} />
-        </TouchableOpacity>
         <Modal
           style={{alignItems: 'center', justifyContent: 'center'}}
-          animationType="slide"
+          animationType="fade"
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
@@ -161,7 +179,11 @@ export default function MyLists({navigation}) {
                 {name !== '' ? (
                   <TouchableOpacity
                     style={[styles.buttonSaveModal, {backgroundColor: 'black'}]}
-                    onPress={() => postList(list, sessionId)}>
+                    onPress={() => {
+                      setListSucess(true);
+                      abrir();
+                      postList(list, sessionId);
+                    }}>
                     <Text style={[styles.textButtonModal, {color: 'white'}]}>
                       SALVAR
                     </Text>
@@ -181,28 +203,7 @@ export default function MyLists({navigation}) {
             </View>
           </View>
         </Modal>
-
-        <Animated.View
-          style={[styles.containerAnimated, {opacity: fadeAnim, zIndex: zindex}]}>
-          <View style={styles.boxAnimated}>
-            <MaterialIcons
-              style={styles.Icon}
-              name="done"
-              size={20}
-              color={'white'}
-            />
-            <Text style={styles.textAnimated}>Lista criada</Text>
-          </View>
-
-          <TouchableOpacity
-            style={styles.buttonx}
-            onPress={() => {
-              fechar();
-            }}>
-            <Text>X</Text>
-          </TouchableOpacity>
-        </Animated.View>
       </View>
-    </View> 
+    </View>
   );
 }
