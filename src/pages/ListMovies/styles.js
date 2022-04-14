@@ -23,12 +23,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   wrapperColumn: {
-    paddingHorizontal: 22,
-    marginBottom: '4%',
+    paddingHorizontal: '5%',
+    marginBottom: '6%',
     justifyContent: 'space-between',
   },
+  itemInvisible: {
+    backgroundColor: 'transparent',
+  },
   nameList: {
-    width: 215,
+    width: '60%',
     fontFamily: 'Open Sans',
     fontSize: 20,
     lineHeight: 27,
@@ -38,6 +41,7 @@ const styles = StyleSheet.create({
     marginBottom: 26,
   },
   descriptionList: {
+    width: '80%',
     fontFamily: 'Open Sans',
     fontSize: 10,
     lineHeight: 12,
@@ -60,27 +64,27 @@ const styles = StyleSheet.create({
     width: 18,
     backgroundColor: 'white',
   },
-  containerSwitch:{
+  containerSwitch: {
     width: 76,
     position: 'absolute',
     height: 25,
     top: 25,
     right: 20,
   },
-  trackBarStyle:{
+  trackBarStyle: {
     borderColor: '#E9A6A6',
     borderWidth: 1,
     backgroundColor: '#fff',
-},
-trackBar:{
-  width: 76,
-  height: 25,
-},
-thumbButton:{
-  activeBackgroundColor: '#E9A6A6',
-  inActiveBackgroundColor: '#E9A6A6',
-  width: 37,
-  height: 25,
-},
+  },
+  trackBar: {
+    width: 76,
+    height: 25,
+  },
+  thumbButton: {
+    activeBackgroundColor: '#E9A6A6',
+    inActiveBackgroundColor: '#E9A6A6',
+    width: 37,
+    height: 25,
+  },
 });
 export default styles;
