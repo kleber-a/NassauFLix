@@ -7,6 +7,7 @@ import styles from './styles';
 import {AuthContext} from '../../context/auth';
 import ButtonReturn from '../../components/ButtonReturn';
 import InterationDescription from '../../components/InterationDescription';
+import formatDataFlatlist from '../../function/formDataFlatlist';
 
 export default function InterationList({navigation, route}) {
   const [interation, type, nameInteration] = route.params;
@@ -65,14 +66,25 @@ export default function InterationList({navigation, route}) {
     );
   };
 
+  const numColumns = 4;
+
   const renderItem = ({item}) => {
+    if (item.empty === true) {
+      return (
+        <View style={styles.containerImage}>
+          <View style={[styles.boxImage, styles.itemInvisible]} />
+        </View>
+      );
+    }
     return (
       <TouchableOpacity
+        style={styles.containerImage}
         onPress={() => {
           navigation.navigate(type, [item.id, type]);
-        }}
-        style={styles.boxImage}>
-        <MovieImage pathImage={item.poster_path} posterSize={'w92'} />
+        }}>
+        <View style={styles.boxImage}>
+          <MovieImage pathImage={item.poster_path} posterSize={'w92'} />
+        </View>
       </TouchableOpacity>
     );
   };
@@ -81,14 +93,15 @@ export default function InterationList({navigation, route}) {
     <View style={styles.container}>
       {interations.length > 0 ? (
         <FlatList
-          data={interations}
+          columnWrapperStyle={styles.wrapper}
+          data={formatDataFlatlist(interations, numColumns)}
           keyExtractor={(item, index) => index}
           ListHeaderComponent={renderHeader}
           ListFooterComponent={renderFooter}
           renderItem={renderItem}
           onEndReached={page <= totalPages ? awaitInteration : null}
           onEndReachedThreshold={0.3}
-          numColumns={4}
+          numColumns={numColumns}
         />
       ) : (
         <Loading />
