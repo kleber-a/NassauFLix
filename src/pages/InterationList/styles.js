@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -8,10 +8,12 @@ const styles = StyleSheet.create({
   },
 
   wrapper: {
-    paddingHorizontal: 22,
-    marginBottom: '4%',
+    marginHorizontal: '5%',
+    justifyContent: 'space-between',
   },
-
+  itemInvisible: {
+    backgroundColor: 'transparent',
+  },
   containerHeader: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -19,10 +21,16 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
     width: '100%',
   },
+  containerImage: {
+    flexShrink: 1,
+    alignItems: 'center',
+  },
   boxImage: {
-    marginLeft: '3.5%',
+    alignItems: 'center',
+    justifyContent: 'center',
     height: 95,
     width: 76,
+    margin: 20,
   },
 });
 export default styles;
