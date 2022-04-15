@@ -172,6 +172,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
+    bottom: 100
   },
   boxAnimated: {
     flexDirection: 'row',

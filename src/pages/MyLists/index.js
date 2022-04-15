@@ -35,7 +35,7 @@ export default function MyLists({navigation}) {
 
   if (listSucess) {
     setTimeout(() => {
-      setListSucess(true);
+      setListSucess(false);
     }, 3000);
   }
 
