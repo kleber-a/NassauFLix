@@ -18,8 +18,7 @@ const styles = StyleSheet.create({
   },
   containerLista: {
     width: '100%',
-    height: '100%',
-    paddingTop: 20,
+  
   },
   boxLista: {
     backgroundColor: '#8F9AFC',
@@ -79,7 +78,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'flex-end',
     justifyContent: 'center',
-    zIndex: 1,
+    
   },
   //Início Modal
   backgroundModal: {
@@ -172,10 +171,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 0,
-    bottom: 100,
     position: 'absolute',
-    zIndex: 2,
   },
   boxAnimated: {
     flexDirection: 'row',

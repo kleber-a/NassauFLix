@@ -15,7 +15,7 @@ import ButtonReturn from '../../components/ButtonReturn';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {AuthContext} from '../../context/auth';
-import {addList, getList} from '../../service/api';
+import {addList, getList, deletList} from '../../service/api';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Loading from '../../components/Loading';
 
@@ -35,7 +35,7 @@ export default function MyLists({navigation}) {
 
   if (listSucess) {
     setTimeout(() => {
-      setListSucess(false);
+      setListSucess(true);
     }, 3000);
   }
 
@@ -57,7 +57,7 @@ export default function MyLists({navigation}) {
       setDataList(awaitlist.results);
     }
     awaitList();
-  }, [name, description]);
+  }, [name, description,dataList]);
 
   async function postList(list, sessionId) {
     const sucess = await addList(list, sessionId);
@@ -70,13 +70,12 @@ export default function MyLists({navigation}) {
     }
   }
 
-  async function deleteList(id){
-    const awaitDelete = await deleteList(id,sessionId);
-    console.warn(awaitDelete)
+  async function delList(id){
+    const awaitDelete = await deletList(id,sessionId);   
   }
 
-  const fadeAnim = useRef(new Animated.Value(-windowWidth)).current;
-
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  
   const abrir = () => {
     Animated.timing(fadeAnim, {
       toValue: 20,
@@ -105,7 +104,7 @@ export default function MyLists({navigation}) {
                       {item.item_count} FILMES
                     </Text>
                   </View>
-                  <TouchableOpacity onPress={()=>{deleteList(item.id)}} style={styles.del}>
+                  <TouchableOpacity onPress={()=>{delList(item.id)}} style={styles.del}>
                     <AntDesign name="delete" color="#EC2626" size={14} />
                   </TouchableOpacity>
                 </TouchableOpacity>
@@ -114,7 +113,8 @@ export default function MyLists({navigation}) {
         ) : (
           <Loading />
         )}
-        {listSucess && (
+       
+       {listSucess && (
           <Animated.View style={[styles.containerAnimated, {left: fadeAnim}]}>
             <View style={styles.boxAnimated}>
               <MaterialIcons
@@ -127,6 +127,7 @@ export default function MyLists({navigation}) {
             </View>
           </Animated.View>
         )}
+    
       </View>
       <TouchableOpacity
         style={styles.add}
