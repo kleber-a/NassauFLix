@@ -6,10 +6,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#000000',
     justifyContent: 'center',
   },
-
   wrapper: {
     marginHorizontal: '5%',
     justifyContent: 'space-between',
+    marginBottom: '6%',
   },
   itemInvisible: {
     backgroundColor: 'transparent',
@@ -21,16 +21,9 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
     width: '100%',
   },
-  containerImage: {
-    flexShrink: 1,
-    alignItems: 'center',
-  },
   boxImage: {
-    alignItems: 'center',
-    justifyContent: 'center',
     height: 95,
     width: 76,
-    margin: 20,
   },
 });
 export default styles;

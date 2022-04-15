@@ -10,9 +10,10 @@ import Toggle from 'react-native-toggle-element';
 import Pencil from 'react-native-vector-icons/EvilIcons';
 import Eye from 'react-native-vector-icons/Ionicons';
 import {AuthContext} from '../../context/auth';
+import formatDataFlatlist from '../../function/formDataFlatlist';
 
-export default function ListMovies({navigation,route}) {
-  const [idList] = route.params
+export default function ListMovies({navigation, route}) {
+  const [idList] = route.params;
   const [detailsList, setDetailsList] = useState(null);
   const [isEnable, setIsEnable] = useState(false);
   const {account, sessionId} = useContext(AuthContext);
@@ -35,8 +36,8 @@ export default function ListMovies({navigation,route}) {
     awaitDetailsList();
   }
   useEffect(() => {
-    deleteMovies(movieId)
-  },[movieId])
+    deleteMovies(movieId);
+  }, [movieId]);
 
   const renderHeader = () => {
     return (
@@ -70,6 +71,9 @@ export default function ListMovies({navigation,route}) {
   };
 
   const renderItem = ({item}) => {
+    if (item.empty === true) {
+      return <View style={[styles.boxImage, styles.itemInvisible]} />;
+    }
     return (
       <TouchableOpacity
         onPress={() => {
@@ -91,7 +95,7 @@ export default function ListMovies({navigation,route}) {
   return detailsList ? (
     <View style={styles.container}>
       <FlatList
-        data={detailsList.items}
+        data={formatDataFlatlist(detailsList.items, 4)}
         ListHeaderComponentStyle={styles.containerHeaderFlatList}
         ListHeaderComponent={renderHeader}
         columnWrapperStyle={styles.wrapperColumn}
