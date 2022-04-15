@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,6 +11,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginTop: 30,
+  },
+  containerLoading: {
+    flex: 1,
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   boxText: {
     alignItems: 'center',
@@ -67,7 +73,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
-    zIndex:1
+    zIndex: 1
   },
   add: {
     backgroundColor: '#E9A6A6',
@@ -75,9 +81,9 @@ const styles = StyleSheet.create({
     width: 51,
     height: 51,
     alignItems: 'center',
-    alignSelf:'flex-end',
+    alignSelf: 'flex-end',
     justifyContent: 'center',
-    zIndex:2
+    zIndex: 2
   },
   //Início Modal
   backgroundModal: {
@@ -167,17 +173,17 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 40,
     backgroundColor: '#1ed92b',
-    borderRadius:10,
-    flexDirection:'row',
-    justifyContent:'space-between',
-    alignItems:'center',
-    marginBottom:0,
-    position:'absolute',
+    borderRadius: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 0,
+    position: 'absolute',
   },
-  boxAnimated:{
-    flexDirection:'row',
-    marginLeft:'30%',
-    
+  boxAnimated: {
+    flexDirection: 'row',
+    marginLeft: '30%',
+
   },
 
   textAnimated: {
@@ -188,15 +194,15 @@ const styles = StyleSheet.create({
   Icon: {
     backgroundColor: '#00FF00',
     borderRadius: 30,
-    
+
   },
-  
-  buttonx:{
-    width:40,
-    height:40,
-  
-    alignItems:'center',
-    justifyContent:'center'
+
+  buttonx: {
+    width: 40,
+    height: 40,
+
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 });
 

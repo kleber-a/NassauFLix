@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState, useRef} from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -14,17 +14,17 @@ import styles from './styles';
 import ButtonReturn from '../../components/ButtonReturn';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {AuthContext} from '../../context/auth';
-import api, {addList, getList} from '../../service/api';
+import { AuthContext } from '../../context/auth';
+import api, { addList, getList } from '../../service/api';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Loading from '../../components/Loading';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-export default function MyLists({navigation}) {
+export default function MyLists({ navigation }) {
   const lista1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const {account, sessionId, logout} = useContext(AuthContext);
+  const { account, sessionId, logout } = useContext(AuthContext);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -86,7 +86,7 @@ export default function MyLists({navigation}) {
 
   return (
     <View style={styles.container}>
-       <ButtonReturn navigation={navigation} />
+      <ButtonReturn navigation={navigation} />
       <View style={styles.boxText}>
         <Text style={styles.text}>Minhas listas</Text>
       </View>
@@ -109,7 +109,9 @@ export default function MyLists({navigation}) {
               ))}
           </ScrollView>
         ) : (
-          <Loading />
+          <View style={styles.containerLoading}>
+            <Loading />
+          </View>
         )}
       </View>
       <View style={styles.viewplus}>
@@ -117,7 +119,7 @@ export default function MyLists({navigation}) {
           <Entypo name="plus" color="#000" size={38} />
         </TouchableOpacity>
         <Modal
-          style={{alignItems: 'center', justifyContent: 'center'}}
+          style={{ alignItems: 'center', justifyContent: 'center' }}
           animationType="slide"
           transparent={true}
           visible={modalVisible}
@@ -154,15 +156,15 @@ export default function MyLists({navigation}) {
                     setName(''),
                     setDescription(''),
                   ]}>
-                  <Text style={[styles.textButtonModal, {color: 'black'}]}>
+                  <Text style={[styles.textButtonModal, { color: 'black' }]}>
                     CANCELAR
                   </Text>
                 </TouchableOpacity>
                 {name !== '' ? (
                   <TouchableOpacity
-                    style={[styles.buttonSaveModal, {backgroundColor: 'black'}]}
+                    style={[styles.buttonSaveModal, { backgroundColor: 'black' }]}
                     onPress={() => postList(list, sessionId)}>
-                    <Text style={[styles.textButtonModal, {color: 'white'}]}>
+                    <Text style={[styles.textButtonModal, { color: 'white' }]}>
                       SALVAR
                     </Text>
                   </TouchableOpacity>
@@ -170,9 +172,9 @@ export default function MyLists({navigation}) {
                   <View
                     style={[
                       styles.buttonSaveModal,
-                      {backgroundColor: 'rgba(0,0,0,0.4)'},
+                      { backgroundColor: 'rgba(0,0,0,0.4)' },
                     ]}>
-                    <Text style={[styles.textButtonModal, {color: 'white'}]}>
+                    <Text style={[styles.textButtonModal, { color: 'white' }]}>
                       SALVAR
                     </Text>
                   </View>
@@ -183,7 +185,7 @@ export default function MyLists({navigation}) {
         </Modal>
 
         <Animated.View
-          style={[styles.containerAnimated, {opacity: fadeAnim, zIndex: zindex}]}>
+          style={[styles.containerAnimated, { opacity: fadeAnim, zIndex: zindex }]}>
           <View style={styles.boxAnimated}>
             <MaterialIcons
               style={styles.Icon}
@@ -203,6 +205,6 @@ export default function MyLists({navigation}) {
           </TouchableOpacity>
         </Animated.View>
       </View>
-    </View> 
+    </View>
   );
 }
