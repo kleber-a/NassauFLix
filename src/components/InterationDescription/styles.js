@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   containerText: {
-    width: 300,
+    width: '70%',
     textAlign: 'center',
     fontSize: 20,
     fontFamily: 'Open Sans',

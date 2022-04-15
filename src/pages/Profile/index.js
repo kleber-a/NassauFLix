@@ -128,16 +128,12 @@ export default function Profile({navigation}) {
         <Text style={styles.namePerfil}>
           <VerifyName />
         </Text>
-        <ButtonFilmList
-          navigation={navigation}
-          navigate={'MyLists'}
-
-        />
+        <ButtonFilmList navigation={navigation} navigate={'MyLists'} />
         {evaluation ? (
-          <>
+          <View style={styles.valuePerfilContainer}>
             <Text style={styles.valuePerfil}>{evaluation}</Text>
             <Text style={styles.evaluationPerfil}>Avaliações</Text>
-          </>
+          </View>
         ) : (
           <Loading size={'large'} color={'#E9A6A6'} />
         )}

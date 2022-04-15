@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   fullscreen: {
@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '38%',
     alignItems: 'center',
+    justifyContent: 'space-around',
   },
 
   //Button Exit-------------
@@ -50,20 +51,22 @@ const styles = StyleSheet.create({
     color: 'white',
     marginBottom: 10,
   },
-
-  valuePerfil: {
+  valuePerfilContainer: {
+    alignItems: 'center',
     marginTop: 5,
+    marginBottom: 22,
+  },
+  valuePerfil: {
     fontSize: 24,
     fontWeight: '700',
     color: '#9C4A8B',
     fontFamily: 'open sans',
   },
-
   evaluationPerfil: {
+    marginTop: 5,
     fontSize: 11,
     fontWeight: '400',
     color: 'white',
-    marginBottom: 22,
   },
   //Fim Box Perfil
 
@@ -138,8 +141,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 20,
     alignSelf: 'center',
-    flexWrap: 'wrap',
-    justifyContent: 'space-evenly',
   },
   buttonListFavorites: {
     width: 67,
@@ -162,7 +163,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 20,
     alignSelf: 'center',
-    flexWrap: 'wrap',
   },
   buttonListTvShow: {
     width: 58,
