@@ -7,8 +7,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
 
   },
-
-
   containerLoading: {
     flex: 1,
     backgroundColor: 'black',
