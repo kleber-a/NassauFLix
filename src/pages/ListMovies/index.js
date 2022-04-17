@@ -77,7 +77,7 @@ export default function ListMovies({navigation, route}) {
     return (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('movies', [item.id, 'movie']);
+          navigation.navigate('movie', [item.id, 'movie']);
         }}
         style={styles.boxImage}>
         <MovieImage pathImage={item.poster_path} posterSize={'w92'} />
