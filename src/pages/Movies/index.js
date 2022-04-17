@@ -1,11 +1,11 @@
-import {View, Text, Image, FlatList} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import { View, Text, Image, FlatList } from 'react-native';
+import React, { useState, useEffect } from 'react';
 import Loading from '../../components/Loading';
-import {getCredits, getDetails} from '../../service/api';
+import { getCredits, getDetails } from '../../service/api';
 import styles from './styles';
 import HeaderMovies from '../../components/HeaderMovies';
 
-export default function Movies({route, navigation}) {
+export default function Movies({ route, navigation }) {
   const [id] = route.params;
   const [cast, setCast] = useState(null);
   const [details, setDetails] = useState(null);
@@ -34,7 +34,7 @@ export default function Movies({route, navigation}) {
     awaitGetDetails();
   }, [id]);
 
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
     return (
       <View style={styles.containerCast}>
         <View style={styles.containerProfileImg}>
@@ -60,7 +60,6 @@ export default function Movies({route, navigation}) {
     <View style={styles.container}>
       {cast && details ? (
         <FlatList
-          style={styles.viewFLatList}
           data={cast}
           keyExtractor={(item, index) => index}
           renderItem={renderItem}
@@ -73,7 +72,9 @@ export default function Movies({route, navigation}) {
           }
         />
       ) : (
-        <Loading />
+        <View style={styles.containerLoading} >
+          <Loading />
+        </View>
       )}
     </View>
   );

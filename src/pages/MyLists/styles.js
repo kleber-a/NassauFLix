@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,14 +12,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 30,
   },
+  containerLoading: {
+    width:'100%',
+    height:'100%',
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   boxText: {
     alignItems: 'center',
     marginTop: 30,
   },
   containerLista: {
     width: '100%',
-    height: 430,
-    marginTop: 20,
+  
   },
   boxLista: {
     backgroundColor: '#8F9AFC',
@@ -67,17 +73,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
-    zIndex:1
   },
   add: {
+    bottom: 35,
+    right: 40,
+    position: 'absolute',
     backgroundColor: '#E9A6A6',
     borderRadius: 30,
     width: 51,
     height: 51,
     alignItems: 'center',
-    alignSelf:'flex-end',
+    alignSelf: 'flex-end',
     justifyContent: 'center',
-    zIndex:2
+    
   },
   //Início Modal
   backgroundModal: {
@@ -88,7 +96,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   containerModal: {
-    width: '100%',
+    width: '90%',
     height: 200,
     backgroundColor: 'white',
     alignItems: 'center',
@@ -162,41 +170,39 @@ const styles = StyleSheet.create({
   },
   //Fim Modal
 
-
   containerAnimated: {
-    width: '100%',
+    width: '90%',
     height: 40,
     backgroundColor: '#1ed92b',
-    borderRadius:10,
-    flexDirection:'row',
-    justifyContent:'space-between',
-    alignItems:'center',
-    marginBottom:0,
-    position:'absolute',
+    borderRadius: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 100
   },
-  boxAnimated:{
-    flexDirection:'row',
-    marginLeft:'30%',
-    
+  boxAnimated: {
+    flexDirection: 'row',
+    width: 130,
+    justifyContent: 'space-between',
   },
-
   textAnimated: {
     color: 'black',
     fontSize: 17,
     fontWeight: '900',
   },
   Icon: {
-    backgroundColor: '#00FF00',
+    backgroundColor: '#eee',
     borderRadius: 30,
-    
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  
-  buttonx:{
-    width:40,
-    height:40,
-  
-    alignItems:'center',
-    justifyContent:'center'
+
+  buttonx: {
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

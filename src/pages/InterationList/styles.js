@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,6 +24,12 @@ const styles = StyleSheet.create({
   boxImage: {
     height: 95,
     width: 76,
+  },
+  containerLoading: {
+    flex: 1,
+    backgroundColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 export default styles;

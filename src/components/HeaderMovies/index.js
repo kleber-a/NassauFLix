@@ -77,7 +77,7 @@ export default function HeaderMovies({
   }, [isRated]);
 
   return (
-    <View style={styles.containerHeader}>
+    <View >
       <ModalAvaluate
         type={type}
         typeId={id}

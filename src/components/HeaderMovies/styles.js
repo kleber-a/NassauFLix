@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
   containerHeader: {
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'green',
   },
   containerDetails: {
     flexDirection: 'row',
@@ -30,9 +31,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   containerOverView: {
-    width: '90%',
-    marginVertical: 10,
+
+    alignSelf: 'center',
+    paddingVertical: 20,
+    width: '100%',
     alignItems: 'center',
+    paddingHorizontal: '5%',
   },
   modal: {
     alignItems: 'flex-start',
