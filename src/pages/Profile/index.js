@@ -1,11 +1,11 @@
-import React, {useState, useEffect, useContext} from 'react';
-import {View, Text, TouchableOpacity, Alert} from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import styles from './styles';
 import ButtonMovie from '../../components/ButtonMovie';
 import ButtonSeries from '../../components/ButtonSeries';
 import Exit from 'react-native-vector-icons/Ionicons';
 import UserImg from '../../components/User/UserImg';
-import {AuthContext} from '../../context/auth';
+import { AuthContext } from '../../context/auth';
 import {
   getFRMovies,
   getFRTvShow,
@@ -16,9 +16,10 @@ import MovieEvaluation from '../../components/Movie/MovieEvaluation';
 import VerifyName from '../../components/User/VerifyName';
 import Loading from '../../components/Loading';
 import ButtonFilmList from '../../components/ButtonFilmList';
+import ModalDelete from '../../components/ModalDelete';
 
-export default function Profile({navigation}) {
-  const {account, sessionId, logout} = useContext(AuthContext);
+export default function Profile({ navigation }) {
+  const { account, sessionId, logout } = useContext(AuthContext);
   const [evaluation, setEvaluation] = useState(null);
   const [type, setType] = useState({
     nameApi: 'movies',
@@ -106,13 +107,14 @@ export default function Profile({navigation}) {
           onPress: () => logout(),
         },
       ],
-      {cancelable: true},
+      { cancelable: true },
     );
   };
 
   return (
     <View style={styles.fullscreen}>
       <View style={styles.Perfil}>
+
         <TouchableOpacity
           onPress={() => {
             showAlert();

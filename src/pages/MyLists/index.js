@@ -14,16 +14,16 @@ import styles from './styles';
 import ButtonReturn from '../../components/ButtonReturn';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {AuthContext} from '../../context/auth';
-import {addList, getList, deletList} from '../../service/api';
+import { AuthContext } from '../../context/auth';
+import { addList, getList, deletList } from '../../service/api';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Loading from '../../components/Loading';
+import ModalDelete from '../../components/ModalDelete';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function MyLists({ navigation }) {
-  const lista1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const { account, sessionId, logout } = useContext(AuthContext);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -32,13 +32,13 @@ export default function MyLists({ navigation }) {
   const [page, setPage] = useState('1');
   const [dataList, setDataList] = useState();
   const [listSucess, setListSucess] = useState(false);
-
+  const [modalVisibleSucess, setModalVisibleSucess] = useState(false);
+  const [modalteste, setModalTeste] = useState();
   if (listSucess) {
     setTimeout(() => {
       setListSucess(false);
     }, 3000);
   }
-
   const [onButton, setOnButton] = useState(false);
   const [list, setList] = useState({
     name: name,
@@ -57,7 +57,7 @@ export default function MyLists({ navigation }) {
       setDataList(awaitlist.results);
     }
     awaitList();
-  }, [name, description,dataList]);
+  }, [name, description, dataList]);
 
   async function postList(list, sessionId) {
     const sucess = await addList(list, sessionId);
@@ -70,12 +70,12 @@ export default function MyLists({ navigation }) {
     }
   }
 
-  async function delList(id){
-    const awaitDelete = await deletList(id,sessionId);   
+  async function delList(id) {
+    const awaitDelete = await deletList(id, sessionId);
   }
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
-  
+
   const abrir = () => {
     Animated.timing(fadeAnim, {
       toValue: 20,
@@ -86,16 +86,24 @@ export default function MyLists({ navigation }) {
 
   return (
     <View style={styles.container}>
+
       <ButtonReturn navigation={navigation} />
       <View style={styles.boxText}>
         <Text style={styles.text}>Minhas listas</Text>
       </View>
+
+      <ModalDelete
+        setModalVisibleSucess={setModalVisibleSucess}
+        modalVisibleSucess={modalVisibleSucess}
+        sessionId={sessionId}
+        itemId={modalteste}
+      />
       <View style={styles.containerLista}>
         {dataList ? (
-          <ScrollView contentContainerStyle={{paddingBottom: 200}}>
+          <ScrollView contentContainerStyle={{ paddingBottom: 200 }}>
             {dataList &&
               dataList.map(item => (
-                <TouchableOpacity onPress={()=> navigation.navigate('ListMovies',[item.id])} key={item.id} style={styles.boxLista}>
+                <TouchableOpacity onPress={() => navigation.navigate('ListMovies', [item.id])} key={item.id} style={styles.boxLista}>
                   <View style={styles.boxDescription}>
                     <Text style={styles.nameList}>
                       {item.name.toUpperCase()}
@@ -104,10 +112,12 @@ export default function MyLists({ navigation }) {
                       {item.item_count} FILMES
                     </Text>
                   </View>
-                  <TouchableOpacity onPress={()=>{delList(item.id)}} style={styles.del}>
+                  <TouchableOpacity onPress={() => { setModalVisibleSucess(!modalVisibleSucess), setModalTeste(item.id) }} style={styles.del}>
                     <AntDesign name="delete" color="#EC2626" size={14} />
                   </TouchableOpacity>
                 </TouchableOpacity>
+
+
               ))}
           </ScrollView>
         ) : (
@@ -115,9 +125,9 @@ export default function MyLists({ navigation }) {
             <Loading />
           </View>
         )}
-       
-       {listSucess && (
-          <Animated.View style={[styles.containerAnimated, {left: fadeAnim}]}>
+
+        {listSucess && (
+          <Animated.View style={[styles.containerAnimated, { left: fadeAnim }]}>
             <View style={styles.boxAnimated}>
               <MaterialIcons
                 style={styles.Icon}
@@ -129,7 +139,7 @@ export default function MyLists({ navigation }) {
             </View>
           </Animated.View>
         )}
-    
+
       </View>
       <TouchableOpacity
         style={styles.add}
@@ -138,7 +148,7 @@ export default function MyLists({ navigation }) {
       </TouchableOpacity>
       <View style={styles.viewplus}>
         <Modal
-          style={{alignItems: 'center', justifyContent: 'center'}}
+          style={{ alignItems: 'center', justifyContent: 'center' }}
           animationType="fade"
           transparent={true}
           visible={modalVisible}
@@ -181,13 +191,13 @@ export default function MyLists({ navigation }) {
                 </TouchableOpacity>
                 {name !== '' ? (
                   <TouchableOpacity
-                    style={[styles.buttonSaveModal, {backgroundColor: 'black'}]}
+                    style={[styles.buttonSaveModal, { backgroundColor: 'black' }]}
                     onPress={() => {
                       setListSucess(true);
                       abrir();
                       postList(list, sessionId);
                     }}>
-                    <Text style={[styles.textButtonModal, {color: 'white'}]}>
+                    <Text style={[styles.textButtonModal, { color: 'white' }]}>
                       SALVAR
                     </Text>
                   </TouchableOpacity>
@@ -207,6 +217,6 @@ export default function MyLists({ navigation }) {
           </View>
         </Modal>
       </View>
-    </View>
+    </View >
   );
 }

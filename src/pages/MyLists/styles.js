@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   containerLoading: {
-   
+    width:'100%',
+    height:'100%',
     backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',

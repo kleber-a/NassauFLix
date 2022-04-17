@@ -97,11 +97,8 @@ export default function InterationList({ navigation, route }) {
           onEndReachedThreshold={0.3}
           numColumns={numColumns}
         />
-      ) : (
-        <View style={styles.containerLoading}>
-          <Loading />
-        </View>
-      )}
+      ) : (<Loading />
+     )}
     </View>
   );
 }
