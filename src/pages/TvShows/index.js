@@ -1,9 +1,17 @@
-import {View, Text, Animated, TouchableOpacity, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  Animated,
+  TouchableOpacity,
+  FlatList,
+  Easing,
+} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {getTvShow, getTvShowSeason} from '../../service/api';
 import styles from './styles';
 import Loading from '../../components/Loading';
-import IconTvShow from '../../components/IconTvShow';
+import Icon from 'react-native-vector-icons/EvilIcons';
+
 import HeaderTvShows from '../../components/HeaderTvShows';
 
 export default function TvShows({route, navigation}) {
@@ -18,6 +26,20 @@ export default function TvShows({route, navigation}) {
     toValue: 0,
     useNativeDriver: false,
   }).start();
+
+  const iconArrow = new Animated.Value(0);
+  Animated.timing(iconArrow, {
+    toValue: 1,
+    duration: 800,
+    easing: Easing.linear,
+    useNativeDriver: false,
+  }).start();
+  // };
+
+  const rotateArrow = iconArrow.interpolate({
+    inputRange: [0, 1],
+    outputRange: selection ? ['0deg', '180deg'] : ['180deg', '0deg'],
+  });
 
   useEffect(() => {
     async function awaitGetTvShow() {
@@ -55,11 +77,19 @@ export default function TvShows({route, navigation}) {
               ? setSelection(true)
               : setSelection(!selection);
             setBodyHeight(new Animated.Value(-1000));
+            iconArrow.setValue(0);
             setCurrentIndex(index);
           }}>
           <View style={styles.listContainerSeasons}>
             <Text style={styles.textSeasons}>{item.name}</Text>
-            <IconTvShow loading={selection && index === currentIndex} />
+            <Animated.View
+              style={
+                index === currentIndex && {
+                  transform: [{rotate: rotateArrow}],
+                }
+              }>
+              <Icon size={20} color={'white'} name={'chevron-down'} />
+            </Animated.View>
           </View>
         </TouchableOpacity>
         <View style={{overflow: 'hidden'}}>
@@ -96,24 +126,24 @@ export default function TvShows({route, navigation}) {
   };
 
   return tvShow ? (
-    <View style={styles.container} >
+    <View style={styles.container}>
       <FlatList
         data={tvShow.seasons}
         keyExtractor={(item, index) => index}
         renderItem={renderItem}
-        ListHeaderComponent={<HeaderTvShows
-          navigate={navigation}
-          type={type}
-          id={id}
-          tvShow={tvShow && tvShow}
-        />}
+        ListHeaderComponent={
+          <HeaderTvShows
+            navigate={navigation}
+            type={type}
+            id={id}
+            tvShow={tvShow && tvShow}
+          />
+        }
       />
     </View>
   ) : (
     <View style={styles.containerLoading}>
       <Loading />
     </View>
-  )
+  );
 }
-
-
