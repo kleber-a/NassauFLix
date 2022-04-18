@@ -16,7 +16,7 @@ import MovieEvaluation from '../../components/Movie/MovieEvaluation';
 import VerifyName from '../../components/User/VerifyName';
 import Loading from '../../components/Loading';
 import ButtonFilmList from '../../components/ButtonFilmList';
-import ModalDelete from '../../components/ModalDelete';
+import ModalLogout from '../../components/ModalLogout';
 
 export default function Profile({ navigation }) {
   const { account, sessionId, logout } = useContext(AuthContext);
@@ -41,7 +41,7 @@ export default function Profile({ navigation }) {
   const [ratedMovies, setRatedMovies] = useState(null);
   const [favoriteTvShow, setFavoriteTvShow] = useState(null);
   const [ratedTvShow, setRatedTvShow] = useState(null);
-
+  const [modalVisibleSucess, setModalVisibleSucess] = useState(false)
   async function awaitDataMovies() {
     const favoriteMoviesData = await getFRMovies(
       account.id,
@@ -93,31 +93,18 @@ export default function Profile({ navigation }) {
     });
   }
 
-  const showAlert = () => {
-    Alert.alert(
-      'Atenção',
-      'Deseja mesmo sair?',
-      [
-        {
-          text: 'Cancelar',
-          style: 'cancel',
-        },
-        {
-          text: 'Sim',
-          onPress: () => logout(),
-        },
-      ],
-      { cancelable: true },
-    );
-  };
-
   return (
+
     <View style={styles.fullscreen}>
       <View style={styles.Perfil}>
+        <ModalLogout
+          setModalVisibleSucess={setModalVisibleSucess}
+          modalVisibleSucess={modalVisibleSucess}
 
+        />
         <TouchableOpacity
           onPress={() => {
-            showAlert();
+            setModalVisibleSucess(!modalVisibleSucess)
           }}
           style={styles.buttonExitPerfil}>
           <Exit size={10} name="exit-outline" />
