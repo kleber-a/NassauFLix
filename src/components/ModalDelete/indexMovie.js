@@ -1,4 +1,4 @@
-import React, { useEffect }from 'react';
+import React, { useEffect } from 'react';
 import { Modal, View, Text, TouchableOpacity } from 'react-native';
 import { removeMovieList } from '../../service/api'
 import styles from './styles'
@@ -44,4 +44,4 @@ export default function ModalDeleteMovie({ movieId, setModalVisibleSucess, modal
             </View>
         </Modal >
     )
-}
+};
