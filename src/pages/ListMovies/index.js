@@ -11,7 +11,7 @@ import Pencil from 'react-native-vector-icons/EvilIcons';
 import Eye from 'react-native-vector-icons/Ionicons';
 import { AuthContext } from '../../context/auth';
 import formatDataFlatlist from '../../function/formDataFlatlist';
-import ModalDeleteMovie from '../../components/ModalDelete/index copy';
+import ModalDeleteMovie from '../../components/ModalDelete/indexMovie';
 
 export default function ListMovies({ navigation, route }) {
   const [idList] = route.params;
@@ -99,6 +99,7 @@ export default function ListMovies({ navigation, route }) {
         sessionId={sessionId}
         detailsListId={detailsList.id}
         itemId={item.id}
+        movieId={movieId}
       />
     </View>
     );
