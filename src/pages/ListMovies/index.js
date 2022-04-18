@@ -19,7 +19,9 @@ export default function ListMovies({navigation, route}) {
   const [isEnable, setIsEnable] = useState(false);
   const {sessionId} = useContext(AuthContext);
   const [movieId, SetMovieId] = useState(null);
+  const [itemId, setItemId] = useState(null);
   const [modalVisibleSucess, setModalVisibleSucess] = useState(false);
+
   async function awaitDetailsList() {
     const dataDetailsList = await getDetailsList(idList);
     setDetailsList(dataDetailsList);
@@ -37,6 +39,7 @@ export default function ListMovies({navigation, route}) {
     await removeMovieList(detailsList.id, movieId, sessionId);
     awaitDetailsList();
   }
+
   useEffect(() => {
     deleteMovies(movieId);
   }, [movieId]);
@@ -79,15 +82,19 @@ export default function ListMovies({navigation, route}) {
     return (
       <View>
         <TouchableOpacity
+          activeOpacity={1}
           onPress={() => {
-            navigation.navigate('movie', [item.id, 'movie']);
+            !isEnable && navigation.navigate('movie', [item.id, 'movie']);
           }}
           style={styles.boxImage}>
           <MovieImage pathImage={item.poster_path} posterSize={'w92'} />
           {isEnable && (
             <TouchableOpacity
               style={styles.boxDelete}
-              onPress={() => [setModalVisibleSucess(true)]}>
+              onPress={() => {
+                setModalVisibleSucess(true);
+                setItemId(item.id);
+              }}>
               <Icon name={'horizontal-rule'} size={6} color={'red'} />
             </TouchableOpacity>
           )}
@@ -98,8 +105,9 @@ export default function ListMovies({navigation, route}) {
           SetMovieId={SetMovieId}
           sessionId={sessionId}
           detailsListId={detailsList.id}
-          itemId={item.id}
+          itemId={itemId}
           movieId={movieId}
+          awaitDetailsList={awaitDetailsList}
         />
       </View>
     );
