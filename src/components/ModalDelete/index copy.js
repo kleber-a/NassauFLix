@@ -1,11 +1,16 @@
 import React from 'react';
 import { Modal, View, Text, TouchableOpacity } from 'react-native';
-import { deletList } from '../../service/api'
+import { removeMovieList } from '../../service/api'
 import styles from './styles';
 
-export default function ModalDelete({ setModalVisibleSucess, modalVisibleSucess, itemId, sessionId }) {
-    async function delList(id) {
-        const awaitDelete = await deletList(id, sessionId);
+export default function ModalDeleteMovie({ setModalVisibleSucess, modalVisibleSucess, SetMovieId, sessionId, detailsListId, itemId }) {
+
+    async function deleteMovies(movieId) {
+        await removeMovieList(detailsListId, movieId, sessionId);
+        awaitDetailsList();
+        useEffect(() => {
+            deleteMovies(movieId);
+        }, [movieId]);
     }
     return (
         <Modal
@@ -19,7 +24,7 @@ export default function ModalDelete({ setModalVisibleSucess, modalVisibleSucess,
                 <View style={styles.modalSucess}>
                     <Text style={styles.textModalAtention}> Atenção!</Text>
                     <Text style={styles.textModalSucess}>
-                        Deseja mesmo remover a lista ?</Text>
+                        Deseja mesmo remover o filme ?</Text>
                     <View style={styles.modalBox}>
                         <TouchableOpacity
                             onPress={() => setModalVisibleSucess(!modalVisibleSucess)}
@@ -29,7 +34,7 @@ export default function ModalDelete({ setModalVisibleSucess, modalVisibleSucess,
                         <TouchableOpacity
                             style={styles.buttonModalYes}
                             onPress={() => {
-                                [delList(itemId), setModalVisibleSucess(!modalVisibleSucess)]
+                                [SetMovieId({ media : itemId }), setModalVisibleSucess(!modalVisibleSucess)]
                             }
                             }>
                             <Text style={styles.textStyleYes}>Sim</Text>
