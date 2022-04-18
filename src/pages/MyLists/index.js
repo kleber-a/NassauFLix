@@ -32,7 +32,8 @@ export default function MyLists({navigation}) {
   const [dataList, setDataList] = useState();
   const [listSucess, setListSucess] = useState(false);
   const [modalVisibleSucess, setModalVisibleSucess] = useState(false);
-  const [modalteste, setModalTeste] = useState();
+  const [idList, setIdList] = useState();
+
   if (listSucess) {
     setTimeout(() => {
       setListSucess(false);
@@ -89,12 +90,11 @@ export default function MyLists({navigation}) {
       <View style={styles.boxText}>
         <Text style={styles.text}>Minhas listas</Text>
       </View>
-
       <ModalDelete
         setModalVisibleSucess={setModalVisibleSucess}
         modalVisibleSucess={modalVisibleSucess}
         sessionId={sessionId}
-        itemId={modalteste}
+        itemId={idList}
       />
       <View style={styles.containerLista}>
         {dataList ? (
@@ -116,7 +116,7 @@ export default function MyLists({navigation}) {
                   <TouchableOpacity
                     onPress={() => {
                       setModalVisibleSucess(!modalVisibleSucess),
-                        setModalTeste(item.id);
+                        setIdList(item.id);
                     }}
                     style={styles.del}>
                     <AntDesign name="delete" color="#EC2626" size={14} />
