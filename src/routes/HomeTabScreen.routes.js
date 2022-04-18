@@ -6,9 +6,6 @@ import ButtonUser from '../components/TabButtons/ButtonUser';
 import StackMovies from './StackMovies.routes';
 import StackTvShows from './StackTvShos.routes';
 import StackProfile from './StackProfile.routes';
-import Teste from '../pages/Teste';
-import MyLists from '../pages/MyLists';
-
 
 function HomeTabScreen() {
   const Tab = createBottomTabNavigator();
