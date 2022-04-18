@@ -33,7 +33,7 @@ export default function ListMovies({navigation, route}) {
     return () => {
       setDetailsList(null);
     };
-  }, [navigation]);
+  }, [idList, navigation]);
 
   async function deleteMovies(movieId) {
     await removeMovieList(detailsList.id, movieId, sessionId);
@@ -41,7 +41,7 @@ export default function ListMovies({navigation, route}) {
   }
 
   useEffect(() => {
-    deleteMovies(movieId);
+    movieId && deleteMovies(movieId);
   }, [movieId]);
 
   const renderHeader = () => {
