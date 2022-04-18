@@ -30,11 +30,10 @@ export default function TvShows({route, navigation}) {
   const iconArrow = new Animated.Value(0);
   Animated.timing(iconArrow, {
     toValue: 1,
-    duration: 800,
-    easing: Easing.linear,
+    duration: 500,
+    easing: Easing.ease,
     useNativeDriver: false,
   }).start();
-  // };
 
   const rotateArrow = iconArrow.interpolate({
     inputRange: [0, 1],
