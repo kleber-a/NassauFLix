@@ -1,23 +1,25 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styles from './styles';
-import {Text, View, FlatList, TouchableOpacity} from 'react-native';
+import { Text, View, FlatList, TouchableOpacity } from 'react-native';
 import Loading from '../../components/Loading';
-import {getDetailsList, removeMovieList} from '../../service/api';
+import { getDetailsList, removeMovieList } from '../../service/api';
 import MovieImage from '../../components/Movie/MovieImage';
 import ButtonReturn from '../../components/ButtonReturn';
 import Icon from 'react-native-vector-icons/Octicons';
 import Toggle from 'react-native-toggle-element';
 import Pencil from 'react-native-vector-icons/EvilIcons';
 import Eye from 'react-native-vector-icons/Ionicons';
-import {AuthContext} from '../../context/auth';
+import { AuthContext } from '../../context/auth';
 import formatDataFlatlist from '../../function/formDataFlatlist';
+import ModalDeleteMovie from '../../components/ModalDelete/indexMovie';
 
-export default function ListMovies({navigation, route}) {
+export default function ListMovies({ navigation, route }) {
   const [idList] = route.params;
   const [detailsList, setDetailsList] = useState(null);
   const [isEnable, setIsEnable] = useState(false);
-  const {account, sessionId} = useContext(AuthContext);
+  const { account, sessionId } = useContext(AuthContext);
   const [movieId, SetMovieId] = useState(null);
+  const [modalVisibleSucess, setModalVisibleSucess] = useState(false);
   async function awaitDetailsList() {
     const dataDetailsList = await getDetailsList(idList);
     setDetailsList(dataDetailsList);
@@ -70,11 +72,11 @@ export default function ListMovies({navigation, route}) {
     );
   };
 
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
     if (item.empty === true) {
       return <View style={[styles.boxImage, styles.itemInvisible]} />;
     }
-    return (
+    return (<View>
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('movie', [item.id, 'movie']);
@@ -84,16 +86,28 @@ export default function ListMovies({navigation, route}) {
         {isEnable && (
           <TouchableOpacity
             style={styles.boxDelete}
-            onPress={() => SetMovieId({media_id: item.id})}>
+            onPress={() => [setModalVisibleSucess(true)]}>
             <Icon name={'horizontal-rule'} size={6} color={'red'} />
           </TouchableOpacity>
-        )}
-      </TouchableOpacity>
+        )
+        }
+      </TouchableOpacity >
+      <ModalDeleteMovie
+        setModalVisibleSucess={setModalVisibleSucess}
+        modalVisibleSucess={modalVisibleSucess}
+        SetMovieId={SetMovieId}
+        sessionId={sessionId}
+        detailsListId={detailsList.id}
+        itemId={item.id}
+        movieId={movieId}
+      />
+    </View>
     );
   };
 
   return detailsList ? (
     <View style={styles.container}>
+
       <FlatList
         data={formatDataFlatlist(detailsList.items, 4)}
         ListHeaderComponentStyle={styles.containerHeaderFlatList}

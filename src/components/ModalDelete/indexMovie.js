@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Modal, View, Text, TouchableOpacity } from 'react-native';
-import { deletList } from '../../service/api'
-import styles from './styles';
+import { removeMovieList } from '../../service/api'
+import styles from './styles'
 
-export default function ModalDelete({ setModalVisibleSucess, modalVisibleSucess, itemId, sessionId }) {
-    async function delList(id) {
-        const awaitDelete = await deletList(id, sessionId);
+export default function ModalDeleteMovie({ movieId, setModalVisibleSucess, modalVisibleSucess, SetMovieId, sessionId, detailsListId, itemId }) {
+
+    async function deleteMovies(movieId) {
+        await removeMovieList(detailsListId, movieId, sessionId);
+        awaitDetailsList();
     }
+    useEffect(() => {
+        deleteMovies(movieId);
+    }, [movieId]);
     return (
         <Modal
             animationType="fade"
@@ -29,7 +34,7 @@ export default function ModalDelete({ setModalVisibleSucess, modalVisibleSucess,
                         <TouchableOpacity
                             style={styles.buttonModalYes}
                             onPress={() => {
-                                [delList(itemId), setModalVisibleSucess(!modalVisibleSucess)]
+                                [SetMovieId({ media_id: itemId }), setModalVisibleSucess(!modalVisibleSucess)]
                             }
                             }>
                             <Text style={styles.textStyleYes}>Sim</Text>
@@ -39,4 +44,4 @@ export default function ModalDelete({ setModalVisibleSucess, modalVisibleSucess,
             </View>
         </Modal >
     )
-}
+};

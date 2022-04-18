@@ -66,57 +66,9 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     fontFamily: 'Open Sans',
   },
-  buttonSave: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'center',
-    backgroundColor: '#000000',
-    width: 83.22,
-    height: 20.22,
-    borderRadius: 5,
-    marginVertical: 16,
-  },
-  textStyleNo: {
-    color: '#FFFFFF',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    fontFamily: 'Open Sans',
-    fontSize: 10,
-  },
-
-  textStyleYes: {
-    color: '#000000',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    fontFamily: 'Open Sans',
-    fontSize: 10,
-  },
+  
 
 
-  iconClose: {
-    color: '#000000',
-    fontSize: 20,
-  },
-  containerOpenModal: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#C4C4C4',
-    borderRadius: 25,
-  },
-  textOpenModal: {
-    color: '#000000',
-    fontWeight: 'bold',
-    fontFamily: 'Open Sans',
-    fontSize: 8,
-    marginRight: 8,
-    marginLeft: 6,
-  },
-  iconOpenModal: {
-    backgroundColor: 'white',
-    borderRadius: 50,
-    color: 'black',
-  },
 
   modalSucessBackground: {
     backgroundColor: 'rgba(0,0,0,0.4)',
@@ -178,7 +130,21 @@ const styles = StyleSheet.create({
     height: 20.22,
     borderRadius: 5,
   },
+  textStyleNo: {
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontFamily: 'Open Sans',
+    fontSize: 10,
+  },
 
+  textStyleYes: {
+    color: '#000000',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontFamily: 'Open Sans',
+    fontSize: 10,
+  },
 
 });
 export default styles;

@@ -2,7 +2,7 @@ import { View, Text, Image, FlatList } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import Loading from '../../components/Loading';
 import { getCredits, getDetails } from '../../service/api';
-import styles from './styles';
+import styles from './styles'
 import HeaderMovies from '../../components/HeaderMovies';
 
 export default function Movies({ route, navigation }) {

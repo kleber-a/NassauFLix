@@ -3,7 +3,8 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: '#000000',
+
   },
   text: {
     color: '#FFF',
@@ -13,11 +14,9 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   containerLoading: {
-    width:'100%',
-    height:'100%',
-    backgroundColor: 'black',
-    justifyContent: 'center',
-    alignItems: 'center',
+    position: 'absolute',
+    alignSelf: 'center',
+    marginTop: 150,
   },
   boxText: {
     alignItems: 'center',
@@ -25,7 +24,7 @@ const styles = StyleSheet.create({
   },
   containerLista: {
     width: '100%',
-  
+    height: '100%',
   },
   boxLista: {
     backgroundColor: '#8F9AFC',
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'flex-end',
     justifyContent: 'center',
-    
+
   },
   //Início Modal
   backgroundModal: {

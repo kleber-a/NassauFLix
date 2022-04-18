@@ -28,7 +28,6 @@ export default function MyLists({ navigation }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalVisible2, setModalVisible2] = useState(false);
   const [page, setPage] = useState('1');
   const [dataList, setDataList] = useState();
   const [listSucess, setListSucess] = useState(false);
@@ -97,6 +96,7 @@ export default function MyLists({ navigation }) {
         modalVisibleSucess={modalVisibleSucess}
         sessionId={sessionId}
         itemId={modalteste}
+        
       />
       <View style={styles.containerLista}>
         {dataList ? (
