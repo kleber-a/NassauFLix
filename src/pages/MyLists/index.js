@@ -18,7 +18,7 @@ import { AuthContext } from '../../context/auth';
 import { addList, getList, deletList } from '../../service/api';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Loading from '../../components/Loading';
-import ModalDelete from '../../components/ModalDelete';
+import ModalDelete from '../../components/ModalDelete/indexlista';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
