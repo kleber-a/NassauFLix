@@ -22,11 +22,13 @@ export default function ModalAvaluate({
 }) {
   const [avaluate, setAvaluate] = useState(null);
   const [error, setError] = useState(false);
+  const [disabled, setDisabled] = useState(true);
   const [errorNumberAfter, setErrorNumberAfter] = useState(false);
   const {sessionId} = useContext(AuthContext);
 
   useEffect(() => {
     setAvaluate(null);
+    setDisabled(true);
     setError(false);
     setErrorNumberAfter(false);
   }, [modalIsVisible]);
@@ -41,12 +43,13 @@ export default function ModalAvaluate({
     );
 
     setError(!regexModal.test(value));
+
     if (!regexModal.test(value)) {
       setErrorNumberAfter(false);
     } else {
       setErrorNumberAfter(!regexModalNumberAfter.test(value));
     }
-    return !regexModal.test(value) || !regexModalNumberAfter.test(value);
+    return !regexModal.test(value);
   }
 
   async function changeAvaluate() {
@@ -87,6 +90,7 @@ export default function ModalAvaluate({
                     style={styles.input}
                     maxLength={3}
                     onFocus={value => {
+                      setDisabled(false);
                       handleError(avaluate);
                     }}
                     onChangeText={value => {
@@ -116,13 +120,25 @@ export default function ModalAvaluate({
                   <Text style={styles.buttonCancel.text}>cancelar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={styles.buttonOk}
+                  disabled={error || errorNumberAfter || disabled}
+                  style={
+                    error || errorNumberAfter || disabled
+                      ? styles.buttonOkDisabled
+                      : styles.buttonOk
+                  }
                   onPress={() => {
-                    handleError(avaluate && avaluate)
+                    error || errorNumberAfter || disabled
                       ? null
                       : changeAvaluate() && setModalVisible(!modalIsVisible);
                   }}>
-                  <Text style={styles.buttonOk.text}>ok</Text>
+                  <Text
+                    style={
+                      error || errorNumberAfter || disabled
+                        ? styles.buttonOkDisabled.text
+                        : styles.buttonOk.text
+                    }>
+                    ok
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -132,3 +148,25 @@ export default function ModalAvaluate({
     </Modal>
   );
 }
+
+//  <TouchableOpacity
+//             disabled={handleError(avaluate && avaluate.value)}
+//             style={
+//               handleError(avaluate && avaluate.value)
+//                 ? styles.buttonOkDisabled
+//                 : styles.buttonOk
+//             }
+//             onPress={() => {
+//               handleError(avaluate && avaluate.value)
+//                 ? setError(true)
+//                 : changeAvaluate() && setModalVisible(!modalIsVisible);
+//             }}>
+//             <Text
+//               style={
+//                 handleError(avaluate && avaluate.value)
+//                   ? styles.buttonOkDisabled.text
+//                   : styles.buttonOk.text
+//               }>
+//               ok
+//             </Text>
+//           </TouchableOpacity>
