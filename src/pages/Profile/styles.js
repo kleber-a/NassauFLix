@@ -11,8 +11,9 @@ const styles = StyleSheet.create({
   //Box Perfil
   Perfil: {
     width: '100%',
-    height: '36%',
+    height: '38%',
     alignItems: 'center',
+    justifyContent: 'space-around',
   },
 
   //Button Exit-------------
@@ -48,17 +49,21 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     color: 'white',
+    marginBottom: 10,
   },
-
+  valuePerfilContainer: {
+    alignItems: 'center',
+    marginTop: 5,
+    marginBottom: 22,
+  },
   valuePerfil: {
     fontSize: 24,
     fontWeight: '700',
-    marginTop: 20,
     color: '#9C4A8B',
     fontFamily: 'open sans',
   },
-
   evaluationPerfil: {
+    marginTop: 5,
     fontSize: 11,
     fontWeight: '400',
     color: 'white',
@@ -68,7 +73,7 @@ const styles = StyleSheet.create({
   //Box Button
   containerButton: {
     width: '100%',
-    height: '10%',
+    height: '9%',
     backgroundColor: 'black',
     flexDirection: 'row',
   },
@@ -100,7 +105,7 @@ const styles = StyleSheet.create({
 
   //Container List
   containerList: {
-    height: '54%',
+    height: '53%',
     width: '100%',
   },
 
@@ -136,8 +141,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 20,
     alignSelf: 'center',
-    flexWrap: 'wrap',
-    justifyContent: 'space-evenly',
   },
   buttonListFavorites: {
     width: 67,
@@ -160,7 +163,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 20,
     alignSelf: 'center',
-    flexWrap: 'wrap',
   },
   buttonListTvShow: {
     width: 58,

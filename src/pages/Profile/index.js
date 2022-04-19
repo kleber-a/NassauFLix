@@ -15,20 +15,25 @@ import MovieImage from '../../components/Movie/MovieImage';
 import MovieEvaluation from '../../components/Movie/MovieEvaluation';
 import VerifyName from '../../components/User/VerifyName';
 import Loading from '../../components/Loading';
+import ButtonFilmList from '../../components/ButtonFilmList';
+import ModalLogout from '../../components/ModalLogout';
 
 export default function Profile({navigation}) {
   const {account, sessionId, logout} = useContext(AuthContext);
   const [evaluation, setEvaluation] = useState(null);
-  const [type, setType] = useState('movies');
+  const [type, setType] = useState({
+    nameApi: 'movies',
+    name: 'movie',
+    nameRated: 'Avaliações de filmes recentes',
+    nameFavorite: 'Filmes favoritos',
+  });
 
-  //Lista Favoritos e Avaliados
-  const [listFavorites, setListFavorites] = useState(null);
-  const [listRated, setListRated] = useState(null);
-  const [nameRated, setNameRated] = useState('Avaliações de filmes recentes');
-  const [nameFavorite, setNameFavorite] = useState('Filmes favoritos');
+  // //Nomes Favoritos e Avaliados
+  // const [nameRated, setNameRated] = useState('Avaliações de filmes recentes');
+  // const [nameFavorite, setNameFavorite] = useState('Filmes favoritos');
 
   //Botão Movie e Séries
-  const [btMovies, setBtMovies] = useState(false);
+  const [btMovies, setBtMovies] = useState(true);
   const [btSeries, setBtSeries] = useState(false);
 
   //Filmes e Séries Avaliados e Favoritos
@@ -36,82 +41,68 @@ export default function Profile({navigation}) {
   const [ratedMovies, setRatedMovies] = useState(null);
   const [favoriteTvShow, setFavoriteTvShow] = useState(null);
   const [ratedTvShow, setRatedTvShow] = useState(null);
+  const [modalVisibleSucess, setModalVisibleSucess] = useState(false);
+  async function awaitDataMovies() {
+    const favoriteMoviesData = await getFRMovies(
+      account.id,
+      sessionId,
+      'favorite',
+    );
+    setFavoriteMovies(favoriteMoviesData);
+    const ratedMoviesData = await getFRMovies(account.id, sessionId, 'rated');
+    setRatedMovies(ratedMoviesData);
+    const evaluationData = await getAllRatedEvaliation(account.id, sessionId);
+    setEvaluation(evaluationData);
+  }
+
+  async function awaitDataTvShow() {
+    const favoriteTvShowData = await getFRTvShow(
+      account.id,
+      sessionId,
+      'favorite',
+    );
+    setFavoriteTvShow(favoriteTvShowData);
+    const ratedTvShowData = await getFRTvShow(account.id, sessionId, 'rated');
+    setRatedTvShow(ratedTvShowData);
+    const evaluationData = await getAllRatedEvaliation(account.id, sessionId);
+    setEvaluation(evaluationData);
+  }
 
   useEffect(() => {
-    async function awaitData() {
-      const favoriteMovies = await getFRMovies(
-        account.id,
-        sessionId,
-        'favorite',
-      );
-      setFavoriteMovies(favoriteMovies);
-      const ratedMovies = await getFRMovies(account.id, sessionId, 'rated');
-      setRatedMovies(ratedMovies);
-      const favoriteTvShow = await getFRTvShow(
-        account.id,
-        sessionId,
-        'favorite',
-      );
-      setFavoriteTvShow(favoriteTvShow);
-      const ratedTvShow = await getFRTvShow(account.id, sessionId, 'rated');
-
-      const evaluation = await getAllRatedEvaliation(account.id, sessionId);
-      setEvaluation(evaluation);
-
-      setRatedTvShow(ratedTvShow);
-
-      setBtMovies(true);
-      setBtSeries(false);
-      setListFavorites(favoriteMovies);
-      setListRated(ratedMovies);
-    }
     navigation.addListener('focus', () => {
-      awaitData();
+      awaitDataMovies();
+      awaitDataTvShow();
     });
-  }, [account.id, sessionId, navigation]);
+  }, [navigation]);
+
   function selectionButtonMovie() {
-    setType('movies');
-    setNameRated('Avaliações de filmes recentes');
-    setNameFavorite('Filmes favoritos');
-    setBtMovies(true);
-    setBtSeries(false);
-    setListFavorites(favoriteMovies);
-    setListRated(ratedMovies);
-  }
-  function selectionButtonSeries() {
-    setType('tv');
-    setNameRated('Avaliações de série recentes');
-    setNameFavorite('Séries favoritas');
-    setBtSeries(true);
-    setBtMovies(false);
-    setListFavorites(favoriteTvShow);
-    setListRated(ratedTvShow);
+    setType({
+      nameApi: 'movies',
+      name: 'movie',
+      nameRated: 'Avaliações de filmes recentes',
+      nameFavorite: 'Filmes favoritos',
+    });
   }
 
-  const showAlert = () => {
-    Alert.alert(
-      'Atenção',
-      'Deseja mesmo sair?',
-      [
-        {
-          text: 'Cancelar',
-          style: 'cancel',
-        },
-        {
-          text: 'Sim',
-          onPress: () => logout(),
-        },
-      ],
-      {cancelable: true},
-    );
-  };
+  function selectionButtonSeries() {
+    setType({
+      nameApi: 'tv',
+      name: 'tv',
+      nameRated: 'Avaliações de série recentes',
+      nameFavorite: 'Séries favoritas',
+    });
+  }
 
   return (
     <View style={styles.fullscreen}>
       <View style={styles.Perfil}>
+        <ModalLogout
+          setModalVisibleSucess={setModalVisibleSucess}
+          modalVisibleSucess={modalVisibleSucess}
+        />
         <TouchableOpacity
           onPress={() => {
-            showAlert();
+            setModalVisibleSucess(!modalVisibleSucess);
           }}
           style={styles.buttonExitPerfil}>
           <Exit size={10} name="exit-outline" />
@@ -124,11 +115,12 @@ export default function Profile({navigation}) {
         <Text style={styles.namePerfil}>
           <VerifyName />
         </Text>
+        <ButtonFilmList navigation={navigation} navigate={'MyLists'} />
         {evaluation ? (
-          <>
+          <View style={styles.valuePerfilContainer}>
             <Text style={styles.valuePerfil}>{evaluation}</Text>
             <Text style={styles.evaluationPerfil}>Avaliações</Text>
-          </>
+          </View>
         ) : (
           <Loading size={'large'} color={'#E9A6A6'} />
         )}
@@ -137,13 +129,21 @@ export default function Profile({navigation}) {
       <View style={styles.containerButton}>
         <TouchableOpacity
           style={styles.buttonMovieContainer}
-          onPress={() => selectionButtonMovie()}>
+          onPress={() => {
+            selectionButtonMovie();
+            setBtMovies(true);
+            setBtSeries(false);
+          }}>
           <ButtonMovie loading={btMovies} />
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.buttonTvShowContainer}
-          onPress={() => selectionButtonSeries()}>
+          onPress={() => {
+            selectionButtonSeries();
+            setBtSeries(true);
+            setBtMovies(false);
+          }}>
           <ButtonSeries loading1={btSeries} />
         </TouchableOpacity>
       </View>
@@ -152,36 +152,41 @@ export default function Profile({navigation}) {
         <View style={styles.boxListMovie}>
           <View style={styles.description}>
             <Text style={styles.textDescription}>
-              {nameFavorite} de <VerifyName />
+              {type.nameFavorite} de <VerifyName />
             </Text>
             <TouchableOpacity
               style={styles.buttonDescription}
               onPress={() => {
                 navigation.navigate('InterationList', [
                   'favorite',
-                  type,
-                  nameFavorite,
+                  type.nameApi,
+                  type.nameFavorite,
+                  type.name,
                 ]);
               }}>
               <Text style={styles.textButtonDescription}>Ver tudo</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.listFavorites}>
-            {listFavorites ? (
-              listFavorites.map((listFavorites, index) =>
-                index <= 3 ? (
-                  <TouchableOpacity
-                    key={listFavorites.id}
-                    style={styles.buttonListFavorites}
-                    onPress={() => {
-                      navigation.navigate(type, [listFavorites.id, type]);
-                    }}>
-                    <MovieImage
-                      pathImage={listFavorites.poster_path}
-                      posterSize={'w92'}
-                    />
-                  </TouchableOpacity>
-                ) : null,
+            {favoriteMovies && favoriteTvShow ? (
+              (btMovies ? favoriteMovies : favoriteTvShow).map(
+                (favorites, index) =>
+                  index <= 3 ? (
+                    <TouchableOpacity
+                      key={favorites.id}
+                      style={styles.buttonListFavorites}
+                      onPress={() => {
+                        navigation.navigate(type.name, [
+                          favorites.id,
+                          type.name,
+                        ]);
+                      }}>
+                      <MovieImage
+                        pathImage={favorites.poster_path}
+                        posterSize={'w92'}
+                      />
+                    </TouchableOpacity>
+                  ) : null,
               )
             ) : (
               <Loading size={'large'} color={'#E9A6A6'} />
@@ -192,35 +197,36 @@ export default function Profile({navigation}) {
         <View style={styles.boxListTvShow}>
           <View style={styles.description}>
             <Text style={styles.textDescription}>
-              {nameRated} <VerifyName />
+              {type.nameRated} <VerifyName />
             </Text>
             <TouchableOpacity
               style={styles.buttonDescription}
               onPress={() => {
                 navigation.navigate('InterationList', [
                   'rated',
-                  type,
-                  nameRated,
+                  type.nameApi,
+                  type.nameRated,
+                  type.name,
                 ]);
               }}>
               <Text style={styles.textButtonDescription}>Ver tudo</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.listRated}>
-            {listRated ? (
-              listRated.map((listRated, index) =>
+            {ratedMovies && ratedTvShow ? (
+              (btMovies ? ratedMovies : ratedTvShow).map((rateds, index) =>
                 index <= 4 ? (
                   <TouchableOpacity
-                    key={listRated.id}
+                    key={rateds.id}
                     style={styles.buttonListTvShow}
                     onPress={() => {
-                      navigation.navigate(type, [listRated.id, type]);
+                      navigation.navigate(type.name, [rateds.id, type.name]);
                     }}>
                     <MovieImage
-                      pathImage={listRated.poster_path}
+                      pathImage={rateds.poster_path}
                       posterSize={'w92'}
                     />
-                    <MovieEvaluation votes={listRated.vote_average} />
+                    <MovieEvaluation votes={rateds.rating} />
                   </TouchableOpacity>
                 ) : null,
               )

@@ -3,8 +3,6 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: 'black',
   },
   containerHeader: {
@@ -160,6 +158,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Open Sans',
     fontSize: 10,
+    fontWeight: '700',
   },
   detailsDescription: {
     width: '100%',
@@ -212,9 +211,12 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#ddd',
   },
-  viewFLatList: {
+
+  containerLoading: {
+    flex: 1,
     backgroundColor: 'black',
-    width: 400,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   imageFlatList: {
     width: 35,
@@ -237,7 +239,6 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     marginHorizontal: 20,
   },
-
 });
 
 export default styles;
