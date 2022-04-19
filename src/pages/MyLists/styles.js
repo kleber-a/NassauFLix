@@ -122,8 +122,8 @@ const styles = StyleSheet.create({
   },
   //Fim Box Text
 
+  //Inicio Box Input
   boxInputModal: {
-    //Inicio Box Input
     width: '100%',
     height: '50%',
     alignItems: 'center',
@@ -133,47 +133,26 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 40,
     borderRadius: 10,
-    paddingHorizontal: 20,
-
-
+    paddingHorizontal: 16,
+    paddingVertical: 6,
     opacity: 0.35,
-  },
-  nameListt: {
-    color: '#8E8E8E',
-    position: 'absolute',
-    paddingVertical: 6,
-    marginLeft: 16,
-    fontFamily: 'Souce Sans Pro',
-    fontSize: 12,
-    fontWeight: 'regular',
-  },
-
-  nameListt: {
-    color: '#8E8E8E',
-    position: 'absolute',
-    paddingVertical: 6,
-    marginLeft: 16,
-    fontFamily: 'Souce Sans Pro',
-    fontSize: 12,
-    fontWeight: 'regular',
-  },
-  nameListBlack: {
     color: '#000000',
-    position: 'absolute',
-    paddingVertical: 6,
-    marginLeft: 16,
     fontFamily: 'Souce Sans Pro',
     fontSize: 13,
     fontWeight: 'regular',
   },
   descriptionListModal: {
+    paddingHorizontal: 16,
+    paddingVertical: 6,
     backgroundColor: '#C4C4C4',
     width: '80%',
     height: 60,
     marginTop: 9,
     borderRadius: 10,
-    fontSize: 12,
     opacity: 0.35,
+    fontFamily: 'Souce Sans Pro',
+    fontSize: 13,
+    fontWeight: 'regular',
 
   },
   descriptionText: {
@@ -181,18 +160,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     marginTop: -10,
     marginLeft: 16,
-    fontSize: 12,
     fontFamily: 'Souce Sans Pro',
-    fontWeight: 'regular',
-  },
-
-  descriptionBlack: {
-    color: '#000000',
-    position: 'absolute',
-    marginTop: -10,
-    marginLeft: 16,
     fontSize: 13,
-    fontFamily: 'Souce Sans Pro',
     fontWeight: 'regular',
   },
   //Fim Box Input

@@ -156,8 +156,7 @@ export default function MyLists({ navigation }) {
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-            setModalVisible(!modalVisible);
+                    setModalVisible(!modalVisible);
           }}>
           <View style={styles.backgroundModal}>
             <View style={styles.containerModal}>
@@ -166,35 +165,21 @@ export default function MyLists({ navigation }) {
               </View>
 
               <View style={styles.boxInputModal}>
-                <View style={styles.nameListModal}>
-                  {name !== '' ? (
-                    <TextInput
-                      style={styles.nameListBlack}
-                      placeholder={'Nome da Lista'}
-                      value={name}
-                      onChangeText={text => setName(text)}
-                    />
-                  ) : <TextInput
-                    style={styles.nameListt}
-                    placeholder={'Nome da Lista'}
-                    value={name}
-                    onChangeText={text => setName(text)}
-                  />}
-                </View>
-
-                <View style={styles.descriptionListModal}>
-                  {description !== '' ? (
-                    <TextInput
-                      style={styles.descriptionBlack}
-                      placeholder={'Descrição'}
-                      value={description}
-                      onChangeText={text => setDescription(text)} />
-                  ) : <TextInput
-                    style={styles.descriptionText}
-                    placeholder={'Descrição'}
-                    value={description}
-                    onChangeText={text => setDescription(text)} />}
-                </View>
+                <TextInput
+                  style={styles.nameListModal}
+                  placeholder={'Nome da Lista'}
+                  value={name}
+                  placeholderTextColor={'rgb(90, 90, 90)'}
+                  onChangeText={text => setName(text)}
+                />
+                <TextInput
+                  style={styles.descriptionListModal}
+                  placeholder={'Descrição'}
+                  value={description}
+                  textAlignVertical={'top'}
+                  multiline={true}
+                  placeholderTextColor={'rgb(90, 90, 90)'}
+                  onChangeText={text => setDescription(text)} />
               </View>
 
               <View style={styles.boxButtonModal}>
@@ -209,29 +194,18 @@ export default function MyLists({ navigation }) {
                     CANCELAR
                   </Text>
                 </TouchableOpacity>
-                {name !== '' ? (
-                  <TouchableOpacity
-                    style={[styles.buttonSaveModal, { backgroundColor: 'black' }]}
-                    onPress={() => {
-                      setListSucess(true);
-                      abrir();
-                      postList(list, sessionId);
-                    }}>
-                    <Text style={[styles.textButtonModal, { color: 'white' }]}>
-                      SALVAR
-                    </Text>
-                  </TouchableOpacity>
-                ) : (
-                  <View
-                    style={[
-                      styles.buttonSaveModal,
-                      { backgroundColor: 'rgba(0,0,0,0.4)' },
-                    ]}>
-                    <Text style={[styles.textButtonModal, { color: 'white' }]}>
-                      SALVAR
-                    </Text>
-                  </View>
-                )}
+                <TouchableOpacity
+                  style={[styles.buttonSaveModal, name !== '' ? { backgroundColor: 'black' } : { backgroundColor: '#C4C4C4' }]}
+                  disabled={name === ''}
+                  onPress={() => {
+                    setListSucess(true);
+                    abrir();
+                    postList(list, sessionId);
+                  }}>
+                  <Text style={[styles.textButtonModal, name !== '' ? { color: 'white' } : { color: '#8E8E8E' }]}>
+                    SALVAR
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
