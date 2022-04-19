@@ -26,6 +26,7 @@ export default function ModalAvaluate({
   const {sessionId} = useContext(AuthContext);
 
   useEffect(() => {
+    setAvaluate(null);
     setError(false);
     setErrorNumberAfter(false);
   }, [modalIsVisible]);
@@ -118,7 +119,7 @@ export default function ModalAvaluate({
                   style={styles.buttonOk}
                   onPress={() => {
                     handleError(avaluate && avaluate)
-                      ? console.warn(avaluate)
+                      ? null
                       : changeAvaluate() && setModalVisible(!modalIsVisible);
                   }}>
                   <Text style={styles.buttonOk.text}>ok</Text>
