@@ -89,7 +89,9 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#ffffff'
+    borderColor: '#ffffff',
+    zIndex: 2,
+
 
   },
   //Início Modal
@@ -182,6 +184,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonSaveModal: {
+
     width: 105,
     height: 28,
     borderRadius: 7,
@@ -193,7 +196,6 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   //Fim Modal
-
   containerAnimated: {
     width: '90%',
     height: 40,
@@ -203,7 +205,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    bottom: 100
+    bottom: 100,
+    zIndex: 3,
   },
   boxAnimated: {
     flexDirection: 'row',
@@ -221,7 +224,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-
   buttonx: {
     width: 40,
     height: 40,

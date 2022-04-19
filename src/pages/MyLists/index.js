@@ -130,7 +130,7 @@ export default function MyLists({ navigation }) {
           </View>
         )}
 
-        {listSucess && (
+        {listSucess && !modalVisible &&(
           <Animated.View style={[styles.containerAnimated, { left: fadeAnim }]}>
             <View style={styles.boxAnimated}>
               <MaterialIcons
@@ -141,6 +141,8 @@ export default function MyLists({ navigation }) {
               />
               <Text style={styles.textAnimated}>Lista criada</Text>
             </View>
+
+
           </Animated.View>
         )}
       </View>
@@ -156,7 +158,7 @@ export default function MyLists({ navigation }) {
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
-                    setModalVisible(!modalVisible);
+            setModalVisible(!modalVisible);
           }}>
           <View style={styles.backgroundModal}>
             <View style={styles.containerModal}>
