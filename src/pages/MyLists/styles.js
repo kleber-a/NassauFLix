@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
   numberMovies: {
     color: 'white',
     fontSize: 12,
-    fontWeight: '400',
+    fontWeight: 'bold',
+    fontFamily: 'Open Sans',
   },
   nameList: {
     width: 160,
@@ -57,6 +58,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 12,
     fontWeight: '400',
+    fontFamily: 'Open Sans'
   },
 
   del: {
@@ -83,6 +85,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: '#E9A6A6',
     borderRadius: 30,
+    borderColor:"#FFFF",
+    borderStyle:'solid',
+    borderWidth:1,
     width: 51,
     height: 51,
     alignItems: 'center',
