@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   containerLista: {
     width: '100%',
     height: '100%',
+
   },
   boxLista: {
     backgroundColor: '#8F9AFC',
@@ -35,6 +36,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: '#ffffff'
   },
   boxDescription: {
     width: 200,
@@ -61,12 +64,13 @@ const styles = StyleSheet.create({
   del: {
     backgroundColor: '#E9A6A6',
     width: 30,
-    height: 80,
+    height: 78,
     alignSelf: 'flex-end',
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomRightRadius: 10,
-    borderTopRightRadius: 10,
+    borderBottomRightRadius: 9,
+    borderTopRightRadius: 9,
+
   },
   viewplus: {
     width: '100%',
@@ -89,6 +93,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'flex-end',
     justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#ffffff'
 
   },
   //Início Modal
@@ -121,8 +127,8 @@ const styles = StyleSheet.create({
   },
   //Fim Box Text
 
+  //Inicio Box Input
   boxInputModal: {
-    //Inicio Box Input
     width: '100%',
     height: '50%',
     alignItems: 'center',
@@ -132,17 +138,36 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 40,
     borderRadius: 10,
-    paddingHorizontal: 20,
-    fontSize: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 6,
+    opacity: 0.35,
+    color: '#000000',
+    fontFamily: 'Souce Sans Pro',
+    fontSize: 13,
+    fontWeight: 'regular',
   },
   descriptionListModal: {
+    paddingHorizontal: 16,
+    paddingVertical: 6,
     backgroundColor: '#C4C4C4',
     width: '80%',
     height: 60,
     marginTop: 9,
     borderRadius: 10,
-    paddingHorizontal: 20,
-    fontSize: 12,
+    opacity: 0.35,
+    fontFamily: 'Souce Sans Pro',
+    fontSize: 13,
+    fontWeight: 'regular',
+
+  },
+  descriptionText: {
+    color: '#8E8E8E',
+    position: 'absolute',
+    marginTop: -10,
+    marginLeft: 16,
+    fontFamily: 'Souce Sans Pro',
+    fontSize: 13,
+    fontWeight: 'regular',
   },
   //Fim Box Input
   boxButtonModal: {
