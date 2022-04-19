@@ -147,7 +147,7 @@ export default function MyLists({navigation}) {
       <TouchableOpacity
         style={styles.add}
         onPress={() => setModalVisible(true)}>
-        <Entypo name="plus" color="#000" size={38} />
+        <Entypo name="plus" color="#FFF" size={38} />
       </TouchableOpacity>
       <View style={styles.viewplus}>
         <Modal
