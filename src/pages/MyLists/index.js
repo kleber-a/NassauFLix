@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import React, {useContext, useEffect, useState, useRef} from 'react';
 import {
   View,
   Text,
@@ -15,16 +15,16 @@ import styles from './styles';
 import ButtonReturn from '../../components/ButtonReturn';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { AuthContext } from '../../context/auth';
-import { addList, getList, deletList } from '../../service/api';
+import {AuthContext} from '../../context/auth';
+import {addList, getList, deletList} from '../../service/api';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Loading from '../../components/Loading';
 import ModalDelete from '../../components/ModalDelete/indexlista';
 
 const windowWidth = Dimensions.get('window').width;
 
-export default function MyLists({ navigation }) {
-  const { account, sessionId } = useContext(AuthContext);
+export default function MyLists({navigation}) {
+  const {account, sessionId} = useContext(AuthContext);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -93,7 +93,7 @@ export default function MyLists({ navigation }) {
       />
       <View style={styles.containerLista}>
         {dataList ? (
-          <ScrollView contentContainerStyle={{ paddingBottom: 200 }}>
+          <ScrollView contentContainerStyle={{paddingBottom: 200}}>
             {dataList &&
               dataList.map(item => (
                 <TouchableOpacity
@@ -105,7 +105,9 @@ export default function MyLists({ navigation }) {
                       {item.name.toUpperCase()}
                     </Text>
                     <Text style={styles.numberMovies}>
-                      {item.item_count > 1 ? `${item.item_count} FILMES` : `${item.item_count} FILME`}
+                      {item.item_count > 1
+                        ? `${item.item_count} FILMES`
+                        : `${item.item_count} FILME`}
                     </Text>
                   </View>
                   <TouchableOpacity
@@ -126,7 +128,7 @@ export default function MyLists({ navigation }) {
         )}
 
         {listSucess && !modalVisible && (
-          <Animated.View style={[styles.containerAnimated, { left: slideAnim }]}>
+          <Animated.View style={[styles.containerAnimated, {left: slideAnim}]}>
             <View style={styles.boxAnimated}>
               <MaterialIcons
                 style={styles.Icon}
@@ -146,7 +148,7 @@ export default function MyLists({ navigation }) {
       </TouchableOpacity>
       <View style={styles.viewplus}>
         <Modal
-          style={{ alignItems: 'center', justifyContent: 'center' }}
+          style={{alignItems: 'center', justifyContent: 'center'}}
           animationType="fade"
           transparent={true}
           visible={modalVisible}
@@ -190,8 +192,8 @@ export default function MyLists({ navigation }) {
                   style={[
                     styles.buttonSaveModal,
                     name !== ''
-                      ? { backgroundColor: 'black' }
-                      : { backgroundColor: '#C4C4C4' },
+                      ? {backgroundColor: 'black'}
+                      : {backgroundColor: '#C4C4C4'},
                   ]}
                   disabled={name === ''}
                   onPress={() => {
@@ -210,7 +212,7 @@ export default function MyLists({ navigation }) {
                   <Text
                     style={[
                       styles.textButtonModal,
-                      name !== '' ? { color: 'white' } : { color: '#8E8E8E' },
+                      name !== '' ? {color: 'white'} : {color: '#8E8E8E'},
                     ]}>
                     SALVAR
                   </Text>
