@@ -1,10 +1,9 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000000',
-
   },
   text: {
     color: '#FFF',
@@ -25,7 +24,6 @@ const styles = StyleSheet.create({
   containerLista: {
     width: '100%',
     height: '100%',
-
   },
   boxLista: {
     backgroundColor: '#8F9AFC',
@@ -37,7 +35,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     borderWidth: 1,
-    borderColor: '#ffffff'
+    borderColor: '#ffffff',
   },
   boxDescription: {
     width: 200,
@@ -70,7 +68,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomRightRadius: 9,
     borderTopRightRadius: 9,
-
   },
   viewplus: {
     width: '100%',
@@ -94,8 +91,8 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#ffffff'
-
+    borderColor: '#ffffff',
+    zIndex: 2,
   },
   //Início Modal
   backgroundModal: {
@@ -134,13 +131,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   nameListModal: {
-    backgroundColor: '#C4C4C4',
+    backgroundColor: 'rgba(196, 196, 196, 0.35)',
     width: '80%',
     height: 40,
     borderRadius: 10,
     paddingHorizontal: 16,
     paddingVertical: 6,
-    opacity: 0.35,
     color: '#000000',
     fontFamily: 'Souce Sans Pro',
     fontSize: 13,
@@ -149,16 +145,15 @@ const styles = StyleSheet.create({
   descriptionListModal: {
     paddingHorizontal: 16,
     paddingVertical: 6,
-    backgroundColor: '#C4C4C4',
+    backgroundColor: 'rgba(196, 196, 196, 0.35)',
     width: '80%',
     height: 60,
     marginTop: 9,
     borderRadius: 10,
-    opacity: 0.35,
     fontFamily: 'Souce Sans Pro',
     fontSize: 13,
     fontWeight: 'regular',
-
+    color: '#000',
   },
   descriptionText: {
     color: '#8E8E8E',
@@ -198,7 +193,6 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   //Fim Modal
-
   containerAnimated: {
     width: '90%',
     height: 40,
@@ -208,7 +202,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    bottom: 100
+    bottom: 100,
+    zIndex: 3,
   },
   boxAnimated: {
     flexDirection: 'row',
@@ -226,7 +221,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-
   buttonx: {
     width: 40,
     height: 40,
