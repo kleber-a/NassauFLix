@@ -11,6 +11,7 @@ export default function IconTvShow(props) {
       ) : (
         <Icon size={20} color={'white'} name={'chevron-up'} />
       )}
+      
     </View>
   );
 }
