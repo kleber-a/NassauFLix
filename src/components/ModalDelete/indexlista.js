@@ -8,9 +8,11 @@ export default function ModalDelete({
   modalVisibleSucess,
   itemId,
   sessionId,
+  awaitList,
 }) {
   async function delList(id) {
     const awaitDelete = await deletList(id, sessionId);
+    awaitList();
   }
   return (
     <Modal
@@ -35,7 +37,8 @@ export default function ModalDelete({
             <TouchableOpacity
               style={styles.buttonModalYes}
               onPress={() => {
-                [delList(itemId), setModalVisibleSucess(!modalVisibleSucess)];
+                delList(itemId);
+                setModalVisibleSucess(!modalVisibleSucess);
               }}>
               <Text style={styles.textStyleYes}>Sim</Text>
             </TouchableOpacity>
