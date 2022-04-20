@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import React, {useContext, useEffect, useState, useRef} from 'react';
 import {
   View,
   Text,
@@ -14,8 +14,8 @@ import styles from './styles';
 import ButtonReturn from '../../components/ButtonReturn';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { AuthContext } from '../../context/auth';
-import { addList, getList, deletList } from '../../service/api';
+import {AuthContext} from '../../context/auth';
+import {addList, getList, deletList} from '../../service/api';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Loading from '../../components/Loading';
 import ModalDelete from '../../components/ModalDelete/indexlista';
@@ -23,8 +23,8 @@ import ModalDelete from '../../components/ModalDelete/indexlista';
 // const windowWidth = Dimensions.get('window').width;
 // const windowHeight = Dimensions.get('window').height;
 
-export default function MyLists({ navigation }) {
-  const { account, sessionId } = useContext(AuthContext);
+export default function MyLists({navigation}) {
+  const {account, sessionId} = useContext(AuthContext);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -98,7 +98,7 @@ export default function MyLists({ navigation }) {
       />
       <View style={styles.containerLista}>
         {dataList ? (
-          <ScrollView contentContainerStyle={{ paddingBottom: 200 }}>
+          <ScrollView contentContainerStyle={{paddingBottom: 200}}>
             {dataList &&
               dataList.map(item => (
                 <TouchableOpacity
@@ -130,8 +130,8 @@ export default function MyLists({ navigation }) {
           </View>
         )}
 
-        {listSucess && !modalVisible &&(
-          <Animated.View style={[styles.containerAnimated, { left: fadeAnim }]}>
+        {listSucess && !modalVisible && (
+          <Animated.View style={[styles.containerAnimated, {left: fadeAnim}]}>
             <View style={styles.boxAnimated}>
               <MaterialIcons
                 style={styles.Icon}
@@ -141,8 +141,6 @@ export default function MyLists({ navigation }) {
               />
               <Text style={styles.textAnimated}>Lista criada</Text>
             </View>
-
-
           </Animated.View>
         )}
       </View>
@@ -153,7 +151,7 @@ export default function MyLists({ navigation }) {
       </TouchableOpacity>
       <View style={styles.viewplus}>
         <Modal
-          style={{ alignItems: 'center', justifyContent: 'center' }}
+          style={{alignItems: 'center', justifyContent: 'center'}}
           animationType="fade"
           transparent={true}
           visible={modalVisible}
@@ -171,7 +169,7 @@ export default function MyLists({ navigation }) {
                   style={styles.nameListModal}
                   placeholder={'Nome da Lista'}
                   value={name}
-                  placeholderTextColor={'rgb(90, 90, 90)'}
+                  placeholderTextColor={'rgba(142, 142, 142, 0.5)'}
                   onChangeText={text => setName(text)}
                 />
                 <TextInput
@@ -180,8 +178,9 @@ export default function MyLists({ navigation }) {
                   value={description}
                   textAlignVertical={'top'}
                   multiline={true}
-                  placeholderTextColor={'rgb(90, 90, 90)'}
-                  onChangeText={text => setDescription(text)} />
+                  placeholderTextColor={'rgba(142, 142, 142, 0.5)'}
+                  onChangeText={text => setDescription(text)}
+                />
               </View>
 
               <View style={styles.boxButtonModal}>
@@ -192,19 +191,28 @@ export default function MyLists({ navigation }) {
                     setName(''),
                     setDescription(''),
                   ]}>
-                  <Text style={[styles.textButtonModal, { color: 'black' }]}>
+                  <Text style={[styles.textButtonModal, {color: 'black'}]}>
                     CANCELAR
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={[styles.buttonSaveModal, name !== '' ? { backgroundColor: 'black' } : { backgroundColor: '#C4C4C4' }]}
+                  style={[
+                    styles.buttonSaveModal,
+                    name !== ''
+                      ? {backgroundColor: 'black'}
+                      : {backgroundColor: '#C4C4C4'},
+                  ]}
                   disabled={name === ''}
                   onPress={() => {
                     setListSucess(true);
                     abrir();
                     postList(list, sessionId);
                   }}>
-                  <Text style={[styles.textButtonModal, name !== '' ? { color: 'white' } : { color: '#8E8E8E' }]}>
+                  <Text
+                    style={[
+                      styles.textButtonModal,
+                      name !== '' ? {color: 'white'} : {color: '#8E8E8E'},
+                    ]}>
                     SALVAR
                   </Text>
                 </TouchableOpacity>
