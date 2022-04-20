@@ -9,6 +9,7 @@ import {
   Alert,
   Animated,
   Dimensions,
+  Easing,
 } from 'react-native';
 import styles from './styles';
 import ButtonReturn from '../../components/ButtonReturn';
@@ -43,6 +44,7 @@ export default function MyLists({navigation}) {
     description: description,
     language: 'pt',
   });
+
   async function awaitList() {
     const awaitlist = await getList(account.id, sessionId, page);
     setDataList(awaitlist.results);
@@ -63,15 +65,18 @@ export default function MyLists({navigation}) {
     }
   }
 
-  const slideAnim = useRef(new Animated.Value(0 - windowWidth)).current;
+  const [slideAnim, setSlideAnim] = useState(
+    new Animated.Value(0 - windowWidth),
+  );
 
-  const openSucess = () => {
-    Animated.timing(slideAnim, {
-      toValue: windowWidth * 0.05,
-      duration: 2000,
-      useNativeDriver: false,
-    }).start();
-  };
+  // const openSuccess = () => {
+  Animated.timing(slideAnim, {
+    toValue: windowWidth * 0.05,
+    duration: 1000,
+    Easing: Easing.linear,
+    useNativeDriver: false,
+  }).start();
+  // };
 
   return (
     <View style={styles.container}>
@@ -188,7 +193,8 @@ export default function MyLists({navigation}) {
                   ]}
                   disabled={name === ''}
                   onPress={() => {
-                    !modalVisible && openSucess();
+                    setSlideAnim(new Animated.Value(0 - windowWidth));
+                    // openSuccess();
                     setListSucess(true);
                     postList(
                       {

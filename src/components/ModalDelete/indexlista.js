@@ -37,7 +37,8 @@ export default function ModalDelete({
             <TouchableOpacity
               style={styles.buttonModalYes}
               onPress={() => {
-                [delList(itemId), setModalVisibleSucess(!modalVisibleSucess)];
+                delList(itemId);
+                setModalVisibleSucess(!modalVisibleSucess);
               }}>
               <Text style={styles.textStyleYes}>Sim</Text>
             </TouchableOpacity>
