@@ -8,9 +8,11 @@ export default function ModalDelete({
   modalVisibleSucess,
   itemId,
   sessionId,
+  awaitList,
 }) {
   async function delList(id) {
     const awaitDelete = await deletList(id, sessionId);
+    awaitList();
   }
   return (
     <Modal

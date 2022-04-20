@@ -8,7 +8,7 @@ import {
   TextInput,
   Alert,
   Animated,
-  // Dimensions,
+  Dimensions,
 } from 'react-native';
 import styles from './styles';
 import ButtonReturn from '../../components/ButtonReturn';
@@ -20,8 +20,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Loading from '../../components/Loading';
 import ModalDelete from '../../components/ModalDelete/indexlista';
 
-// const windowWidth = Dimensions.get('window').width;
-// const windowHeight = Dimensions.get('window').height;
+const windowWidth = Dimensions.get('window').width;
 
 export default function MyLists({navigation}) {
   const {account, sessionId} = useContext(AuthContext);
@@ -39,25 +38,19 @@ export default function MyLists({navigation}) {
       setListSucess(false);
     }, 3000);
   }
-  const [onButton, setOnButton] = useState(false);
   const [list, setList] = useState({
     name: name,
     description: description,
     language: 'pt',
   });
+  async function awaitList() {
+    const awaitlist = await getList(account.id, sessionId, page);
+    setDataList(awaitlist.results);
+  }
 
   useEffect(() => {
-    setList({
-      name: name,
-      description: description,
-      language: 'pt',
-    });
-    async function awaitList() {
-      const awaitlist = await getList(account.id, sessionId, page);
-      setDataList(awaitlist.results);
-    }
     awaitList();
-  }, [name, description, dataList]);
+  }, [modalVisible]);
 
   async function postList(list, sessionId) {
     const sucess = await addList(list, sessionId);
@@ -70,16 +63,12 @@ export default function MyLists({navigation}) {
     }
   }
 
-  async function delList(id) {
-    const awaitDelete = await deletList(id, sessionId);
-  }
+  const slideAnim = useRef(new Animated.Value(0 - windowWidth)).current;
 
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-
-  const abrir = () => {
-    Animated.timing(fadeAnim, {
-      toValue: 20,
-      duration: 1000,
+  const openSucess = () => {
+    Animated.timing(slideAnim, {
+      toValue: windowWidth * 0.05,
+      duration: 2000,
       useNativeDriver: false,
     }).start();
   };
@@ -95,6 +84,7 @@ export default function MyLists({navigation}) {
         modalVisibleSucess={modalVisibleSucess}
         sessionId={sessionId}
         itemId={idList}
+        awaitList={awaitList}
       />
       <View style={styles.containerLista}>
         {dataList ? (
@@ -115,8 +105,8 @@ export default function MyLists({navigation}) {
                   </View>
                   <TouchableOpacity
                     onPress={() => {
-                      setModalVisibleSucess(!modalVisibleSucess),
-                        setIdList(item.id);
+                      setModalVisibleSucess(!modalVisibleSucess);
+                      setIdList(item.id);
                     }}
                     style={styles.del}>
                     <AntDesign name="delete" color="#EC2626" size={14} />
@@ -131,7 +121,7 @@ export default function MyLists({navigation}) {
         )}
 
         {listSucess && !modalVisible && (
-          <Animated.View style={[styles.containerAnimated, {left: fadeAnim}]}>
+          <Animated.View style={[styles.containerAnimated, {left: slideAnim}]}>
             <View style={styles.boxAnimated}>
               <MaterialIcons
                 style={styles.Icon}
@@ -163,26 +153,22 @@ export default function MyLists({navigation}) {
               <View style={styles.boxTextModal}>
                 <Text style={styles.textModal}>Nova lista</Text>
               </View>
-
-              <View style={styles.boxInputModal}>
-                <TextInput
-                  style={styles.nameListModal}
-                  placeholder={'Nome da Lista'}
-                  value={name}
-                  placeholderTextColor={'rgba(142, 142, 142, 0.5)'}
-                  onChangeText={text => setName(text)}
-                />
-                <TextInput
-                  style={styles.descriptionListModal}
-                  placeholder={'Descrição'}
-                  value={description}
-                  textAlignVertical={'top'}
-                  multiline={true}
-                  placeholderTextColor={'rgba(142, 142, 142, 0.5)'}
-                  onChangeText={text => setDescription(text)}
-                />
-              </View>
-
+              <TextInput
+                style={styles.nameListModal}
+                placeholder={'Nome da Lista'}
+                value={name}
+                placeholderTextColor={'rgba(142, 142, 142, 0.5)'}
+                onChangeText={text => setName(text)}
+              />
+              <TextInput
+                style={styles.descriptionListModal}
+                placeholder={'Descrição'}
+                value={description}
+                textAlignVertical={'top'}
+                multiline={true}
+                placeholderTextColor={'rgba(142, 142, 142, 0.5)'}
+                onChangeText={text => setDescription(text)}
+              />
               <View style={styles.boxButtonModal}>
                 <TouchableOpacity
                   style={styles.buttonCancelModal}
@@ -191,9 +177,7 @@ export default function MyLists({navigation}) {
                     setName(''),
                     setDescription(''),
                   ]}>
-                  <Text style={[styles.textButtonModal, {color: 'black'}]}>
-                    CANCELAR
-                  </Text>
+                  <Text style={styles.textButtonModal}>CANCELAR</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[
@@ -204,9 +188,16 @@ export default function MyLists({navigation}) {
                   ]}
                   disabled={name === ''}
                   onPress={() => {
+                    !modalVisible && openSucess();
                     setListSucess(true);
-                    abrir();
-                    postList(list, sessionId);
+                    postList(
+                      {
+                        name: name,
+                        description: description,
+                        language: 'pt',
+                      },
+                      sessionId,
+                    );
                   }}>
                   <Text
                     style={[
