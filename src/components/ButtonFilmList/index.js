@@ -11,7 +11,7 @@ export default function ButtonFilmList({ navigation, navigate }) {
                 navigation.navigate(navigate)
             }}
         >
-            <Text style={styles.textButton}>Ver Lista de Filmes</Text>
+            <Text style={styles.textButton}>Ver Listas de Filmes</Text>
         </TouchableOpacity>
     )
 };
