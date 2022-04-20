@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/EvilIcons';
 
 import HeaderTvShows from '../../components/HeaderTvShows';
 
+
 export default function TvShows({route, navigation}) {
   const [id, type] = route.params;
   const [currentIndex, setCurrentIndex] = useState();
@@ -21,6 +22,7 @@ export default function TvShows({route, navigation}) {
   const [season, setSeason] = useState(null);
   const [selection, setSelection] = useState(false);
   const [bodyHeight, setBodyHeight] = useState(new Animated.Value(-500));
+
   Animated.timing(bodyHeight, {
     duration: 1000,
     toValue: 0,
@@ -63,7 +65,7 @@ export default function TvShows({route, navigation}) {
 
   const renderItem = ({item, index}) => {
     return (
-      <View>
+     <View>
         <TouchableOpacity
           style={[
             styles.buttonSeason,
@@ -144,5 +146,5 @@ export default function TvShows({route, navigation}) {
     <View style={styles.containerLoading}>
       <Loading />
     </View>
-  );
-}
+  )
+};
