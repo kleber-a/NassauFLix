@@ -91,6 +91,10 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     justifyContent: 'center',
     zIndex: 2,
+    elevation: 6,
+    shadowColor: '#100',
+    shadowOpacity: 0.2,
+    shadowRadius: 30,
   },
   //Início Modal
   backgroundModal: {
@@ -192,8 +196,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    bottom: 95,
+    bottom: 10,
     zIndex: 3,
+    elevation: 8,
+    shadowColor: '#020',
+    shadowOpacity: 0.9,
+    shadowRadius: 30,
   },
   boxAnimated: {
     flexDirection: 'row',
