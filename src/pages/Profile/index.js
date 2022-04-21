@@ -28,10 +28,6 @@ export default function Profile({navigation}) {
     nameFavorite: 'Filmes favoritos',
   });
 
-  // //Nomes Favoritos e Avaliados
-  // const [nameRated, setNameRated] = useState('Avaliações de filmes recentes');
-  // const [nameFavorite, setNameFavorite] = useState('Filmes favoritos');
-
   //Botão Movie e Séries
   const [btMovies, setBtMovies] = useState(true);
   const [btSeries, setBtSeries] = useState(false);
