@@ -117,7 +117,6 @@ const styles = StyleSheet.create({
   //Inicio Box Text
   boxTextModal: {
     width: '100%',
-    // height: '20%',
     marginBottom: 8,
     alignItems: 'center',
     justifyContent: 'center',
@@ -199,7 +198,7 @@ const styles = StyleSheet.create({
     bottom: 10,
     zIndex: 3,
     elevation: 8,
-    shadowColor: '#020',
+    shadowColor: '#010',
     shadowOpacity: 0.9,
     shadowRadius: 30,
   },

@@ -52,6 +52,12 @@ export default function MyLists({navigation}) {
   }
 
   useEffect(() => {
+    navigation.addListener('focus', () => {
+      awaitList();
+    });
+  }, [navigation]);
+
+  useEffect(() => {
     awaitList();
   }, [modalVisible]);
 
