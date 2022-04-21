@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
   },
 
   modalSucessBackground: {
+    flex: 1,
     backgroundColor: 'rgba(0,0,0,0.4)',
     width: '100%',
     height: '100%',

@@ -3,6 +3,7 @@ import {
   View,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   ScrollView,
   Modal,
   TextInput,
@@ -16,7 +17,7 @@ import ButtonReturn from '../../components/ButtonReturn';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {AuthContext} from '../../context/auth';
-import {addList, getList, deletList} from '../../service/api';
+import {addList, getList} from '../../service/api';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Loading from '../../components/Loading';
 import ModalDelete from '../../components/ModalDelete/indexlista';
@@ -75,14 +76,12 @@ export default function MyLists({navigation}) {
     new Animated.Value(0 - windowWidth),
   );
 
-  // const openSuccess = () => {
   Animated.timing(slideAnim, {
     toValue: windowWidth * 0.05,
     duration: 1000,
     Easing: Easing.linear,
     useNativeDriver: false,
   }).start();
-  // };
 
   return (
     <View style={styles.container}>
@@ -91,6 +90,20 @@ export default function MyLists({navigation}) {
         onPress={() => setModalVisible(true)}>
         <Entypo name="plus" color="#FFFFFF" size={38} />
       </TouchableOpacity>
+      {listSucess && !modalVisible && (
+            <Animated.View
+              style={[styles.containerAnimated, {left: slideAnim}]}>
+              <View style={styles.boxAnimated}>
+                <MaterialIcons
+                  style={styles.Icon}
+                  name="done"
+                  size={20}
+                  color={'#1ed92b'}
+                />
+                <Text style={styles.textAnimated}>Lista criada</Text>
+              </View>
+            </Animated.View>
+          )}
       <ScrollView
         style={styles.container}
         contentContainerStyle={{paddingBottom: 50}}>
@@ -140,21 +153,6 @@ export default function MyLists({navigation}) {
               <Loading />
             </View>
           )}
-
-          {listSucess && !modalVisible && (
-            <Animated.View
-              style={[styles.containerAnimated, {left: slideAnim}]}>
-              <View style={styles.boxAnimated}>
-                <MaterialIcons
-                  style={styles.Icon}
-                  name="done"
-                  size={20}
-                  color={'#1ed92b'}
-                />
-                <Text style={styles.textAnimated}>Lista criada</Text>
-              </View>
-            </Animated.View>
-          )}
         </View>
 
         <View style={styles.viewplus}>
@@ -166,7 +164,13 @@ export default function MyLists({navigation}) {
             onRequestClose={() => {
               setModalVisible(!modalVisible);
             }}>
+              <TouchableWithoutFeedback
+            style={styles.backgroundModal}
+            onPress={() => {
+              setModalVisible(!modalVisible);
+            }}>
             <View style={styles.backgroundModal}>
+            <TouchableWithoutFeedback>
               <View style={styles.containerModal}>
                 <View style={styles.boxTextModal}>
                   <Text style={styles.textModal}>Nova lista</Text>
@@ -230,7 +234,9 @@ export default function MyLists({navigation}) {
                   </TouchableOpacity>
                 </View>
               </View>
+              </TouchableWithoutFeedback>
             </View>
+            </TouchableWithoutFeedback>
           </Modal>
         </View>
       </ScrollView>
