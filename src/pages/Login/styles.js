@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
+    alignItems: 'flex-start',
   },
   inputArea: {
     borderRadius: 35,
@@ -11,8 +12,12 @@ const styles = StyleSheet.create({
     paddingBottom: 36,
   },
   banner: {
-    resizeMode: 'contain',
+    flex: 1,
+    top: -150,
+    justifyContent: 'flex-end',
+    alignContent: 'center',
     width: '100%',
+    height: '100%',
   },
   textEntry: {
     alignItems: 'center',
