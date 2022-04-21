@@ -7,8 +7,9 @@ import {
   Image,
   KeyboardAvoidingView,
   Animated,
+  Dimensions,
 } from 'react-native';
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import styles from './styles';
@@ -20,19 +21,20 @@ export default function Login({navigation}) {
   const [password, setPassword] = useState();
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const windowWidth = Dimensions.get('window').width;
 
   const {userLogin} = useContext(AuthContext);
 
   async function handleSubmit() {
     const isSucess = await userLogin(username, password);
-    setLoading(true);
-    setIsError(true);
     if (isSucess) {
       return navigation.reset({
         index: 0,
         routes: [{name: 'HomeTabScreen'}],
       });
     } else {
+      setLoading(true);
+      setIsError(true);
       setTimeout(() => {
         setLoading(false);
       }, 2000);
@@ -46,11 +48,11 @@ export default function Login({navigation}) {
 
   const colorErrorText = isError ? 'rgba(236, 38, 38, 0.65)' : '#fff';
 
-  const [pixels, setPixels] = useState(new Animated.Value(-1000));
+  const [pixels, setPixels] = useState(new Animated.Value(-windowWidth));
 
   Animated.timing(pixels, {
     toValue: 0,
-    duration: 1000,
+    duration: 1200,
     useNativeDriver: true,
   }).start();
 
@@ -69,9 +71,8 @@ export default function Login({navigation}) {
           style={{
             translateX: pixels,
           }}>
-          <Animated.Image
+          <Image
             style={{
-              translateX: pixels,
               top: -130,
               height: 130,
               resizeMode: 'cover',
