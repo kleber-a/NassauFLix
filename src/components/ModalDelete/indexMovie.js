@@ -6,9 +6,16 @@ import styles from './styles';
 export default function ModalDeleteMovie({
   setModalVisibleSucess,
   modalVisibleSucess,
-  SetMovieId,
   itemId,
+  detailsListId,
+  sessionId,
+  awaitDetailsList,
 }) {
+  async function deleteMovies(movieId) {
+    await removeMovieList(detailsListId, movieId, sessionId);
+    awaitDetailsList();
+  }
+
   return (
     <Modal
       animationType="fade"
@@ -32,7 +39,7 @@ export default function ModalDeleteMovie({
             <TouchableOpacity
               style={styles.buttonModalYes}
               onPress={() => {
-                SetMovieId({media_id: itemId});
+                deleteMovies({media_id: itemId});
                 setModalVisibleSucess(!modalVisibleSucess);
               }}>
               <Text style={styles.textStyleYes}>Sim</Text>
