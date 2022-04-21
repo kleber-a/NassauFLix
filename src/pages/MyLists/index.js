@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import React, {useContext, useEffect, useState, useRef} from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   ScrollView,
   Modal,
   TextInput,
@@ -15,16 +16,16 @@ import styles from './styles';
 import ButtonReturn from '../../components/ButtonReturn';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { AuthContext } from '../../context/auth';
-import { addList, getList, deletList } from '../../service/api';
+import {AuthContext} from '../../context/auth';
+import {addList, getList} from '../../service/api';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Loading from '../../components/Loading';
 import ModalDelete from '../../components/ModalDelete/indexlista';
 
 const windowWidth = Dimensions.get('window').width;
 
-export default function MyLists({ navigation }) {
-  const { account, sessionId } = useContext(AuthContext);
+export default function MyLists({navigation}) {
+  const {account, sessionId} = useContext(AuthContext);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -69,14 +70,12 @@ export default function MyLists({ navigation }) {
     new Animated.Value(0 - windowWidth),
   );
 
-  // const openSuccess = () => {
   Animated.timing(slideAnim, {
     toValue: windowWidth * 0.05,
     duration: 1000,
     Easing: Easing.linear,
     useNativeDriver: false,
   }).start();
-  // };
 
   return (
     <View style={styles.container}>
@@ -93,7 +92,7 @@ export default function MyLists({ navigation }) {
       />
       <View style={styles.containerLista}>
         {dataList ? (
-          <ScrollView contentContainerStyle={{ paddingBottom: 200 }}>
+          <ScrollView contentContainerStyle={{paddingBottom: 200}}>
             {dataList &&
               dataList.map(item => (
                 <TouchableOpacity
@@ -105,7 +104,9 @@ export default function MyLists({ navigation }) {
                       {item.name.toUpperCase()}
                     </Text>
                     <Text style={styles.numberMovies}>
-                      {item.item_count > 1 ? `${item.item_count} FILMES` : `${item.item_count} FILME`}
+                      {item.item_count > 1
+                        ? `${item.item_count} FILMES`
+                        : `${item.item_count} FILME`}
                     </Text>
                   </View>
                   <TouchableOpacity
@@ -126,7 +127,7 @@ export default function MyLists({ navigation }) {
         )}
 
         {listSucess && !modalVisible && (
-          <Animated.View style={[styles.containerAnimated, { left: slideAnim }]}>
+          <Animated.View style={[styles.containerAnimated, {left: slideAnim}]}>
             <View style={styles.boxAnimated}>
               <MaterialIcons
                 style={styles.Icon}
@@ -146,78 +147,86 @@ export default function MyLists({ navigation }) {
       </TouchableOpacity>
       <View style={styles.viewplus}>
         <Modal
-          style={{ alignItems: 'center', justifyContent: 'center' }}
+          style={{alignItems: 'center', justifyContent: 'center'}}
           animationType="fade"
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
             setModalVisible(!modalVisible);
           }}>
-          <View style={styles.backgroundModal}>
-            <View style={styles.containerModal}>
-              <View style={styles.boxTextModal}>
-                <Text style={styles.textModal}>Nova lista</Text>
-              </View>
-              <TextInput
-                maxLength={45}
-                style={styles.nameListModal}
-                placeholder={'Nome da Lista'}
-                value={name}
-                placeholderTextColor={'rgba(142, 142, 142, 0.5)'}
-                onChangeText={text => setName(text)}
-              />
-              <TextInput
-                maxLength={220}
-                style={styles.descriptionListModal}
-                placeholder={'Descrição'}
-                value={description}
-                textAlignVertical={'top'}
-                multiline={true}
-                placeholderTextColor={'rgba(142, 142, 142, 0.5)'}
-                onChangeText={text => setDescription(text)}
-              />
-              <View style={styles.boxButtonModal}>
-                <TouchableOpacity
-                  style={styles.buttonCancelModal}
-                  onPress={() => [
-                    setModalVisible(false),
-                    setName(''),
-                    setDescription(''),
-                  ]}>
-                  <Text style={styles.textButtonModal}>CANCELAR</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    styles.buttonSaveModal,
-                    name !== ''
-                      ? { backgroundColor: 'black' }
-                      : { backgroundColor: '#C4C4C4' },
-                  ]}
-                  disabled={name === ''}
-                  onPress={() => {
-                    setSlideAnim(new Animated.Value(0 - windowWidth));
-                    // openSuccess();
-                    setListSucess(true);
-                    postList(
-                      {
-                        name: name,
-                        description: description,
-                        language: 'pt',
-                      },
-                      sessionId,
-                    );
-                  }}>
-                  <Text
-                    style={[
-                      styles.textButtonModal,
-                      name !== '' ? { color: 'white' } : { color: '#8E8E8E' },
-                    ]}>
-                    SALVAR
-                  </Text>
-                </TouchableOpacity>
-              </View>
+          <TouchableWithoutFeedback
+            style={styles.backgroundModal}
+            onPress={() => {
+              setModalVisible(!modalVisible);
+            }}>
+            <View style={styles.backgroundModal}>
+              <TouchableWithoutFeedback>
+                <View style={styles.containerModal}>
+                  <View style={styles.boxTextModal}>
+                    <Text style={styles.textModal}>Nova lista</Text>
+                  </View>
+                  <TextInput
+                    maxLength={45}
+                    style={styles.nameListModal}
+                    placeholder={'Nome da Lista'}
+                    value={name}
+                    placeholderTextColor={'rgba(142, 142, 142, 0.5)'}
+                    onChangeText={text => setName(text)}
+                  />
+                  <TextInput
+                    maxLength={220}
+                    style={styles.descriptionListModal}
+                    placeholder={'Descrição'}
+                    value={description}
+                    textAlignVertical={'top'}
+                    multiline={true}
+                    placeholderTextColor={'rgba(142, 142, 142, 0.5)'}
+                    onChangeText={text => setDescription(text)}
+                  />
+                  <View style={styles.boxButtonModal}>
+                    <TouchableOpacity
+                      style={styles.buttonCancelModal}
+                      onPress={() => [
+                        setModalVisible(false),
+                        setName(''),
+                        setDescription(''),
+                      ]}>
+                      <Text style={styles.textButtonModal}>CANCELAR</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[
+                        styles.buttonSaveModal,
+                        name !== ''
+                          ? {backgroundColor: 'black'}
+                          : {backgroundColor: '#C4C4C4'},
+                      ]}
+                      disabled={name === ''}
+                      onPress={() => {
+                        setSlideAnim(new Animated.Value(0 - windowWidth));
+                        // openSuccess();
+                        setListSucess(true);
+                        postList(
+                          {
+                            name: name,
+                            description: description,
+                            language: 'pt',
+                          },
+                          sessionId,
+                        );
+                      }}>
+                      <Text
+                        style={[
+                          styles.textButtonModal,
+                          name !== '' ? {color: 'white'} : {color: '#8E8E8E'},
+                        ]}>
+                        SALVAR
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </TouchableWithoutFeedback>
             </View>
-          </View>
+          </TouchableWithoutFeedback>
         </Modal>
       </View>
     </View>

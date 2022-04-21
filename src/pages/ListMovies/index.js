@@ -74,7 +74,6 @@ export default function ListMovies({navigation, route}) {
       </View>
     );
   };
-
   const renderItem = ({item}) => {
     if (item.empty === true) {
       return <View style={[styles.boxImage, styles.itemInvisible]} />;
@@ -103,11 +102,7 @@ export default function ListMovies({navigation, route}) {
           setModalVisibleSucess={setModalVisibleSucess}
           modalVisibleSucess={modalVisibleSucess}
           SetMovieId={SetMovieId}
-          sessionId={sessionId}
-          detailsListId={detailsList.id}
           itemId={itemId}
-          movieId={movieId}
-          awaitDetailsList={awaitDetailsList}
         />
       </View>
     );

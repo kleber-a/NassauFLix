@@ -1,5 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Modal, Text, TouchableOpacity, View, FlatList} from 'react-native';
+import {
+  Modal,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+  FlatList,
+} from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {getList, postMovieFavoriteList} from '../../service/api';
@@ -48,7 +55,7 @@ export default function ModalFavoriteList({navigation, movieId}) {
     );
   };
   return (
-    <View style={styles.centeredView}>
+    <View>
       <Modal
         animationType="fade"
         transparent={true}
@@ -56,19 +63,27 @@ export default function ModalFavoriteList({navigation, movieId}) {
         onRequestClose={() => {
           setModalVisibleSucess(!modalVisibleSucess);
         }}>
-        <View style={styles.modalSucessBackground}>
-          <View style={styles.modalSucess}>
-            <Icon name="checkcircleo" size={25} color="#000000" />
-            <Text style={styles.textModalSucess}>
-              Lista atualizada com sucesso!
-            </Text>
-            <TouchableOpacity
-              style={styles.buttonModalSucess}
-              onPress={() => setModalVisibleSucess(!modalVisibleSucess)}>
-              <Text style={styles.textStyleSave}>OK</Text>
-            </TouchableOpacity>
+        <TouchableWithoutFeedback
+          style={styles.modalSucessBackground}
+          onPress={() => {
+            setModalVisibleSucess(!modalVisibleSucess);
+          }}>
+          <View style={styles.modalSucessBackground}>
+            <TouchableWithoutFeedback>
+              <View style={styles.modalSucess}>
+                <Icon name="checkcircleo" size={25} color="#000000" />
+                <Text style={styles.textModalSucess}>
+                  Lista atualizada com sucesso!
+                </Text>
+                <TouchableOpacity
+                  style={styles.buttonModalSucess}
+                  onPress={() => setModalVisibleSucess(!modalVisibleSucess)}>
+                  <Text style={styles.textStyleSave}>OK</Text>
+                </TouchableOpacity>
+              </View>
+            </TouchableWithoutFeedback>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       </Modal>
       <Modal
         animationType="fade"
@@ -77,47 +92,59 @@ export default function ModalFavoriteList({navigation, movieId}) {
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <View style={styles.headerHender}>
-              <Text style={styles.textHeader}>Salvar filme em....</Text>
-              <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                <Icon style={styles.iconClose} name="close" solid />
-              </TouchableOpacity>
-            </View>
-            <FlatList
-              data={dataList && dataList}
-              keyExtractor={(item, index) => index}
-              renderItem={renderItem}
-              contentContainerStyle={styles.containerFlatList}
-            />
-            <TouchableOpacity
-              style={
-                typeof buttonClickOn === 'number'
-                  ? styles.buttonSave
-                  : [styles.buttonSave, {backgroundColor: '#C4C4C4'}]
-              }
-              onPress={() => {
-                listId &&
-                  listId &&
-                  postMovieFavoriteList(listId, sessionId, {media_id: movieId});
-                typeof buttonClickOn === 'number' &&
-                  setModalVisibleSucess(!modalVisibleSucess);
-                typeof buttonClickOn === 'number' &&
-                  setModalVisible(!modalVisible);
-              }}>
-              <Text
-                style={
-                  typeof buttonClickOn === 'number'
-                    ? styles.textStyleSave
-                    : [styles.textStyleSave, {color: '#8E8E8E'}]
-                }>
-                Salvar
-              </Text>
-            </TouchableOpacity>
+        <TouchableWithoutFeedback
+          style={styles.centeredView}
+          onPress={() => {
+            setModalVisible(!modalVisible);
+          }}>
+          <View style={styles.centeredView}>
+            <TouchableWithoutFeedback>
+              <View style={styles.modalView}>
+                <View style={styles.headerHender}>
+                  <Text style={styles.textHeader}>Salvar filme em....</Text>
+                  <TouchableOpacity
+                    onPress={() => setModalVisible(!modalVisible)}>
+                    <Icon style={styles.iconClose} name="close" solid />
+                  </TouchableOpacity>
+                </View>
+                <FlatList
+                  data={dataList && dataList}
+                  keyExtractor={(item, index) => index}
+                  renderItem={renderItem}
+                  contentContainerStyle={styles.containerFlatList}
+                />
+                <TouchableOpacity
+                  style={
+                    typeof buttonClickOn === 'number'
+                      ? styles.buttonSave
+                      : [styles.buttonSave, {backgroundColor: '#C4C4C4'}]
+                  }
+                  onPress={() => {
+                    listId &&
+                      listId &&
+                      postMovieFavoriteList(listId, sessionId, {
+                        media_id: movieId,
+                      });
+                    typeof buttonClickOn === 'number' &&
+                      setModalVisibleSucess(!modalVisibleSucess);
+                    typeof buttonClickOn === 'number' &&
+                      setModalVisible(!modalVisible);
+                  }}>
+                  <Text
+                    style={
+                      typeof buttonClickOn === 'number'
+                        ? styles.textStyleSave
+                        : [styles.textStyleSave, {color: '#8E8E8E'}]
+                    }>
+                    Salvar
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </TouchableWithoutFeedback>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       </Modal>
+
       <TouchableOpacity
         style={styles.containerOpenModal}
         onPress={() => {

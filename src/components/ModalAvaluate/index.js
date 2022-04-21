@@ -148,25 +148,3 @@ export default function ModalAvaluate({
     </Modal>
   );
 }
-
-//  <TouchableOpacity
-//             disabled={handleError(avaluate && avaluate.value)}
-//             style={
-//               handleError(avaluate && avaluate.value)
-//                 ? styles.buttonOkDisabled
-//                 : styles.buttonOk
-//             }
-//             onPress={() => {
-//               handleError(avaluate && avaluate.value)
-//                 ? setError(true)
-//                 : changeAvaluate() && setModalVisible(!modalIsVisible);
-//             }}>
-//             <Text
-//               style={
-//                 handleError(avaluate && avaluate.value)
-//                   ? styles.buttonOkDisabled.text
-//                   : styles.buttonOk.text
-//               }>
-//               ok
-//             </Text>
-//           </TouchableOpacity>
