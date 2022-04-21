@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 21,
     paddingBottom: 21,
     paddingTop: 11,
-    height: 166,
+    height: 175,
     backgroundColor: 'white',
     alignItems: 'center',
     borderRadius: 25,
@@ -224,6 +224,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  textErrorModalList: {
+    fontFamily: 'Open Sans',
+    fontSize: 11,
+    lineHeight: 12,
+    color: '#EC2626',
+    top:5
+  }
 });
 
 export default styles;

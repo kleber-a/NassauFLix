@@ -34,6 +34,7 @@ export default function MyLists({navigation}) {
   const [listSucess, setListSucess] = useState(false);
   const [modalVisibleSucess, setModalVisibleSucess] = useState(false);
   const [idList, setIdList] = useState();
+  const [warn, setWarn] = useState(false);
 
   if (listSucess) {
     setTimeout(() => {
@@ -59,6 +60,10 @@ export default function MyLists({navigation}) {
 
   useEffect(() => {
     awaitList();
+    if(warn===true)
+    name === ''
+    ? setWarn(true) 
+    : setWarn(false)
   }, [modalVisible]);
 
   async function postList(list, sessionId) {
@@ -91,19 +96,18 @@ export default function MyLists({navigation}) {
         <Entypo name="plus" color="#FFFFFF" size={38} />
       </TouchableOpacity>
       {listSucess && !modalVisible && (
-            <Animated.View
-              style={[styles.containerAnimated, {left: slideAnim}]}>
-              <View style={styles.boxAnimated}>
-                <MaterialIcons
-                  style={styles.Icon}
-                  name="done"
-                  size={20}
-                  color={'#1ed92b'}
-                />
-                <Text style={styles.textAnimated}>Lista criada</Text>
-              </View>
-            </Animated.View>
-          )}
+        <Animated.View style={[styles.containerAnimated, {left: slideAnim}]}>
+          <View style={styles.boxAnimated}>
+            <MaterialIcons
+              style={styles.Icon}
+              name="done"
+              size={20}
+              color={'#1ed92b'}
+            />
+            <Text style={styles.textAnimated}>Lista criada</Text>
+          </View>
+        </Animated.View>
+      )}
       <ScrollView
         style={styles.container}
         contentContainerStyle={{paddingBottom: 50}}>
@@ -164,78 +168,90 @@ export default function MyLists({navigation}) {
             onRequestClose={() => {
               setModalVisible(!modalVisible);
             }}>
-              <TouchableWithoutFeedback
-            style={styles.backgroundModal}
-            onPress={() => {
-              setModalVisible(!modalVisible);
-            }}>
-            <View style={styles.backgroundModal}>
-            <TouchableWithoutFeedback>
-              <View style={styles.containerModal}>
-                <View style={styles.boxTextModal}>
-                  <Text style={styles.textModal}>Nova lista</Text>
-                </View>
-                <TextInput
-                  maxLength={45}
-                  style={styles.nameListModal}
-                  placeholder={'Nome da Lista'}
-                  value={name}
-                  placeholderTextColor={'rgba(142, 142, 142, 0.5)'}
-                  onChangeText={text => setName(text)}
-                />
-                <TextInput
-                  maxLength={220}
-                  style={styles.descriptionListModal}
-                  placeholder={'Descrição'}
-                  value={description}
-                  textAlignVertical={'top'}
-                  multiline={true}
-                  placeholderTextColor={'rgba(142, 142, 142, 0.5)'}
-                  onChangeText={text => setDescription(text)}
-                />
-                <View style={styles.boxButtonModal}>
-                  <TouchableOpacity
-                    style={styles.buttonCancelModal}
-                    onPress={() => [
-                      setModalVisible(false),
-                      setName(''),
-                      setDescription(''),
-                    ]}>
-                    <Text style={styles.textButtonModal}>CANCELAR</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={[
-                      styles.buttonSaveModal,
-                      name !== ''
-                        ? {backgroundColor: 'black'}
-                        : {backgroundColor: '#C4C4C4'},
-                    ]}
-                    disabled={name === ''}
-                    onPress={() => {
-                      setSlideAnim(new Animated.Value(0 - windowWidth));
-                      // openSuccess();
-                      setListSucess(true);
-                      postList(
-                        {
-                          name: name,
-                          description: description,
-                          language: 'pt',
-                        },
-                        sessionId,
-                      );
-                    }}>
-                    <Text
-                      style={[
-                        styles.textButtonModal,
-                        name !== '' ? {color: 'white'} : {color: '#8E8E8E'},
-                      ]}>
-                      SALVAR
-                    </Text>
-                  </TouchableOpacity>
-                </View>
+            <TouchableWithoutFeedback
+              style={styles.backgroundModal}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+              }}>
+              <View style={styles.backgroundModal}>
+                <TouchableWithoutFeedback>
+                  <View style={styles.containerModal}>
+                    <View style={styles.boxTextModal}>
+                      <Text style={styles.textModal}>Nova lista</Text>
+                    </View>
+                    <TextInput
+                      maxLength={45}
+                      style={styles.nameListModal}
+                      onFocus={() => {
+                        setWarn(true);
+                        setName('');
+                      }}
+                      placeholder={'Nome da Lista'}
+                      value={name}
+                      placeholderTextColor={'rgba(142, 142, 142, 0.5)'}
+                      onChangeText={text => {
+                        setName(text);
+                       
+                      }}
+                    />
+                    <TextInput
+                      maxLength={220}
+                      style={styles.descriptionListModal}
+                      placeholder={'Descrição'}
+                      value={description}
+                      textAlignVertical={'top'}
+                      multiline={true}
+                      placeholderTextColor={'rgba(142, 142, 142, 0.5)'}
+                      onChangeText={text => setDescription(text)}
+                    />
+                    {warn && name === '' ? (
+                      <Text style={styles.textErrorModalList}>
+                        Nome da lista não pode ser vazio
+                      </Text>
+                    ) : null}
+                    <View style={styles.boxButtonModal}>
+                      <TouchableOpacity
+                        style={styles.buttonCancelModal}
+                        onPress={() => [
+                          setModalVisible(false),
+                          setName(''),
+                          setDescription(''),
+                        ]}>
+                        <Text style={styles.textButtonModal}>CANCELAR</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={[
+                          styles.buttonSaveModal,
+                          name !== ''
+                            ? {backgroundColor: 'black'}
+                            : {backgroundColor: '#C4C4C4'},
+                        ]}
+                        disabled={name === ''}
+                        onPress={() => {
+                          setSlideAnim(new Animated.Value(0 - windowWidth));
+                          // openSuccess();
+                          setListSucess(true);
+                          postList(
+                            {
+                              name: name,
+                              description: description,
+                              language: 'pt',
+                            },
+                            sessionId,
+                          );
+                        }}>
+                        <Text
+                          style={[
+                            styles.textButtonModal,
+                            name !== '' ? {color: 'white'} : {color: '#8E8E8E'},
+                          ]}>
+                          SALVAR
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </TouchableWithoutFeedback>
               </View>
-              </TouchableWithoutFeedback>
-            </View>
             </TouchableWithoutFeedback>
           </Modal>
         </View>
