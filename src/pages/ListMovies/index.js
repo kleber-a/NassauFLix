@@ -34,6 +34,15 @@ export default function ListMovies({navigation, route}) {
     };
   }, [idList, navigation]);
 
+  async function deleteMovies(movieId) {
+    await removeMovieList(detailsList.id, movieId, sessionId);
+    awaitDetailsList();
+  }
+
+  useEffect(()=>{
+    movieId && deleteMovies(movieId);
+  },[movieId])
+
   const renderHeader = () => {
     return (
       <View style={styles.containerHeader}>

@@ -11,15 +11,10 @@ import styles from './styles';
 export default function ModalDeleteMovie({
   setModalVisibleSucess,
   modalVisibleSucess,
-  itemId,
-  detailsListId,
-  sessionId,
-  awaitDetailsList,
+  SetMovieId,
+  itemId
 }) {
-  async function deleteMovies(movieId) {
-    await removeMovieList(detailsListId, movieId, sessionId);
-    awaitDetailsList();
-  }
+ 
 
   return (
     <Modal
