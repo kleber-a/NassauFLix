@@ -91,6 +91,10 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     justifyContent: 'center',
     zIndex: 2,
+    elevation: 6,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 30,
   },
   //Início Modal
   backgroundModal: {
@@ -113,7 +117,6 @@ const styles = StyleSheet.create({
   //Inicio Box Text
   boxTextModal: {
     width: '100%',
-    // height: '20%',
     marginBottom: 8,
     alignItems: 'center',
     justifyContent: 'center',
@@ -194,6 +197,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 95,
     zIndex: 3,
+    elevation: 8,
+    shadowColor: '#000',
+    shadowOpacity: 0.9,
+    shadowRadius: 30,
   },
   boxAnimated: {
     flexDirection: 'row',
