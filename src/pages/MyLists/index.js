@@ -60,26 +60,24 @@ export default function MyLists({navigation}) {
 
   useEffect(() => {
     awaitList();
-    if(warn===true)
-    name === ''
-    ? setWarn(true) 
-    : setWarn(false)
+    setName('');
+    setWarn(false);
+    // if (warn === true) name === '' ? setWarn(true) : setWarn(false);
   }, [modalVisible]);
 
   async function postList(list, sessionId) {
-    if(name!==''){
-    const sucess = await addList(list, sessionId);
-    if (sucess.success === true) {
-      setName('');
-      setDescription('');
-      setModalVisible(false);
+    if (name !== '') {
+      const sucess = await addList(list, sessionId);
+      if (sucess.success === true) {
+        setName('');
+        setDescription('');
+        setModalVisible(false);
+      } else {
+        Alert.alert('Algo deu errado', 'Tente Novamente');
+      }
     } else {
-      Alert.alert('Algo deu errado', 'Tente Novamente');
+      Alert.alert('Lista está sem nome', 'Por favor crie um nome para lista');
     }
-  }
-  else{
-    Alert.alert('Lista está sem nome', 'Por favor crie um nome para lista')
-  }
   }
 
   const [slideAnim, setSlideAnim] = useState(
@@ -189,14 +187,12 @@ export default function MyLists({navigation}) {
                       style={styles.nameListModal}
                       onFocus={() => {
                         setWarn(true);
-                        setName('');
                       }}
                       placeholder={'Nome da Lista'}
                       value={name}
                       placeholderTextColor={'rgba(142, 142, 142, 0.5)'}
                       onChangeText={text => {
                         setName(text);
-                       
                       }}
                     />
                     <TextInput
@@ -221,7 +217,7 @@ export default function MyLists({navigation}) {
                           setModalVisible(false),
                           setName(''),
                           setDescription(''),
-                          setWarn(false)
+                          setWarn(false),
                         ]}>
                         <Text style={styles.textButtonModal}>CANCELAR</Text>
                       </TouchableOpacity>
@@ -237,7 +233,7 @@ export default function MyLists({navigation}) {
                           setSlideAnim(new Animated.Value(0 - windowWidth));
                           // openSuccess();
                           setListSucess(true);
-                          setWarn('')
+                          setWarn('');
                           postList(
                             {
                               name: name,
