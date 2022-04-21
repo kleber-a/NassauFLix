@@ -67,6 +67,7 @@ export default function MyLists({navigation}) {
   }, [modalVisible]);
 
   async function postList(list, sessionId) {
+    if(name!==''){
     const sucess = await addList(list, sessionId);
     if (sucess.success === true) {
       setName('');
@@ -75,6 +76,10 @@ export default function MyLists({navigation}) {
     } else {
       Alert.alert('Algo deu errado', 'Tente Novamente');
     }
+  }
+  else{
+    Alert.alert('Lista está sem nome', 'Por favor crie um nome para lista')
+  }
   }
 
   const [slideAnim, setSlideAnim] = useState(
@@ -206,7 +211,7 @@ export default function MyLists({navigation}) {
                     />
                     {warn && name === '' ? (
                       <Text style={styles.textErrorModalList}>
-                        Nome da lista não pode ser vazio
+                        A lista deve conter um nome
                       </Text>
                     ) : null}
                     <View style={styles.boxButtonModal}>
@@ -216,6 +221,7 @@ export default function MyLists({navigation}) {
                           setModalVisible(false),
                           setName(''),
                           setDescription(''),
+                          setWarn(false)
                         ]}>
                         <Text style={styles.textButtonModal}>CANCELAR</Text>
                       </TouchableOpacity>
@@ -231,6 +237,7 @@ export default function MyLists({navigation}) {
                           setSlideAnim(new Animated.Value(0 - windowWidth));
                           // openSuccess();
                           setListSucess(true);
+                          setWarn('')
                           postList(
                             {
                               name: name,
