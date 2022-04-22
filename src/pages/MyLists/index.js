@@ -60,8 +60,10 @@ export default function MyLists({navigation}) {
 
   useEffect(() => {
     awaitList();
-    setName('');
-    setWarn(false);
+    return () => {
+      setName('');
+      setWarn(false);
+    };
     // if (warn === true) name === '' ? setWarn(true) : setWarn(false);
   }, [modalVisible]);
 
