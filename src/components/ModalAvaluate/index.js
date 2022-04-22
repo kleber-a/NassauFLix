@@ -56,8 +56,8 @@ export default function ModalAvaluate({
     await postRate(type, typeId, sessionId, {
       value: avaluate,
     });
-    await awaitAvaluates();
     setIsRated(true);
+    await awaitAvaluates();
   }
 
   return (

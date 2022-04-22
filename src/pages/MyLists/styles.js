@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
   containerLista: {
     width: '100%',
     height: '100%',
+    marginTop: 34,
   },
   boxLista: {
     backgroundColor: '#8F9AFC',
@@ -230,8 +231,8 @@ const styles = StyleSheet.create({
     fontSize: 11,
     lineHeight: 12,
     color: '#EC2626',
-    top:5
-  }
+    top: 5,
+  },
 });
 
 export default styles;
