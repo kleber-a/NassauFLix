@@ -63,7 +63,7 @@ export default function Login({navigation}) {
       <ImageBackground
         resizeMode="contain"
         style={styles.banner}
-        source={require('../../assets/bannerLogin.png')}>
+        source={require('../../assets/NassauFLix/Fundo.png')}>
         {loading && isError ? (
           <Loading size={77} color={'#F98C8C'} />
         ) : (
@@ -71,67 +71,72 @@ export default function Login({navigation}) {
             style={{
               translateX: pixels,
             }}>
-            <Image
-              style={{
-                top: -130,
-                height: 130,
-                resizeMode: 'cover',
-                alignSelf: 'center',
-                position: 'absolute',
-              }}
-              source={require('../../assets/logo.png')}
-            />
-            <View style={styles.textEntry}>
-              <Text style={styles.textEntry.login}>Login</Text>
-              <Text style={styles.textEntry.description}>
-                Entre na sua conta para continuar.
-              </Text>
-            </View>
-            <View style={styles.inputArea}>
-              <EvilIcons
-                style={styles.userIcon}
-                name="user"
-                color={colorError}
-                size={20}
-              />
-              <TextInput
-                onFocus={() => setIsError(false)}
-                keyboardType={'email-address'}
-                style={[styles.input, {color: colorErrorText}]}
-                placeholder="nome de usuário"
-                onChangeText={usernameInput => {
-                  setUsername(usernameInput);
+            <View style={{top: -40}}>
+              <Image
+                style={{
+                  width: 300,
+                  top: -130,
+                  height: 130,
+                  resizeMode: 'cover',
+                  alignSelf: 'center',
+                  position: 'absolute',
                 }}
-                placeholderTextColor={colorError}
+                source={require('../../assets/NassauFLix/NASSAUFLIX.png')}
               />
-              <AntDesign
-                style={styles.lockIcon}
-                name="lock"
-                color={colorError}
-                size={18}
-              />
-              <TextInput
-                onFocus={() => setIsError(false)}
-                onChangeText={passwordInput => {
-                  setPassword(passwordInput);
-                }}
-                style={[styles.input, {color: colorErrorText}]}
-                placeholder="senha"
-                placeholderTextColor={colorError}
-                secureTextEntry={true}
-              />
-              {isError && (
-                <Text style={styles.textError}>Usuário ou senha inválidos</Text>
-              )}
-            </View>
-            <View style={styles.btnSubmit}>
-              <TouchableOpacity
-                onPress={() => {
-                  Keyboard.dismiss();
-                  handleSubmit();
-                }}>
-                <Text style={styles.btnSubmit.text}>Entrar</Text>
-              </TouchableOpacity>
+              <View style={styles.textEntry}>
+                <Text style={styles.textEntry.login}>Login</Text>
+                <Text style={styles.textEntry.description}>
+                  Entre na sua conta para continuar.
+                </Text>
+              </View>
+              <View style={styles.inputArea}>
+                <EvilIcons
+                  style={styles.userIcon}
+                  name="user"
+                  color={colorError}
+                  size={20}
+                />
+                <TextInput
+                  onFocus={() => setIsError(false)}
+                  keyboardType={'email-address'}
+                  style={[styles.input, {color: colorErrorText}]}
+                  placeholder="nome de usuário"
+                  onChangeText={usernameInput => {
+                    setUsername(usernameInput);
+                  }}
+                  placeholderTextColor={colorError}
+                />
+                <AntDesign
+                  style={styles.lockIcon}
+                  name="lock"
+                  color={colorError}
+                  size={18}
+                />
+                <TextInput
+                  onFocus={() => setIsError(false)}
+                  onChangeText={passwordInput => {
+                    setPassword(passwordInput);
+                  }}
+                  style={[styles.input, {color: colorErrorText}]}
+                  placeholder="senha"
+                  placeholderTextColor={colorError}
+                  secureTextEntry={true}
+                />
+                {isError && (
+                  <Text style={styles.textError}>
+                    Usuário ou senha inválidos
+                  </Text>
+                )}
+              </View>
+              <View style={styles.btnSubmit}>
+                <TouchableOpacity
+                  onPress={() => {
+                    Keyboard.dismiss();
+                    handleSubmit();
+                  }}>
+                  <Text style={styles.btnSubmit.text}>Entrar</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </Animated.View>
         )}

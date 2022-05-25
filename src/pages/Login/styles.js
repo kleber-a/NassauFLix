@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   },
   banner: {
     flex: 1,
-    top: -150,
+    top: 0,
     justifyContent: 'flex-end',
     alignContent: 'center',
     width: '100%',

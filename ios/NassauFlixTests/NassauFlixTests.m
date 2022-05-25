@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface compass_flixTests : XCTestCase
+@interface NassauFlixTests : XCTestCase
 
 @end
 
-@implementation compass_flixTests
+@implementation NassauFlixTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {

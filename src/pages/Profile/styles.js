@@ -14,6 +14,31 @@ const styles = StyleSheet.create({
     height: '38%',
     alignItems: 'center',
     justifyContent: 'space-around',
+    
+  },
+  //Button Info
+  info:{
+    width:30,
+    height:30,
+    position:'absolute',
+    alignSelf:'flex-start',
+    top: 15,
+    left: 15
+  },
+  
+  backgroundMODAL:{
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  exitInfo:{
+    width:30,
+    height:30,
+    top: 15,
+    left: '85%',
+    position:'absolute',
   },
 
   //Button Exit-------------

@@ -1,9 +1,16 @@
-import React, {useState, useEffect, useContext} from 'react';
-import {View, Text, TouchableOpacity, Alert} from 'react-native';
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+  useRef,
+} from 'react';
+import {View, Text, TouchableOpacity, Alert, Modal, Button} from 'react-native';
 import styles from './styles';
 import ButtonMovie from '../../components/ButtonMovie';
 import ButtonSeries from '../../components/ButtonSeries';
 import Exit from 'react-native-vector-icons/Ionicons';
+import Info from 'react-native-vector-icons/AntDesign';
 import UserImg from '../../components/User/UserImg';
 import {AuthContext} from '../../context/auth';
 import {
@@ -17,6 +24,7 @@ import VerifyName from '../../components/User/VerifyName';
 import Loading from '../../components/Loading';
 import ButtonFilmList from '../../components/ButtonFilmList';
 import ModalLogout from '../../components/ModalLogout';
+import YoutubePlayer from 'react-native-youtube-iframe';
 
 export default function Profile({navigation}) {
   const {account, sessionId, logout} = useContext(AuthContext);
@@ -28,6 +36,18 @@ export default function Profile({navigation}) {
     nameFavorite: 'Filmes favoritos',
   });
 
+  //Video
+  const [playing, setPlaying] = useState(false);
+  const onStateChange = useCallback(state => {
+    if (state === 'ended') {
+      setPlaying(false);
+      Alert.alert('video has finished playing!');
+    }
+  }, []);
+  const togglePlaying = useCallback(() => {
+    setPlaying(prev => !prev);
+  }, []);
+
   //Botão Movie e Séries
   const [btMovies, setBtMovies] = useState(true);
   const [btSeries, setBtSeries] = useState(false);
@@ -38,6 +58,7 @@ export default function Profile({navigation}) {
   const [favoriteTvShow, setFavoriteTvShow] = useState(null);
   const [ratedTvShow, setRatedTvShow] = useState(null);
   const [modalVisibleSucess, setModalVisibleSucess] = useState(false);
+  const [modalInfo, setModalInfo] = useState(false);
   async function awaitDataMovies() {
     const favoriteMoviesData = await getFRMovies(
       account.id,
@@ -92,6 +113,38 @@ export default function Profile({navigation}) {
   return (
     <View style={styles.fullscreen}>
       <View style={styles.Perfil}>
+        <TouchableOpacity
+          onPress={() => setModalInfo(true)}
+          style={styles.info}>
+          <Info name="infocirlceo" color={'#F3F3F3F3'} size={30} />
+        </TouchableOpacity>
+        {/*  */}
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalInfo}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalInfo);
+          }}>
+          <View style={styles.backgroundMODAL}>
+            <TouchableOpacity onPress={()=> setModalInfo(false)} style={styles.exitInfo}></TouchableOpacity>
+            <View style={{width:'100%', }}>
+              <YoutubePlayer
+                height={300}
+                play={playing}
+                videoId={'RuMpdSheNk8'}
+                onChangeState={onStateChange}
+              />
+              <Button
+                title={'Fechar'}
+                onPress={()=> setModalInfo(false)}
+              />
+            </View>
+          </View>
+        </Modal>
+
+        {/*  */}
         <ModalLogout
           setModalVisibleSucess={setModalVisibleSucess}
           modalVisibleSucess={modalVisibleSucess}
