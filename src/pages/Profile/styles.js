@@ -17,22 +17,22 @@ const styles = StyleSheet.create({
     
   },
   //Button Info
-  info:{
-    width:30,
-    height:30,
-    position:'absolute',
-    alignSelf:'flex-start',
-    top: 15,
-    left: 15
-  },
+  // info:{
+  //   width:30,
+  //   height:30,
+  //   position:'absolute',
+  //   alignSelf:'flex-start',
+  //   top: 15,
+  //   left: 15
+  // },
   
-  backgroundMODAL:{
-    backgroundColor: 'rgba(0,0,0,0.4)',
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  // backgroundMODAL:{
+  //   backgroundColor: 'rgba(0,0,0,0.4)',
+  //   width: '100%',
+  //   height: '100%',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
   exitInfo:{
     width:30,
     height:30,

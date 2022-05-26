@@ -9,13 +9,18 @@ import {
   KeyboardAvoidingView,
   Animated,
   Dimensions,
+  Modal,
+  Button,
+  TouchableWithoutFeedback,
 } from 'react-native';
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext, useEffect, useCallback} from 'react';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import styles from './styles';
 import {AuthContext} from '../../context/auth';
 import Loading from '../../components/Loading';
+import Info from 'react-native-vector-icons/AntDesign';
+import YoutubePlayer from 'react-native-youtube-iframe';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -24,6 +29,20 @@ export default function Login({navigation}) {
   const [password, setPassword] = useState();
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  //Video
+  const [playing, setPlaying] = useState(false);
+  const onStateChange = useCallback(state => {
+    if (state === 'ended') {
+      setPlaying(false);
+      Alert.alert('video has finished playing!');
+    }
+  }, []);
+  const togglePlaying = useCallback(() => {
+    setPlaying(prev => !prev);
+  }, []);
+
+  const [modalInfo, setModalInfo] = useState(false);
 
   const {userLogin} = useContext(AuthContext);
 
@@ -46,9 +65,9 @@ export default function Login({navigation}) {
 
   const colorError = isError
     ? 'rgba(236, 38, 38, 0.65)'
-    : 'rgba(255, 255, 255, 0.5)';
+    : 'rgba(1,1,1,0.4)';
 
-  const colorErrorText = isError ? 'rgba(236, 38, 38, 0.65)' : '#fff';
+  const colorErrorText = isError ? 'rgba(236, 38, 38, 0.65)' : '#111';
 
   const [pixels, setPixels] = useState(new Animated.Value(-windowWidth));
 
@@ -60,10 +79,43 @@ export default function Login({navigation}) {
 
   return (
     <KeyboardAvoidingView behavior="height" style={styles.container}>
+      <TouchableOpacity onPress={() => setModalInfo(true)} style={styles.info}>
+        <Info name="infocirlceo" color={'#F3F3F3F3'} size={30} />
+      </TouchableOpacity>
+      {/*  */}
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalInfo}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalInfo);
+        }}>
+       
+            <TouchableWithoutFeedback onPress={()=> setModalInfo(false)}>
+          <View style={styles.backgroundMODAL}>
+              <TouchableWithoutFeedback>
+              <View style={{width:'100%'}}>
+                <YoutubePlayer
+                  height={300}
+                  width={'100%'}
+                  play={playing}
+                  videoId={'fMNIDHpLJfw'}
+                  onChangeState={onStateChange}
+                />
+                
+            </View>
+               </TouchableWithoutFeedback>
+          </View>
+            </TouchableWithoutFeedback>
+      
+      </Modal>
+
+      {/*  */}
       <ImageBackground
         resizeMode="contain"
         style={styles.banner}
-        source={require('../../assets/NassauFLix/Fundo.png')}>
+        source={require('../../assets/NassauFLix/Fundooo.png')}>
         {loading && isError ? (
           <Loading size={77} color={'#F98C8C'} />
         ) : (
@@ -75,8 +127,8 @@ export default function Login({navigation}) {
               <Image
                 style={{
                   width: 300,
-                  top: -130,
-                  height: 130,
+                  top: -135,
+                  height: 145,
                   resizeMode: 'cover',
                   alignSelf: 'center',
                   position: 'absolute',

@@ -6,6 +6,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     alignItems: 'flex-start',
   },
+  info:{
+    width:30,
+    height:30,
+    position:'absolute',
+    alignSelf:'flex-end',
+    top: 15,
+    right: 15,
+    zIndex:2
+  },
   inputArea: {
     borderRadius: 35,
     alignItems: 'center',
@@ -18,6 +27,13 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     width: '100%',
     height: '100%',
+  },
+  backgroundMODAL:{
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   textEntry: {
     alignItems: 'center',
@@ -40,7 +56,7 @@ const styles = StyleSheet.create({
   },
   input: {
     fontWeight: '400',
-    backgroundColor: '#C4C4C459',
+    backgroundColor: 'rgba(255, 255, 255, 1)',
     borderRadius: 30,
     width: 243,
     height: 33,
@@ -67,7 +83,7 @@ const styles = StyleSheet.create({
     bottom: 13,
   },
   btnSubmit: {
-    backgroundColor: '#E9A6A6',
+    backgroundColor: '#C11518',
     borderRadius: 35,
     alignItems: 'center',
     justifyContent: 'center',
@@ -77,7 +93,7 @@ const styles = StyleSheet.create({
       paddingHorizontal: 24,
       fontSize: 14,
       fontWeight: 'bold',
-      color: '#1F1D36',
+      color: '#F3F3F3F3',
     },
   },
 });
