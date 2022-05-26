@@ -8,7 +8,7 @@ export default function ButtonPlay({color, focused}) {
     <View
       style={[
         styles.container,
-        {backgroundColor: focused ? '#E9A6A6' : '#454545'},
+        {backgroundColor: focused ? '#EC2626' : '#454545'},
       ]}>
       <Icon name={'television-play'} style={styles.icon} />
     </View>

@@ -7,7 +7,7 @@ export default function ButtonHome({color, focused}) {
     <View
       style={[
         styles.container,
-        {backgroundColor: focused ? '#E9A6A6' : '#454545'},
+        {backgroundColor: focused ? '#EC2626' : '#454545'},
       ]}>
       <Image source={require('../../../assets/popcorn.png')} />
     </View>
